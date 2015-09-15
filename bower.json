@@ -1,0 +1,13 @@
+{
+  "name": "ssad",
+  "dependencies": {
+    "angular": "~1.4.5",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4"
+  },
+  "version": "0.0.1",
+  "authors": [
+    "Ernest Lee"
+  ],
+  "license": "MIT"
+}
