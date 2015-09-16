@@ -86,7 +86,7 @@ class LoginController extends BaseController {
             } else {
 //                $validator->errors()->add('auth', 'Wrong username or password!');
                 // validation not successful, send back to form
-                return Redirect::to('admin')->withErrors($validator, 'auth');
+                return Redirect::to('admin');
 
             }
         }
