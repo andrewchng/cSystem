@@ -14,7 +14,8 @@ module.exports = function(grunt) {
           app: 'public/assets',
           scripts: {
               'dist': 'public/assets/scripts',
-              'main_plugins': 'public/assets/scripts/main-plugins'
+              'main_plugins': 'public/assets/scripts/main-plugins',
+              'app': 'public/assets/scripts/app'
           },
           css: {
               'dist': 'public/assets/styles',
@@ -29,9 +30,15 @@ module.exports = function(grunt) {
             },
             js_main_plugins: {
                 src: [
-                    './bower_components/angular/angular.js',
                     './bower_components/jquery/dist/jquery.js',
+                    './bower_components/angular/angular.js',
+                    './bower_components/angular-route/angular-route.js',
+                    './bower_components/angular-resource/angular-resource.min.js',
+                    './bower_components/angular-sanitize/angular-sanitize.min.js',
+                    './bower_components/angular-cookies/angular-cookies.min.js',
+                    './bower_components/angular-sanitize/angular-sanitize.min.js',
                     './bower_components/bootstrap/dist/js/bootstrap.js'
+
                 ],
                 dest: '<%= config.scripts.dist %>/main-plugins.js'
             }
@@ -44,6 +51,9 @@ module.exports = function(grunt) {
                 files: {
                     '<%= config.scripts.dist %>/main-plugins.js': '<%= config.scripts.dist %>/main-plugins.js'
                 }
+            },
+            js_app: {
+                '<%= config.scripts.dist %>/app.min.js': '<%= config.scripts.dist %>/app.js'
             }
         },
         less: {
@@ -89,9 +99,9 @@ module.exports = function(grunt) {
             js_main_plugins: {
                 files: [
                     //watched files
-                    '<%= config.scripts.main_plugins %>/{,*/}*.js'
+                    '<%= config.scripts.app %>.js'
                 ],
-                tasks: ['concat:js_main_plugins','uglify:js_main_plugins'],     //tasks to run
+                tasks: ['uglify:js_app'],     //tasks to run
                 options: {
                     livereload: true                        //reloads the browser
                 }
@@ -126,6 +136,6 @@ module.exports = function(grunt) {
 
     // Task definition
     grunt.registerTask('default', ['watch']);
-
+    grunt.registerTask('build-plugins', ['concat:js_main_plugins', 'uglify:js_main_plugins']);
 
 };

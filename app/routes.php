@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,12 +12,20 @@
 |
 */
 
+if (!isset($_SERVER['HTTP_HOST'])) {
+    // For running commands
+    require_once('routes-api.php');
+} else {
+    if (strpos($_SERVER['HTTP_HOST'], 'api') !== false) {
+        // For api endpoints
+        require_once('routes-api.php');
+    } else {
+        // For frontend endpoints
+        require_once('routes-frontend.php');
+    }
+}
 
 
 
-Route::get('/', 'HomeController@showWelcome');
 
-Route::get('/admin', 'LoginController@getLogin');
-//Route::post('/admin', 'LoginController@getLogin');
 
-Route::post('/login', 'LoginController@postLogin');

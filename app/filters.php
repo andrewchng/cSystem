@@ -88,3 +88,18 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+
+//auth required
+Route::filter('auth.required', function () {
+    // TODO: Remove client_secret once found a token-based solution
+    if (!Auth::check()) {
+        return Response::json(array(
+            'error' => array(
+                'message' => '(#401) Authentication required.',
+                'type' => 'AuthException',
+                'code' => 401
+            )
+        ), 401)->setCallback(Input::get('callback'));
+    }
+});

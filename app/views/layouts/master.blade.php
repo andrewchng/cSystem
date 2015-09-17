@@ -1,26 +1,32 @@
 <!-- Stored in app/views/master.blade.php -->
-<!doctype html>
-{{--<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->--}}
-{{--<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->--}}
-{{--<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->--}}
-{{--<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->--}}
+<!DOCTYPE html>
+<html lang="en" data-ng-app="cSystem">
+
+<head>
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
+    <title>cSystem</title>
+    <!--Boostrap-->
     <link id="bootstrap-style" href="/assets/styles/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/styles/bootstrap-theme.min.css" rel="stylesheet">
+    {{--Main CSS--}}
     <link href="/assets/styles/main.min.css" rel="stylesheet">
 
 </head>
-<body>
+<body ng-cloak>
 
 
-<div class="container">
-    @yield('content')
+<div class="container-fluid" data-ng-controller="AppCtrl">
+    <div class="main" ng-view>
+
+    </div>
 </div>
 
 
 <script src="/assets/scripts/main-plugins.js"></script>
+<script src="/assets/scripts/app.js"></script>
 </body>
 </html>

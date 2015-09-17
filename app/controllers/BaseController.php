@@ -13,6 +13,19 @@ class BaseController extends Controller {
 		{
 			$this->layout = View::make($this->layout);
 		}
+
+        if (!Config::get('app.debug')) {
+            App::error(function (Exception $exception, $code) {
+                $error_response = array(
+                    'error' => array(
+                        'message' => '(#' . $code . ') ' . $exception->getMessage(),
+                        'type' => get_class($exception),
+                        'code' => $code
+                    )
+                );
+                return Response::json($error_response, $code)->setCallback(Input::get('callback'));
+            });
+        }
 	}
 
 }

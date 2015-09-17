@@ -26,7 +26,10 @@ class AddReportStatus extends Migration {
 	 */
 	public function down()
 	{
-		//
+        Schema::table('Reports', function($table)
+        {
+            $table->dropColumn('status');
+        });
 	}
 
 }
