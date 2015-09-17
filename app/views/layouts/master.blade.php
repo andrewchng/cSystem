@@ -9,9 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
     <title>cSystem</title>
+
+
     <!--Boostrap-->
     <link id="bootstrap-style" href="/assets/styles/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/styles/bootstrap-theme.min.css" rel="stylesheet">
+    {{--Font-Awesome--}}
+    <link href="/assets/styles/font-awesome.min.css" rel="stylesheet">
     {{--Main CSS--}}
     <link href="/assets/styles/main.min.css" rel="stylesheet">
 
