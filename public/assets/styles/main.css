@@ -111,9 +111,14 @@
 }
 
 .login-box .button-login {
-    margin-top: 20px;
-    margin-right: 50px;
-    float: right;
+    margin: auto;
+}
+
+.login-box .button-login button[type="submit"] {
+    width: 30%;
+}
+.login-box .button-login button[type="submit"]>i {
+    margin-right: 6px;
 }
 
 .error_message {

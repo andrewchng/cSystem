@@ -21,7 +21,9 @@
     ]);
 
     app.controller('LoginCtrl', function($scope, $http, $rootScope, $routeParams, $timeout){
-
+        $scope.authLogin = function () {
+            $scope.logging_in = true;
+        }
     });
 
 
