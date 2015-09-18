@@ -29,7 +29,6 @@
     </div>
 </div>
 
-
 <script src="/assets/scripts/main-plugins.js"></script>
 <script src="/assets/scripts/app.js"></script>
 </body>
