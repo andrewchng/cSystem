@@ -17,17 +17,13 @@
     {{--Font-Awesome--}}
     <link href="/assets/styles/font-awesome.min.css" rel="stylesheet">
     {{--Main CSS--}}
-    <link href="/assets/styles/main.min.css" rel="stylesheet">
+    <link href="/assets/styles/main.css" rel="stylesheet">
 
 </head>
 <body ng-cloak>
 
+@yield('content')
 
-<div class="container-fluid" data-ng-controller="AppCtrl">
-    <div class="main" ng-view>
-
-    </div>
-</div>
 
 <script src="/assets/scripts/main-plugins.js"></script>
 <script src="/assets/scripts/app.js"></script>

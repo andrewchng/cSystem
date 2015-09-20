@@ -83,8 +83,12 @@ class FrontendController extends BaseController {
 	}
 
     //return master view
-    public function masterView(){
-        return View::make('layouts.master');
+    public function login_masterView(){
+        return View::make('layouts.login_master');
+    }
+
+    public function dashboard_masterView(){
+        return View::make('layouts.dashboard');
     }
 
 

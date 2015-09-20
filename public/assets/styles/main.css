@@ -140,3 +140,48 @@
     float: right;
 }
 
+/*DASHBOARD*/
+
+.page-header.navbar {
+    background-color: #1f1f1f;
+    width: 100%;
+    margin: 0;
+    height: 46px;
+    min-height: 46px;
+}
+
+.page-header.navbar .top-menu {
+    margin: 0;
+    padding: 0;
+    float: right;
+}
+
+.page-footer {
+    background-color: #2b2b2b;
+    padding: 8px 20px 5px 20px;
+    font-size: 12px;
+}
+
+.page-footer:before,.page-footer:after {
+    content: " ";
+    display: table;
+}
+
+.page-footer:after {
+    clear: both;
+}
+
+.page-footer .page-footer-inner {
+    color: #ffffff;
+}
+
+.page-footer .page-footer-tools a {
+    color: #ffffff; !important;
+}
+
+@media (min-width: 992px){
+    .page-footer {
+        clear: left;
+    }
+}
+

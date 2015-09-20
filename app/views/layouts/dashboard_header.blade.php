@@ -3,7 +3,6 @@
     <!-- BEGIN LOGO -->
     <div class="page-logo">
         <div class="menu-toggler sidebar-toggler hide">
-            <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
         </div>
     </div>
     <!-- END LOGO -->

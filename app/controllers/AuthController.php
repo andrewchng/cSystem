@@ -94,10 +94,11 @@ class AuthController extends BaseController {
         if (Auth::check()) {
             // Authenticating A User And "Remembering" Them
             $user_id = Auth::user()->id;
-        } else if (Auth::viaRemember()) {
-            // Determining If User Authed Via Remember
-            $user_id = Auth::user()->id;
         }
+//        else if (Auth::viaRemember()) {
+//            // Determining If User Authed Via Remember
+//            $user_id = Auth::user()->id;
+//        }
 
         if (!$user_id) {
             $error_response = array(

@@ -92,8 +92,10 @@ Route::filter('csrf', function()
 
 //auth required
 Route::filter('auth.required', function () {
-    // TODO: Remove client_secret once found a token-based solution
+
     if (!Auth::check()) {
+
+//        return Redirect::to('login');
         return Response::json(array(
             'error' => array(
                 'message' => '(#401) Authentication required.',

@@ -10,19 +10,19 @@
                 <div class="form-group">
 
                     <div class="col-md-11">
-                        <input type="text" class="form-control" name="username" placeholder="type username" />
+                        <input type="text" class="form-control" name="username" ng-model="field_login.username" placeholder="type username" />
 
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-11">
-                        <input type="password" class="form-control" name="password" placeholder="type password" />
+                        <input type="password" class="form-control" name="password" ng-model="field_login.password" placeholder="type password" />
 
                     </div>
                 </div>
 
-                <div class="error_message">
+                <div class="error_message" data-ng-if="auth_error">
                     <span data-ng-bind="auth_error"></span>
                 </div>
 

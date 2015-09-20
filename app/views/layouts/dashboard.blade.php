@@ -1,9 +1,19 @@
 @extends('layouts.master')
 
 @section('content')
-    @include('layouts.dashboard_header')
+    <div class="page-header navbar navbar-fixed-top">
+        @include('layouts.dashboard_header')
+    </div>
 
-    <p>SUCCESSFUL LOGIN!</p>
-    @yield('content')
-    @include('layouts.dashboard_footer')
+    <div class="container-fluid" data-ng-controller="AppCtrl">
+        <div class="main" ng-view>
+
+        </div>
+    </div>
+
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
+        @include('layouts.dashboard_footer')
+    </div>
+    <!-- END FOOTER -->
 @stop

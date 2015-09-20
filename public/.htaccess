@@ -14,3 +14,9 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+SetEnvIf Origin "^http(s)?://(.+\.)?(api\.ssad\.localhost)$" origin_is=$0
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "http://ssad.localhost"
+    Header set Access-Control-Allow-Credentials true
+    Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept"
+</IfModule>
