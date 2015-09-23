@@ -13,6 +13,10 @@
                 templateUrl: '/assets/partials/admin.html',
                 controller: 'AdminCtrl'
             })
+            .when('/reports', {
+                templateUrl: '/assets/partials/admin_report.html',
+                controller: 'AdminCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -32,10 +36,16 @@
 
     });
 
+    //app.run(function($rootScope){
+    //    $rootScope.menuItem = '/assets/json/admin_menu.json';
+    //});
+
     app.controller('AppCtrl', [
-        '$scope', '$http', '$location', '$rootScope', '$routeParams', '$timeout', '$cookies',
-        function ($scope, $http, $location, $rootScope, $routeParams, $timeout, $cookies) {
-            //$rootScope.auth = Auth.get();
+        '$scope', '$http', '$location', '$rootScope', '$routeParams', '$timeout', '$cookies', 'Auth',
+        function ($scope, $http, $location, $rootScope, $routeParams, $timeout, $cookies, Auth) {
+            $rootScope.auth = Auth.get();
+            $rootScope.user = $cookies.getObject('user');
+            $rootScope.menuItem = $cookies.get('menuItem');
 
 
             $rootScope.homeUrl = function (url) {
@@ -46,34 +56,45 @@
                 return url;
             };
 
-            //if ($cookies.user == null)
-            //    window.location.href = $rootScope.homeUrl('login');
+            //$scope.$on('menuItem', function (event, data) {
+            //    console.log('emitted up ' + data); // 'Some data'
+            //});
 
 
         }
     ]);
 
-    app.controller('LoginCtrl', function($scope, $http, $rootScope, $timeout, Auth, loginRedirectionProperties){
+    app.controller('LoginCtrl', function($scope, $http, $rootScope, $timeout, $location, $cookies, Auth, loginRedirectionProperties){
         jQuery("input[name='username']").focus();
+
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() + 1);
 
         $scope.authLogin = function () {
             $scope.logging_in = true;
             if($scope.auth_error){
                 delete $scope.auth_error;
             }
-            Auth.login({}, $scope.field_login).$promise.then(function(xhrResult){
+            Auth.login({}, $scope.field_login).$promise.then(function(xhrResult) {
                 $rootScope.auth = xhrResult;
                 $rootScope.user = xhrResult;
-                if($rootScope.user.accountType == 0)
+                $cookies.putObject('user', $rootScope.user, {'expires': expireDate});
+                if ($rootScope.user.accountType == 0) {
                     loginRedirectionProperties.setPath('admin');
-                else if($rootScope.user.accountType == 1)
+                    //$scope.$emit('menuItem', '/assets/json/admin_menu.json');
+                    $cookies.put('menuItem', '/assets/json/admin_menu.json', {'expires': expireDate});
+
+                }
+                else if ($rootScope.user.accountType == 1) {
                     loginRedirectionProperties.setPath('operator');
-                else
+                    //set own json menu
+                }
+                else {
                     loginRedirectionProperties.setPath('agency');
+                    //set own json menu
+                }
 
-                $cookies.user = $rootScope.user.id;
-
-                console.log(loginRedirectionProperties.getPath());
+                console.log($rootScope.auth);
             },function(error){
                 $scope.logging_in = false;
                 $scope.auth_error = error.data.error.message;
@@ -89,8 +110,9 @@
                         case 'agency':
                             break;
                         case 'admin':
-                        default:
                             window.location.href = $rootScope.homeUrl('admin');
+                            break;
+                        default:
                             break;
                     }
                 }, 1000);
@@ -104,6 +126,64 @@
 
     });
 
+    app.controller('SidebarCtrl', function($scope, $http, $location, $rootScope, $timeout, retrieveMenu){
+        //console.log($rootScope.menuItem);
+        retrieveMenu().success(function(data){
+            $scope.sidebarMenuList = data.menu_list;
+            $scope.title = data.board;
+        });
+
+        $scope.isActiveMenuItem = function (menu) {
+            if (!menu.submenu) {
+                return $location.path().indexOf(menu.href) === 0;
+            } else {
+                return menu.submenu.reduce(function(previousValue, currentValue, index, array) {
+                    if (previousValue) {
+                        return previousValue;
+                    }
+                    return $scope.isActiveMenuItem(currentValue);
+                }, false);
+            }
+        };
+
+        $scope.setDisplaySubMenus = function () {
+            if($scope.class == "open")
+                $scope.class = "";
+            else
+                $scope.class = "open";
+            //console.log(menu.target);
+            //var html = menu.target;
+            ////console.log(jQuery(html).children('.title'));
+            //var toFind = jQuery(html).text();
+            ////jQuery(html)
+            ////console.log(jQuery(html).closest());
+            //console.log(toFind);
+            //jQuery(html).closest().addClass('open');
+            //jQuery('.page-sidebar-menu > li:has(ul)').each(function () {
+            //    console.log(jQuery(this).children('.title'));
+            //    if (toFind == jQuery(this).children('.title').text()) {
+            //        console.log('found');
+            //        if (!jQuery(this).hasClass('open')) {
+            //            jQuery(this).addClass('open');
+            //        }
+            //        else
+            //            jQuery(this).removeClass('open');
+            //    }
+            //});
+
+        };
+
+        $scope.displaySubMenus = function() {
+            console.log($scope.class == "open");
+            if($scope.class == "open")
+                return true;
+            else
+                return false;
+        }
+
+
+
+    });
 
 
 
@@ -124,7 +204,7 @@
                 withCredentials: true
                 },
                 'login': {
-                    url: api_url + '/auth',
+                    url: api_url + '/auth/login',
                     method: 'POST',
                     withCredentials: true
                 },
@@ -136,6 +216,22 @@
             });
     }]);
 
+    app.factory('retrieveMenu', function($http, $rootScope){
+        var promise = null;
+
+        return function () {
+            if (promise) {
+                // If we've already asked for this data once,
+                // return the promise that already exists.
+                return promise;
+            } else {
+                //console.log($rootScope.menuItem);
+                promise = $http.get($rootScope.menuItem);
+                //console.log(promise);
+                return promise;
+            }
+        }
+    });
 
 
 }());
@@ -145,7 +241,7 @@
     var app = angular.module('cSystem');
 
     app.service('loginRedirectionProperties', function () {
-        var path = 'admin';
+        var path = '';
 
         return {
             getPath: function () {

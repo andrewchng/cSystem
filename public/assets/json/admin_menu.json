@@ -1,0 +1,45 @@
+{
+  "board": "Administrator Board",
+  "menu_list" : [
+    {
+      "name" : "Overview",
+      "href" : "/admin",
+      "iconClass": "fa fa-dashboard fa-lg"
+    },
+    {
+      "name" : "Accounts Management",
+      "href" : "#",
+      "iconClass": "fa fa-user fa-lg",
+      "submenu" : [
+        {
+          "name" : "Create Account",
+          "href" : "/accounts/create"
+        },
+        {
+          "name" : "Update/Delete Accounts",
+          "href" : "/accounts/list"
+        }
+      ]
+    },
+    {
+      "name": "Agency Management",
+      "href": "#",
+      "iconClass": "fa fa-users fa-lg",
+      "submenu" : [
+        {
+          "name" : "Add Agency",
+          "href" : "/agency/add"
+        },
+        {
+          "name" : "Update/Delete Agency",
+          "href" : "/agency/list"
+        }
+      ]
+    },
+    {
+      "name": "View Reports",
+      "href": "/reports",
+      "iconClass": "fa fa-th-list fa-lg"
+    }
+    ]
+}

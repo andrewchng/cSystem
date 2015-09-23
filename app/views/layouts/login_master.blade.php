@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container-fluid" data-ng-controller="AppCtrl">
+<div class="container-fluid">
     <div class="main" ng-view>
 
     </div>

@@ -10,6 +10,6 @@
 
 //Route::get('/dashboard', array('before' => 'auth.required', 'uses' => 'AdminCOntroller@getDashboard'));
 
-
+Route::get('/auth', 'AuthController@get');
 //POST
-Route::post('/auth', 'AuthController@login');
+Route::post('/auth/login', 'AuthController@login');

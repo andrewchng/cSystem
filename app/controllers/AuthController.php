@@ -69,7 +69,7 @@ class AuthController extends BaseController {
             );
 
             // attempt to do the login
-            if (Auth::attempt($user_data, true)) {
+            if (Auth::attempt($user_data, false)) {
 
                 // validation successful!
                 return $this->get();

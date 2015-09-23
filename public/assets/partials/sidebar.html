@@ -1,0 +1,47 @@
+<div class="page-sidebar navbar-collapse collapse" ng-controller="SidebarCtrl" ng-responsive-sidebar>
+    <!-- BEGIN SIDEBAR MENU -->
+    <ul class="page-sidebar-menu" data-auto-scroll="false" data-auto-speed="200">
+        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+        <li class="sidebar-toggler-wrapper">
+            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+            <div class="sidebar-toggler">
+            </div>
+            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+        </li>
+        <br/>
+        <li>
+            <div class="btn-group btn-block menuRole">
+                <button class="btn blue btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                    {{title}} <i class="fa fa-angle-down pull-right"></i>
+                </button>
+            </div>
+        </li>
+        <li ng-repeat="menu in sidebarMenuList" style="margin-top: 5px;" ng-class="{'active': isActiveMenuItem(menu)}">
+            <a href="{{menu.href}}">
+                <span class="{{menu.iconClass}}"></span>
+                <span class="title">{{menu.name}}</span>
+                <span class="selected" ng-show="isActiveMenuItem(menu)"></span>
+                <span class="arrow" ng-show="menu.submenu"></span>
+            </a>
+            <ul class="sub-menu" ng-if="menu.submenu">
+                <li ng-repeat="smenu in menu.submenu" ng-class="{'active': isActiveMenuItem(smenu) }">
+                    <a href="{{smenu.href}}">
+                        <span class="title">{{smenu.name}}</span>
+                        <span class="selected" ng-show="isActiveMenuItem(smenu)"></span>
+                        <span class="arrow" ng-show="smenu.submenu"></span>
+                    </a>
+                    <ul class="sub-menu" ng-if="smenu.submenu">
+                        <li ng-repeat="ssmenu in smenu.submenu" ng-class="{'active': isActiveMenuItem(ssmenu) }">
+                            <a href="{{ssmenu.href}}">
+                                <span class="title">{{ssmenu.name}}</span>
+                                <span class="selected" ng-show="isActiveMenuItem(ssmenu)"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</div>
+<!-- END SIDEBAR -->

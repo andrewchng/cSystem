@@ -22,8 +22,9 @@
 </head>
 <body ng-cloak>
 
+<div class="main-container" data-ng-controller="AppCtrl">
 @yield('content')
-
+</div>
 
 <script src="/assets/scripts/main-plugins.js"></script>
 <script src="/assets/scripts/app.js"></script>
