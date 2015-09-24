@@ -426,13 +426,13 @@
 
 .page-sidebar-menu > li > .sub-menu {
     padding: 10px 0 5px 4px;
-    /*display: none;*/
+    display: none;
 }
 .page-sidebar-menu > li.open > .sub-menu {
     padding: 10px 0 5px 4px;
-    display: block;
+    /*display: block;*/
 }
-.page-sidebar-menu > li.open {
+.page-sidebar-menu > li.open > a:first-child {
     background-color: #2E2E2E;
 }
 
