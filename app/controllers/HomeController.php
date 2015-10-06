@@ -20,4 +20,13 @@ class HomeController extends BaseController {
 		return View::make('hello');
 	}
 
+	public function displayMap()
+	{
+		$data = array(
+				'page_title'	=> 'cSystem - A Crisis Management System for Traffic and Dengue',
+				'logo_url' 		=> '/'
+				);
+		return View::make('map', $data);
+	}
+
 }

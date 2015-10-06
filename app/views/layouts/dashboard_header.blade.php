@@ -15,13 +15,15 @@
     </div>
     <!-- END RESPONSIVE MENU TOGGLER -->
     <!-- BEGIN TOP NAVIGATION MENU -->
+    @unless (Auth::check())
     <div class="top-menu col-md-8">
-        <ul class="nav navbar-nav pull-right" ng-show="auth">
+        <ul id="account-panel" class="nav navbar-nav pull-right" ng-show="auth">
             <!-- BEGIN USER LOGIN DROPDOWN -->
             <li class="dropdown dropdown-user" ng-include="'/assets/partials/tab-user-menu.html'"></li>
             <!-- END USER LOGIN DROPDOWN -->
         </ul>
     </div>
+    @endunless
 </div>
 <!-- END TOP NAVIGATION BAR -->
 

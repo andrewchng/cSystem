@@ -84,11 +84,20 @@ class FrontendController extends BaseController {
 
     //return master view
     public function login_masterView(){
-        return View::make('layouts.login_master');
+    	return View::make('layouts.login_master');
+    	// $data = array(
+    	// 	'page_title' => 'Login - cSystem'
+    	// );
+     //    return View::make('layouts.login_master', $data);
     }
 
     public function dashboard_masterView(){
         return View::make('layouts.dashboard');
+    	// $data = array(
+    	// 	'page_title' => 'Dashboard - cSystem',
+    	// 	'logo_url'	 => '/admin'
+    	// );
+     //    return View::make('layouts.dashboard', $data);
     }
 
 
