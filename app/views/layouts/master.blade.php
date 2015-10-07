@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
     <title>cSystem</title>
-    <!-- <title>{{ $page_title }}</title> -->
 
 
     <!--Boostrap-->
