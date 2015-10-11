@@ -17,6 +17,18 @@
                 templateUrl: '/assets/partials/admin_report.html',
                 controller: 'AdminCtrl'
             })
+            .when('/operator', {
+                templateUrl: '/assets/partials/operator.html',
+                controller: 'OperatorCtrl'
+            })
+            .when('/create_report', {
+                templateUrl: '/assets/partials/create_report.html',
+                controller: 'OperatorCtrl'
+            })
+            .when('/manage_incident', {
+                templateUrl: '/assets/partials/manage_incident.html',
+                controller: 'OperatorCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -87,7 +99,7 @@
                 }
                 else if ($rootScope.user.accountType == 1) {
                     loginRedirectionProperties.setPath('operator');
-                    //set own json menu
+                    $cookies.put('menuItem', '/assets/json/operator_menu.json', {'expires': expireDate});
                 }
                 else {
                     loginRedirectionProperties.setPath('agency');
@@ -106,6 +118,7 @@
                 $timeout(function(){
                     switch(loginRedirectionProperties.getPath()){
                         case 'operator':
+                            window.location.href = $rootScope.homeUrl('operator');
                             break;
                         case 'agency':
                             break;
@@ -123,6 +136,10 @@
     });
 
     app.controller('AdminCtrl', function($scope, $http, $rootScope, Auth){
+
+    });
+
+    app.controller('OperatorCtrl', function($scope, $http, $rootScope, Auth){
 
     });
 

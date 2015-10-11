@@ -17,7 +17,13 @@ class UserTableSeeder extends Seeder
             'accountType' => '0',
             'isDeleted' => '0'
         ));
-
+        User::create(array(
+            'username' => 'operator',
+            'password' => Hash::make('operator'),
+            'email' => 'operator@ssad',
+            'accountType' => '1',
+            'isDeleted' => '0'
+        ));
     }
 }
 

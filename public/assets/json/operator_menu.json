@@ -1,0 +1,20 @@
+{
+  "board": "Operator Board",
+  "menu_list" : [
+    {
+      "name" : "Home",
+      "href" : "/operator",
+      "iconClass": "fa fa-dashboard fa-lg"
+    },
+    {
+      "name": "Create Report",
+      "href": "/create_report",
+      "iconClass": "fa fa-pencil-square-o fa-lg"
+    },
+    {
+      "name" : "Manage Incident",
+      "href" : "/manage_incident",
+      "iconClass": "fa fa-list fa-lg"
+    }
+  ]
+}
