@@ -68,9 +68,15 @@
                 return url;
             };
 
-            //$scope.$on('menuItem', function (event, data) {
-            //    console.log('emitted up ' + data); // 'Some data'
-            //});
+            $rootScope.authLogout = function () {
+                $scope.loggin_out = true;
+                Auth.logout().$promise.then(function (xhrResult) {
+                    window.location.href = $rootScope.homeUrl('login');
+                }, function (error) {
+                    $scope.logging_out = false;
+                    $scope.auth_error = error.data.error.message;
+                });
+            };
 
 
         }
@@ -168,25 +174,6 @@
                 $scope.class = "";
             else
                 $scope.class = "open";
-            //console.log(menu.target);
-            //var html = menu.target;
-            ////console.log(jQuery(html).children('.title'));
-            //var toFind = jQuery(html).text();
-            ////jQuery(html)
-            ////console.log(jQuery(html).closest());
-            //console.log(toFind);
-            //jQuery(html).closest().addClass('open');
-            //jQuery('.page-sidebar-menu > li:has(ul)').each(function () {
-            //    console.log(jQuery(this).children('.title'));
-            //    if (toFind == jQuery(this).children('.title').text()) {
-            //        console.log('found');
-            //        if (!jQuery(this).hasClass('open')) {
-            //            jQuery(this).addClass('open');
-            //        }
-            //        else
-            //            jQuery(this).removeClass('open');
-            //    }
-            //});
 
         };
 

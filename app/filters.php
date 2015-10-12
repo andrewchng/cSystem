@@ -91,11 +91,14 @@ Route::filter('csrf', function()
 
 
 //auth required
-Route::filter('auth.required', function () {
+Route::filter('admin.auth.required', function () {
 
-    if (!Auth::check()) {
+    Log::info('Infilter can retrieve session - ' . Session::get('admin_session'));
+    if (Auth::check()) {
+//    if (!Session::has('admin_session')) {
 
 //        return Redirect::to('login');
+        Log::info("Auth admin failed in filter");
         return Response::json(array(
             'error' => array(
                 'message' => '(#401) Authentication required.',

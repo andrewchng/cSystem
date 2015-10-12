@@ -1,5 +1,6 @@
 <?php
 
+
 class AuthController extends BaseController {
 
     public function login()
@@ -94,6 +95,16 @@ class AuthController extends BaseController {
         if (Auth::check()) {
             // Authenticating A User And "Remembering" Them
             $user_id = Auth::user()->id;
+            if(Auth::user()->accountType == 0){
+                if(Session::has('admin_session'))
+                    Log::info("admin_session already created before");
+                else{
+                    Session::put('admin_session', $user_id);
+                    Log::info("admin_session created");
+                }
+
+            }
+            Log::info("Session cre8 - " . Session::get('admin_session'));
         }
 //        else if (Auth::viaRemember()) {
 //            // Determining If User Authed Via Remember
@@ -114,6 +125,27 @@ class AuthController extends BaseController {
         $user = User::find(Auth::user()->id);
 
         return Response::json($user)->setCallback(Input::get('callback'));
+    }
+
+    public function logout(){
+        if(Session::flush()){
+            $error_response = array(
+                'error' => array(
+                    'message' => 'Session removed.',
+                    'code' => 200
+                )
+            );
+
+        }
+        else
+            $error_response = array(
+                'error' => array(
+                    'message' => 'Server is busy. Try again',
+                    'code' => 400
+                )
+            );
+
+        return Response::json($error_response, 200)->setCallback(Input::get('callback'));
     }
 
 }
