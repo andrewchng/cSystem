@@ -97,14 +97,14 @@ class AuthController extends BaseController {
             $user_id = Auth::user()->id;
             if(Auth::user()->accountType == 0){
                 if(Session::has('admin_session'))
-                    Log::info("admin_session already created before");
+                    Log::info("admin_session already created before - " . Session::get('admin_session'));
                 else{
                     Session::put('admin_session', $user_id);
                     Log::info("admin_session created");
                 }
 
             }
-            Log::info("Session cre8 - " . Session::get('admin_session'));
+//            Log::info("Session cre8 - " . Session::get('admin_session'));
         }
 //        else if (Auth::viaRemember()) {
 //            // Determining If User Authed Via Remember
@@ -130,6 +130,7 @@ class AuthController extends BaseController {
     }
 
     public function logout(){
+        Session::forget('admin_session');
         Auth::logout();
         return Response::json(array('message' => 'Successfully logged out.'))->setCallback(Input::get('callback'));
     }

@@ -6,7 +6,7 @@ $route_padding = '/';
 Route::get($route_padding, 'HomeController@displayMap');
 Route::get($route_padding . 'login', array('before' => '', 'uses' => 'FrontendController@login_masterView'));//protected admin page
 
-
+//protected
 Route::group(array('before' => 'admin.auth.required'), function()
 {
     Route::get('/admin', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
@@ -18,4 +18,4 @@ Route::get($route_padding . 'operator', array('before' => '', 'uses' => 'Fronten
 Route::get($route_padding . 'create_report', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 Route::get($route_padding . 'manage_incident', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 
-//Route::get($route_padding . 'admin/dashboard', array('before' => 'auth.required', 'uses' => 'FrontendController@view'));
+

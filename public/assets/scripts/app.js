@@ -55,8 +55,16 @@
     app.controller('AppCtrl', [
         '$scope', '$http', '$location', '$rootScope', '$routeParams', '$timeout', '$cookies', 'Auth',
         function ($scope, $http, $location, $rootScope, $routeParams, $timeout, $cookies, Auth) {
+            //Auth.get().$promise.then(function (xhrResult){
+            //    //$rootScope.user = xhrResult;
+            //    console.log($rootScope.user);
+            //},function(error){
+            //    window.location.href = $rootScope.homeUrl('login');
+            //});
+
             $rootScope.auth = Auth.get();
-            $rootScope.user = $cookies.getObject('user');
+
+            //$rootScope.user = $cookies.getObject('user');
             $rootScope.menuItem = $cookies.get('menuItem');
 
 
