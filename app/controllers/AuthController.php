@@ -119,6 +119,8 @@ class AuthController extends BaseController {
                     'code' => 400
                 )
             );
+            Log::info("User not logged in");
+
             return Response::json($error_response, 400)->setCallback(Input::get('callback'));
         }
 
@@ -128,24 +130,8 @@ class AuthController extends BaseController {
     }
 
     public function logout(){
-        if(Session::flush()){
-            $error_response = array(
-                'error' => array(
-                    'message' => 'Session removed.',
-                    'code' => 200
-                )
-            );
-
-        }
-        else
-            $error_response = array(
-                'error' => array(
-                    'message' => 'Server is busy. Try again',
-                    'code' => 400
-                )
-            );
-
-        return Response::json($error_response, 200)->setCallback(Input::get('callback'));
+        Auth::logout();
+        return Response::json(array('message' => 'Successfully logged out.'))->setCallback(Input::get('callback'));
     }
 
 }

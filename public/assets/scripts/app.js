@@ -71,10 +71,9 @@
             $rootScope.authLogout = function () {
                 $scope.loggin_out = true;
                 Auth.logout().$promise.then(function (xhrResult) {
+                    $cookies.remove('user');
+                    $cookies.remove('menuItem');
                     window.location.href = $rootScope.homeUrl('login');
-                }, function (error) {
-                    $scope.logging_out = false;
-                    $scope.auth_error = error.data.error.message;
                 });
             };
 
