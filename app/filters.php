@@ -108,3 +108,7 @@ Route::filter('admin.auth.required', function () {
         ), 401)->setCallback(Input::get('callback'));
     }
 });
+
+Route::filter('auth', function () {
+    if (Auth::guest()) return Redirect::guest('login');
+});
