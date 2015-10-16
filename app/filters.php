@@ -51,7 +51,7 @@ Route::filter('auth', function()
 
 Route::filter('auth.basic', function()
 {
-	return Auth::basic();
+	return Auth::basic('username');
 });
 
 /*
@@ -94,7 +94,7 @@ Route::filter('csrf', function()
 Route::filter('admin.auth.required', function () {
 
     Log::info('Infilter can retrieve session - ' . Session::get('admin_session'));
-    if (Auth::check()) {
+    if (!Auth::check()) {
 //    if (!Session::has('admin_session')) {
 
 //        return Redirect::to('login');
@@ -112,3 +112,8 @@ Route::filter('admin.auth.required', function () {
 Route::filter('auth', function () {
     if (Auth::guest()) return Redirect::guest('login');
 });
+
+//Route::filter('basic.once', function()
+//{
+//    return Auth::onceBasic();
+//});

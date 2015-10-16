@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="main-content">
+    <div class="main-content" data-ng-controller="DashboardCtrl">
         <div class="page-header navbar navbar-fixed-top">
             @include('layouts.dashboard_header')
         </div>

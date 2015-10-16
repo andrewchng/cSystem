@@ -448,7 +448,8 @@
 @media (min-width: 992px) {
     /* 992px */
     .page-sidebar {
-        min-width: 240px;
+        width: 100%;
+        /*min-width: 240px;*/
         float: left;
         position: relative;
         margin-right: -100%;

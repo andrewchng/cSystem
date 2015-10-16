@@ -55,14 +55,45 @@
     app.controller('AppCtrl', [
         '$scope', '$http', '$location', '$rootScope', '$routeParams', '$timeout', '$cookies', 'Auth',
         function ($scope, $http, $location, $rootScope, $routeParams, $timeout, $cookies, Auth) {
-            //Auth.get().$promise.then(function (xhrResult){
-            //    //$rootScope.user = xhrResult;
-            //    console.log($rootScope.user);
-            //},function(error){
-            //    window.location.href = $rootScope.homeUrl('login');
-            //});
 
-            $rootScope.auth = Auth.get();
+            //$rootScope.auth = Auth.get();
+
+            //$rootScope.user = $cookies.getObject('user');
+            $rootScope.menuItem = $cookies.get('menuItem');
+
+
+            $rootScope.homeUrl = function (url) {
+                if (url.charAt(0) !== '/') {
+                    url = '/' + url;
+                }
+
+                return url;
+            };
+
+            //$rootScope.authLogout = function () {
+            //    $scope.loggin_out = true;
+            //    Auth.logout().$promise.then(function (xhrResult) {
+            //        $cookies.remove('user');
+            //        $cookies.remove('menuItem');
+            //        window.location.href = $rootScope.homeUrl('login');
+            //    });
+            //};
+
+
+        }
+    ]);
+
+    app.controller('DashboardCtrl', [
+        '$scope', '$http', '$location', '$rootScope', '$routeParams', '$timeout', '$cookies', 'Auth',
+        function ($scope, $http, $location, $rootScope, $routeParams, $timeout, $cookies, Auth) {
+            Auth.get().$promise.then(function (xhrResult){
+                $rootScope.auth = xhrResult;
+                console.log($rootScope.auth);
+            },function(error){
+                window.location.href = $rootScope.homeUrl('login');
+            });
+
+            //$rootScope.auth = Auth.get();
 
             //$rootScope.user = $cookies.getObject('user');
             $rootScope.menuItem = $cookies.get('menuItem');
@@ -88,6 +119,7 @@
 
         }
     ]);
+
 
     app.controller('LoginCtrl', function($scope, $http, $rootScope, $timeout, $location, $cookies, Auth, loginRedirectionProperties){
         jQuery("input[name='username']").focus();
