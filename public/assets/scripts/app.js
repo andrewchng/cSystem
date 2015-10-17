@@ -185,7 +185,14 @@
     });
 
     app.controller('OperatorCtrl', function($scope, $http, $rootScope, Auth){
+        //$scope.message ='testing';
+        $scope.insertdata = function(){
+            $http.post("/assets/scripts/postReportData.php",{'location':$scope.location,'type':$scope.type, 'datetime':$scope.datetime, 'report':$scope.report, 'contact':$scope.contact})
+                .success(function(data,status,headers,config){
+                    console.log("Data Inserted successfully!")
+                });
 
+        }
     });
 
     app.controller('SidebarCtrl', function($scope, $http, $location, $rootScope, $timeout, retrieveMenu){

@@ -9,48 +9,50 @@
         <label class="col-sm-2 control-label">Incident</label>
         <div class="col-sm-8">
             <input type="text" class="form-control" placeholder="Incident">
+            {{ message }}
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Location</label>
         <div class="col-sm-8">
-            <input type="email" class="form-control" placeholder="Bukit Batok Ave 5 st 22">
+            <input type="text" ng-model="location" class="form-control" placeholder="Bukit Batok Ave 5 st 22">
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Type</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder="Accident">
+            <input type="text" ng-model="type" class="form-control" placeholder="1 , 2 , 3">
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Date/Time</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control"  id="calendar" placeholder="230515 1400pm">
+            <input type="text" ng-model="datetime" class="form-control"  id="calendar" placeholder="230515 1400pm">
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Reported By</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder="John Doe">
+            <input type="text" ng-model="report" class="form-control" placeholder="John Doe">
         </div>
     </div>
     <br>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Contact By</label>
+        <label class="col-sm-2 control-label">Contact</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder="91885633">
+            <input type="text" ng-model="contact" class="form-control" placeholder="91885633">
         </div>
     </div>
     <br>
     <div class='form-group'>
         <div class='col-sm-10 col-sm-offset-2'>
-            <button type="submit" id="submit" name="submit">SUBMIT</button>
+            <button type="submit" id="submit" ng-click="insertdata()" name="submit">SUBMIT</button>
         </div>
     </div>
     <br>
 </form>
+
