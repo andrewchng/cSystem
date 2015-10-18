@@ -1,0 +1,18 @@
+<br><br><br><br><br>
+<head>
+</head>
+
+<h1 style="padding-left: 100px">List Agency</h1>
+<br><br>
+<div ng-controller="AdminCtrl">
+    <table>
+        <tr ng-repeat="agency in agencies">
+            <td>{{ agency.agencyID }}</td>
+            <td>{{ agency.agencyName }}</td>
+            <td>{{ agency.agencyAddress }}</td>
+            <td>{{ agency.agencyTel }}</td>
+            <td>{{ agency.isDeleted }}</td>
+            <td>{{ agency.createAt }}</td>
+        </tr>
+    </table>
+</div>

@@ -21,6 +21,14 @@
                 templateUrl: '/assets/partials/admin_report.html',
                 controller: 'AdminCtrl'
             })
+            .when('/agency/add', {
+                templateUrl: '/assets/partials/create_agency.html',
+                controller: 'AdminCtrl'
+            })
+            .when('/agency/list', {
+                templateUrl: '/assets/partials/list_agency.html',
+                controller: 'AdminCtrl'
+            })
             .when('/operator', {
                 templateUrl: '/assets/partials/operator.html',
                 controller: 'OperatorCtrl'
@@ -82,8 +90,6 @@
             //        window.location.href = $rootScope.homeUrl('login');
             //    });
             //};
-
-
         }
     ]);
 
@@ -119,8 +125,6 @@
                     window.location.href = $rootScope.homeUrl('login');
                 });
             };
-
-
         }
     ]);
 
@@ -180,12 +184,37 @@
                 }, 1000);
             }
         });
-
-
     });
 
     app.controller('AdminCtrl', function($scope, $http, $rootScope, listAcc){
-        
+        var url = '//api.ssad.localhost/agency/list';
+        $http.get(url).success(function(data,status,headers,config) {
+            $scope.agencies = data;
+        });
+
+        $scope.cAgency = function () {
+            var url = "//api.ssad.localhost/agency/create";
+            if (!$scope.name)
+            {
+                alert("Enter Name");
+            }
+            else if (!$scope.add)
+            {
+                alert("Enter Address");
+            }
+            else if (!$scope.tel) {
+                alert("Enter Tel");
+            }
+            else {
+                $http.post(url, {
+                    'name': $scope.name,
+                    'add': $scope.add,
+                    'tel': $scope.tel
+                }).success(function (data, status, headers, config) {
+                    console.log("");
+                });
+            }
+        };
     });
 
     app.controller('AccountCtrl', function($scope, $http, $rootScope, $parse, listAcc, listAgency, Account){
@@ -227,10 +256,6 @@
                 toastr.error(error.data.error.message);
             });
         }
-        
-        
-        
-        
     });
 
     app.controller('OperatorCtrl', function($scope, $http, $rootScope, Auth){
@@ -240,7 +265,6 @@
                 .success(function(data,status,headers,config){
                     console.log("Data Inserted successfully!")
                 });
-
         }
     });
 
@@ -269,7 +293,6 @@
                 $scope.class = "";
             else
                 $scope.class = "open";
-
         };
 
         $scope.displaySubMenus = function() {
@@ -279,12 +302,7 @@
             else
                 return false;
         }
-
-
-
     });
-
-
 
 }());
 (function () {
