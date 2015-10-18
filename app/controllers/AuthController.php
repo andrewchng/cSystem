@@ -96,7 +96,7 @@ class AuthController extends BaseController {
             // Authenticating A User And "Remembering" Them
             Session::regenerate();
             $user_id = Auth::user()->id;
-            if(Auth::user()->accountType == 0){
+            if(Auth::user()->accountType == 1){
                 if(Session::has('admin_session'))
                     Log::info("admin_session already created before - " . Session::get('admin_session'));
                 else{

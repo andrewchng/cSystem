@@ -144,13 +144,13 @@
                 $rootScope.auth = xhrResult;
                 $rootScope.user = xhrResult;
                 $cookies.putObject('user', $rootScope.user, {'expires': expireDate});
-                if ($rootScope.user.accountType == 0) {
+                if ($rootScope.user.accountType == 1) {
                     loginRedirectionProperties.setPath('admin');
                     //$scope.$emit('menuItem', '/assets/json/admin_menu.json');
                     $cookies.put('menuItem', '/assets/json/admin_menu.json', {'expires': expireDate});
 
                 }
-                else if ($rootScope.user.accountType == 1) {
+                else if ($rootScope.user.accountType == 2) {
                     loginRedirectionProperties.setPath('operator');
                     $cookies.put('menuItem', '/assets/json/operator_menu.json', {'expires': expireDate});
                 }
@@ -229,10 +229,10 @@
         });
 
 
-        $scope.accounts.type = 0;
+        $scope.accounts.type = 1;
 
         $scope.checkAg = function (id) {
-            if (id == 2)
+            if (id == 3)
                 $scope.c_agency = true;
             else
                 $scope.c_agency = false;
