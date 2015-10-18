@@ -10,6 +10,7 @@ Route::get($route_padding . 'login', array('before' => '', 'uses' => 'FrontendCo
 Route::group(array('before' => ''), function()
 {
     Route::get('/admin', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
+    Route::get('/accounts/create', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
     Route::get('/reports', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 });
 

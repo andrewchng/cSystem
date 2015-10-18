@@ -13,6 +13,10 @@
                 templateUrl: '/assets/partials/admin.html',
                 controller: 'AdminCtrl'
             })
+            .when('/accounts/create', {
+                templateUrl: '/assets/partials/create_accounts.html',
+                controller: 'AccountCtrl'
+            })
             .when('/reports', {
                 templateUrl: '/assets/partials/admin_report.html',
                 controller: 'AdminCtrl'
@@ -180,8 +184,53 @@
 
     });
 
-    app.controller('AdminCtrl', function($scope, $http, $rootScope, Auth){
+    app.controller('AdminCtrl', function($scope, $http, $rootScope, listAcc){
+        
+    });
 
+    app.controller('AccountCtrl', function($scope, $http, $rootScope, $parse, listAcc, listAgency, Account){
+        $scope.accounts = {};
+
+        listAcc().success(function (data) {
+            $scope.accountTypes = data;
+        });
+
+        listAgency().success(function (data) {
+            $scope.agencies = data;
+        });
+
+
+        $scope.accounts.type = 0;
+
+        $scope.checkAg = function (id) {
+            if (id == 2)
+                $scope.c_agency = true;
+            else
+                $scope.c_agency = false;
+        };
+
+        $scope.validate =  function(name){
+            Account.validate({'name': name}, $scope.accounts).$promise.then(function(xhrResult){
+                var model = $parse(name +'.error');
+                model.assign($scope, null);
+            },function(error){
+                var model = $parse(name +'.error');
+                model.assign($scope, error.data.error.message);
+            });
+        }
+
+        $scope.createAcc = function(){
+            Account.create({}, $scope.accounts).$promise.then(function(xhrResult){
+                toastr.success(xhrResult.message);
+                $scope.accounts = {};
+            },function(error){
+                toastr.error(error.data.error.message);
+            });
+        }
+        
+        
+        
+        
     });
 
     app.controller('OperatorCtrl', function($scope, $http, $rootScope, Auth){
@@ -245,7 +294,7 @@
     var api_url = '//api.ssad.localhost';
 
 
-    app.factory('Auth', ['$resource', function($resource, $rootScope){
+    app.factory('Auth', ['$resource', function($resource){
         return $resource(api_url + '/auth', {
             frontend: true
         },{
@@ -282,6 +331,63 @@
             }
         }
     });
+
+    app.factory('listAcc', function($http){
+        return function() {
+            var promise = $http.get(api_url + '/getAccount_T');
+            return promise;
+        }
+    });
+
+    app.factory('listAgency', function($http){
+        return function() {
+            var promise = $http.get(api_url + '/listAgencies');
+            return promise;
+        }
+    });
+
+
+    app.factory('Account', ['$resource', function ($resource) {
+        return $resource(api_url + '/account', {
+                id: '@id',
+                name: '@name'
+            },
+            {
+                'get': {
+                    method: "GET",
+                    withCredentials: true,
+                    params: {}
+                },
+                'save': {
+                    method: "POST",
+                    url: api_url + '/account/:id',
+                    withCredentials: true,
+                    params: {}
+                },
+                'remove': {
+                    method: "DELETE",
+                    url: api_url + '/account/:id',
+                    withCredentials: true,
+                    params: {}
+                },
+                'create': {
+                    method: "POST",
+                    url: api_url + '/account',
+                    withCredentials: true,
+                    params: {}
+                },
+                'validate': {
+                    method: "POST",
+                    url: api_url + '/account/validate/:name',
+                    withCredentials: true,
+                    params: {}
+                }
+            });
+    }]);
+
+
+
+
 
 
 }());

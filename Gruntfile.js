@@ -31,6 +31,7 @@ module.exports = function(grunt) {
             js_main_plugins: {
                 src: [
                     './bower_components/jquery/dist/jquery.js',
+                    './bower_components/toastr/toastr.js',
                     './bower_components/angular/angular.js',
                     './bower_components/angular-route/angular-route.js',
                     './bower_components/angular-resource/angular-resource.min.js',

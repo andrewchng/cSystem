@@ -35,7 +35,7 @@ class AuthController extends BaseController {
 
         $input = Input::all();
         $rules = array(
-            'username'    => 'required', // make sure the email is an actual email
+            'username'    => 'required',
             'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
         );
         $messages = [
@@ -94,6 +94,7 @@ class AuthController extends BaseController {
         $user_id = false;
         if (Auth::check()) {
             // Authenticating A User And "Remembering" Them
+            Session::regenerate();
             $user_id = Auth::user()->id;
             if(Auth::user()->accountType == 0){
                 if(Session::has('admin_session'))

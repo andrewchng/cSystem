@@ -8,9 +8,14 @@
 
 //GET
 
-//Route::get('/dashboard', array('before' => 'auth.required', 'uses' => 'AdminCOntroller@getDashboard'));
 
 Route::get('/auth', 'AuthController@get');
 Route::get('/auth/logout', 'AuthController@logout');
+Route::get('/getAccount_T', 'AdminController@listAccountTypes');
+Route::get('/listAgencies', 'AdminController@listAgencies');
 //POST
 Route::post('/auth/login', 'AuthController@login');
+Route::post('/account/validate/{name}', 'AdminController@accValidate');
+//Route::post('/account/create', 'AdminController@createAcc');
+
+Route::resource('account' ,'AccountController');
