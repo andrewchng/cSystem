@@ -86,12 +86,12 @@
     </div>
         <div class="form-group form-actions visible-md visible-lg">
             <div class="col-md-7 text-right">
-                <button type="submit" class="btn btn-lg green" data-ng-click="createAcc({'redirect': false})"
+                <button type="submit" class="btn btn-lg green" data-ng-click="createAcc()"
                         data-loading-text="Saving...">
-                                <span ng-hide="product.$m_saving">
+                                <span ng-hide="acc_create">
                                     <i class="fa fa-save"></i> Create
                                 </span>
-                                <span ng-show="product.$m_saving">
+                                <span ng-show="acc_create">
                                     <i class="fa fa-spinner fa-spin"></i> Creating...
                                 </span>
                 </button>

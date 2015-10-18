@@ -14,6 +14,8 @@
                         element.children('.sub-menu').slideDown("slow");
                     }
                     else{
+                        //console.log(element.children('li').hasClass('active'));
+
                         element.removeClass('open');
                         element.find('span.arrow').removeClass('open');
                         element.children('.sub-menu').slideUp("slow");
@@ -23,5 +25,7 @@
             }
         };
     });
+
+
 
 }())

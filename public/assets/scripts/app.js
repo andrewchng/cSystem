@@ -217,7 +217,7 @@
         };
     });
 
-    app.controller('AccountCtrl', function($scope, $http, $rootScope, $parse, listAcc, listAgency, Account){
+    app.controller('AccountCtrl', function($scope, $http, $rootScope, $parse, $timeout, listAcc, listAgency, Account){
         $scope.accounts = {};
 
         listAcc().success(function (data) {
@@ -246,16 +246,26 @@
                 var model = $parse(name +'.error');
                 model.assign($scope, error.data.error.message);
             });
-        }
+        };
 
         $scope.createAcc = function(){
+            $scope.acc_create = true;
             Account.create({}, $scope.accounts).$promise.then(function(xhrResult){
-                toastr.success(xhrResult.message);
-                $scope.accounts = {};
+                $scope.success = xhrResult.message;
             },function(error){
                 toastr.error(error.data.error.message);
             });
-        }
+        };
+
+        $scope.$watch('success', function () {
+            if ($scope.success){
+                $timeout(function(){
+                    toastr.success($scope.success);
+                    $scope.accounts = {};
+                    $scope.acc_create = false;
+                }, 1500);
+            }
+        });
     });
 
     app.controller('OperatorCtrl', function($scope, $http, $rootScope, Auth){
@@ -287,21 +297,6 @@
                 }, false);
             }
         };
-
-        $scope.setDisplaySubMenus = function () {
-            if($scope.class == "open")
-                $scope.class = "";
-            else
-                $scope.class = "open";
-        };
-
-        $scope.displaySubMenus = function() {
-            console.log($scope.class == "open");
-            if($scope.class == "open")
-                return true;
-            else
-                return false;
-        }
     });
 
 }());
