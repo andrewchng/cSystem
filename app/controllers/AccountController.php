@@ -31,13 +31,25 @@ class AccountController extends \BaseController {
 //            dd($e);
 //        }
 
+
+
+
         $username = Input::get('username');
         $password = Input::get('password');
         $email = Input::get('email');
         $type = Input::get('type');
         $agency = Input::get('agency');
 
-        $save = false;
+        if($type === 3 && $agency === null){
+            $error_response = array(
+                'error' => array(
+                    'message' => 'Please Select an Agency. Failed!',
+                    'type' => 'OInsertException',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
 
 
         //create new

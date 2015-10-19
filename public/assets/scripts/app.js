@@ -249,12 +249,18 @@
         };
 
         $scope.createAcc = function(){
-            $scope.acc_create = true;
-            Account.create({}, $scope.accounts).$promise.then(function(xhrResult){
-                $scope.success = xhrResult.message;
-            },function(error){
-                toastr.error(error.data.error.message);
-            });
+            if($scope.username.error == null && $scope.password.error == null && $scope.email.error == null){
+                $scope.acc_create = true;
+                Account.create({}, $scope.accounts).$promise.then(function(xhrResult){
+                    $scope.success = xhrResult.message;
+                },function(error){
+                    if(error.data.error.code == 425)
+                        toastr.warning(error.data.error.message)
+                    else
+                        toastr.error(error.data.error.message);
+                    $scope.acc_create = false;
+                });
+            }
         };
 
         $scope.$watch('success', function () {
@@ -262,6 +268,8 @@
                 $timeout(function(){
                     toastr.success($scope.success);
                     $scope.accounts = {};
+                    $scope.accounts.type = 1;
+                    $scope.c_agency = false;
                     $scope.acc_create = false;
                 }, 1500);
             }
@@ -297,6 +305,19 @@
                 }, false);
             }
         };
+
+        $scope.checkSubMenu = function (menu) {
+            if(!menu.submenu) {
+                console.log("inside FALSE");
+                return false;
+            }
+            else{
+                console.log("inside TRUE");
+                return true;
+            }
+        };
+
+
     });
 
 }());

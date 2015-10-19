@@ -16,7 +16,7 @@
                 </button>
             </div>
         </li>
-        <li ng-repeat="menu in sidebarMenuList" style="margin-top: 5px;" ng-class="{'active': isActiveMenuItem(menu)}" ng-attr-sub-menu-slide>
+        <li ng-repeat="menu in sidebarMenuList" style="margin-top: 5px;" ng-class="{'active': isActiveMenuItem(menu)}" ng-attr-sub-menu-slide="menu.submenu">
             <a href="{{menu.href}}">
                 <span class="{{menu.iconClass}}"></span>
                 <span class="title">{{menu.name}}</span>

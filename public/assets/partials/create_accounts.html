@@ -1,7 +1,7 @@
 <div class="spacer visible-xs"></div>
 <div class="container-fluid-full">
 
-    <form name="c_accountForm" class="form form-horizontal">
+    <form name="c_accountForm" class="form form-horizontal" ng-submit="createAcc()">
     <div class="portlet box grey-gallery">
         <div class="portlet-title">
             <div class="caption">
@@ -68,7 +68,7 @@
                 <label class="col-md-2 col-xs-12 control-label">Agency </label>
 
                 <div class="col-md-7 col-xs-12">
-                    <select name="agency" class="form-control" ng-options="ag.agencyID as ag.agencyName for ag in agencies" ng-model="accounts.agency">
+                    <select name="agency" class="form-control" ng-options="ag.agencyID as ag.agencyName for ag in agencies" ng-model="accounts.agency" >
                         <option value="">Select an Agency</option>
 
                     </select>
@@ -86,8 +86,8 @@
     </div>
         <div class="form-group form-actions visible-md visible-lg">
             <div class="col-md-7 text-right">
-                <button type="submit" class="btn btn-lg green" data-ng-click="createAcc()"
-                        data-loading-text="Saving...">
+                <button type="submit" class="btn btn-lg green"
+                        data-loading-text="Creating...">
                                 <span ng-hide="acc_create">
                                     <i class="fa fa-save"></i> Create
                                 </span>
