@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var app = angular.module('cSystem', ['ngResource', 'ngRoute', 'ngSanitize', 'ngCookies']);
+    var app = angular.module('cSystem', ['ngResource', 'ngRoute', 'ngSanitize', 'ngCookies', 'ui.bootstrap']);
 
     app.config(function ($routeProvider, $locationProvider, $sceDelegateProvider) {
         $routeProvider
@@ -15,6 +15,10 @@
             })
             .when('/accounts/create', {
                 templateUrl: '/assets/partials/create_accounts.html',
+                controller: 'AccountCtrl'
+            })
+            .when('/accounts/list', {
+                templateUrl: '/assets/partials/accounts-list.html',
                 controller: 'AccountCtrl'
             })
             .when('/reports', {
@@ -281,6 +285,12 @@
 
     app.controller('AccountCtrl', function($scope, $http, $rootScope, $parse, $timeout, listAcc, listAgency, Account){
         $scope.accounts = {};
+        $scope.filter = {};
+        $scope.l_accounts = {};
+        $scope.l_accounts.$resolved = true;
+        $scope.l_accounts.total = 10;
+        $scope.l_accounts.total = 5;
+        $scope.l_accounts.current_page = 1;
 
         listAcc().success(function (data) {
             $scope.accountTypes = data;
@@ -336,6 +346,11 @@
                 }, 1500);
             }
         });
+
+        $scope.resetFilter = function() {
+            $scope.filter = {};
+        };
+
     });
 
     app.controller('OperatorCtrl', function($scope, $http, $rootScope, Auth){

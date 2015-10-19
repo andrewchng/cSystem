@@ -2,6 +2,7 @@
   "name": "ssad",
   "dependencies": {
     "angular": "~1.4.5",
+    "angular-bootstrap": "~0.14.2",
     "angular-cookies": "~1.4.6",
     "angular-resource": "~1.4.6",
     "angular-route": "~1.4.6",
