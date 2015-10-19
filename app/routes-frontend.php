@@ -16,7 +16,7 @@ Route::group(array('before' => ''), function()
     Route::get('/agency/list', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 });
 
-
+Route::get($route_padding . '/agency/edit', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 Route::get($route_padding . 'operator', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 Route::get($route_padding . 'create_report', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 Route::get($route_padding . 'manage_incident', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));

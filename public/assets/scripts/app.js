@@ -29,6 +29,10 @@
                 templateUrl: '/assets/partials/list_agency.html',
                 controller: 'AdminCtrl'
             })
+            .when('/agency/edit', {
+                templateUrl: '/assets/partials/edit_agency.html',
+                controller: 'AdminCtrl'
+            })
             .when('/operator', {
                 templateUrl: '/assets/partials/operator.html',
                 controller: 'OperatorCtrl'
@@ -186,11 +190,14 @@
         });
     });
 
-    app.controller('AdminCtrl', function($scope, $http, $rootScope, listAcc){
-        var url = '//api.ssad.localhost/agency/list';
-        $http.get(url).success(function(data,status,headers,config) {
-            $scope.agencies = data;
-        });
+    app.controller('AdminCtrl', function($scope, $http, $rootScope, $location, $route, listAcc){
+
+        $scope.lAgency = function () {
+            var url = '//api.ssad.localhost/agency/list';
+            $http.get(url).success(function(data) {
+                $scope.agencies = data;
+            });
+        };
 
         $scope.cAgency = function () {
             var url = "//api.ssad.localhost/agency/create";
@@ -210,10 +217,65 @@
                     'name': $scope.name,
                     'add': $scope.add,
                     'tel': $scope.tel
-                }).success(function (data, status, headers, config) {
-                    console.log("");
+                }).success(function (data) {
+                    console.log(data);
+                    $scope.name = '';
+                    $scope.add = '';
+                    $scope.tel = '';
                 });
             }
+        };
+
+        $scope.fAgency = function (data) {
+            var url = "//api.ssad.localhost/agency/find";
+            $http.post(url, {
+                'id': data
+            }).success(function (data) {
+                //console.log(data);
+                $rootScope.editAgenData = data;
+                $location.path('/agency/edit');
+            });
+        };
+
+        $scope.pAgency = function () {
+            $scope.pagencies = $rootScope.editAgenData;
+        };
+
+        $scope.eAgency = function (data) {
+            var url = "//api.ssad.localhost/agency/edit";
+            if (!$scope.name)
+            {
+                alert("Enter Name");
+            }
+            else if (!$scope.add)
+            {
+                alert("Enter Address");
+            }
+            else if (!$scope.tel)
+            {
+                alert("Enter Tel");
+            }
+            else {
+                $http.post(url, {
+                    'id': data,
+                    'name': $scope.name,
+                    'add': $scope.add,
+                    'tel': $scope.tel
+                }).success(function (data) {
+                    console.log(data);
+                    $location.path('/agency/list');
+                });
+            }
+        };
+
+        $scope.dAgency = function (data) {
+            var url = "//api.ssad.localhost/agency/delete";
+            $http.post(url, {
+                'id': data
+            }).success(function (data) {
+                console.log(data);
+                $route.reload();
+            });
         };
     });
 

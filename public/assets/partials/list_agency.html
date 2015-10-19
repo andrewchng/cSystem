@@ -1,18 +1,45 @@
 <br><br><br><br><br>
 <head>
+    <style>
+        table, th , td  {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
 </head>
 
 <h1 style="padding-left: 100px">List Agency</h1>
 <br><br>
-<div ng-controller="AdminCtrl">
+<div style="margin-left:100px" ng-controller="AdminCtrl" ng-init="lAgency()">
     <table>
+        <tr>
+            <td>ID</td>
+            <td>Agency Name</td>
+            <td>Agency Address</td>
+            <td>Agency Tel</td>
+            <td>Deleted</td>
+            <td>Created At</td>
+            <td></td>
+            <td></td>
+        </tr>
         <tr ng-repeat="agency in agencies">
             <td>{{ agency.agencyID }}</td>
             <td>{{ agency.agencyName }}</td>
             <td>{{ agency.agencyAddress }}</td>
             <td>{{ agency.agencyTel }}</td>
             <td>{{ agency.isDeleted }}</td>
-            <td>{{ agency.createAt }}</td>
+            <td>{{ agency.createdAt }}</td>
+            <form id="listAgencyForm" class="form-horizontal" role="form" ng-controller="AdminCtrl" >
+                <td><input type="button" ng-click="fAgency(agency.agencyID)" value="Edit"/></td>
+                <td><input type="button" ng-click="dAgency(agency.agencyID)" value="Delete"/></td>
+            </form>
         </tr>
     </table>
 </div>

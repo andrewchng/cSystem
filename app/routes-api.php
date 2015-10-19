@@ -18,6 +18,9 @@ Route::get('/agency/list', 'AgencyController@listing');
 Route::post('/auth/login', 'AuthController@login');
 Route::post('/account/validate/{name}', 'AdminController@accValidate');
 Route::post('/agency/create', 'AgencyController@create');
+Route::post('/agency/find', 'AgencyController@find');
+Route::post('/agency/edit', 'AgencyController@edit');
+Route::post('/agency/delete', 'AgencyController@delete');
 //Route::post('/account/create', 'AdminController@createAcc');
 
 Route::resource('account' ,'AccountController');

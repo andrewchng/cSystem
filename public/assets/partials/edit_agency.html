@@ -2,33 +2,33 @@
 <head>
 </head>
 
-<h1 style="padding-left: 100px">Create Agency</h1>
+<h1 style="padding-left: 100px">Edit Agency</h1>
 <br><br>
-<form id="createAgencyForm" class="form-horizontal" role="form" ng-controller="AdminCtrl" >
+<form id="editAgencyForm" class="form-horizontal" role="form" ng-controller="AdminCtrl" ng-init="pAgency()" ng-repeat="agency in pagencies">
     <div class="form-group">
         <label class="col-sm-2 control-label">Agency Name:</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="name" placeholder="Agency"/>
+            <input type="text" ng-model="name" value="agency.agencyName"/>
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Agency Address:</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="add" placeholder="Bukit Batok Ave 5 St 22"/>
+            <input type="text" ng-model="add" value="agency.agencyAddress"/>
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Agency Tel:</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="tel"  placeholder="61234567"/>
+            <input type="text" ng-model="tel" value="agency.agencyTel"/>
         </div>
     </div>
     <br>
     <div class='form-group'>
         <div class='col-sm-10 col-sm-offset-2'>
-            <input type="button" ng-click="cAgency()" value="Create"/>
+            <input type="button" ng-click="eAgency(agency.agencyID)" value="Edit"/>
         </div>
     </div>
     <br>
