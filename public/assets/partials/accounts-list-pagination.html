@@ -1,0 +1,13 @@
+<div class="pagination-container">
+    <div class="pagination-text-details">
+        Showing {{l_accounts.from}} to {{l_accounts.to}}.
+        <b>Total {{l_accounts.total}} results.</b>
+    </div>
+    <uib-pagination ng-change="pageChanged()" ng-model="l_accounts.current_page"
+                total-items="l_accounts.total"
+                items-per-page="l_accounts.per_page"
+                max-size="10"
+                class="pagination-sm"
+                first-text="&laquo;" last-text="&raquo;">
+    </uib-pagination>
+</div>

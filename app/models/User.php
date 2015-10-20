@@ -29,17 +29,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 
     /**
-     * Get the unique identifier for the user.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifier()
-    {
-        return $this->getKey();
-    }
-
-
-    /**
      * Get the password for the user.
      *
      * @return string
@@ -57,6 +46,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function setRememberToken($value)
     {
         $this->remember_token = $value;
+    }
+
+    public function agency(){
+        return $this->hasOne('Agency');
+    }
+
+    public function accountType(){
+        return $this->hasOne('Accounts');
     }
 
 

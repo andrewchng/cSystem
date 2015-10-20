@@ -7,4 +7,9 @@ class Agency extends Eloquent
     protected $primaryKey = 'agencyID';
     protected $fillable = array('agencyName', 'agencyAddress', 'agencyTel');
 
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
+
 }

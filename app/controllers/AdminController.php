@@ -68,7 +68,7 @@ class AdminController extends BaseController {
             else{
                 $input['password'] = Input::get('password');
                 $rules = array(
-                    'password'    => 'alphaNum|min:4'
+                    'password'    => 'min:4'
                 );
                 // run the validation rules on the inputs from the form
                 $validator = Validator::make($input,$rules);
@@ -119,45 +119,6 @@ class AdminController extends BaseController {
             }
         }
     }
-
-//    public function createAcc(){
-////        dd("inside createACC()");
-//
-//
-//        $username = Input::get('username');
-//        $password = Input::get('password');
-//        $email = Input::get('email');
-//        $type = Input::get('type');
-//        $agency = Input::get('agency');
-//
-//
-//
-//        //create new
-//        if($agency !== null){
-//
-//            User::create(array(
-//                'username' => $username,
-//                'password' => Hash::make($password),
-//                'email' => $email,
-//                'accountType' => $type,
-//                'isDeleted' => '0',
-//                'updated_at' => new DateTime,
-//                'created_at' => new DateTime,
-//                'agencyID' => $agency
-//            ));
-//        }else{
-//            User::create(array(
-//                'username' => $username,
-//                'password' => Hash::make($password),
-//                'email' => $email,
-//                'accountType' => $type,
-//                'isDeleted' => '0',
-//                'updated_at' => new DateTime,
-//                'created_at' => new DateTime
-//            ));
-//        }
-//
-//    }
 
 
 }

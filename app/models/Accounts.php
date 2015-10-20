@@ -11,5 +11,9 @@ class Accounts extends Eloquent {
     protected $table = 'AccountType';
     protected $primaryKey = 'accountTypeId';
 
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
 
 }

@@ -10,6 +10,7 @@
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0",
     "jquery": "~2.1.4",
+    "ngBootbox": "~0.1.1",
     "toastr": "~2.1.2"
   },
   "version": "0.0.1",

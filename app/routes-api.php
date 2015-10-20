@@ -15,6 +15,7 @@ Route::get('/getAccount_T', 'AdminController@listAccountTypes');
 Route::get('/listAgencies', 'AdminController@listAgencies');
 Route::get('/agency/list', 'AgencyController@listing');
 Route::get('/report/list', 'ReportController@listing');
+
 //POST
 Route::post('/auth/login', 'AuthController@login');
 Route::post('/account/validate/{name}', 'AdminController@accValidate');

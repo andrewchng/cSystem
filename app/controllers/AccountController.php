@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class AccountController extends \BaseController {
 
 	/**
@@ -9,9 +11,86 @@ class AccountController extends \BaseController {
 	 */
 	public function index()
 	{
-		//get all
-        User::all();
-	}
+
+        if (Input::has('order_by')) {
+            $order_by = Input::get('order_by');
+            $dir = 'ASC';
+
+            if (Input::has('order_dir')) {
+                $dir = Input::get('order_dir');
+            }
+        }
+        else {
+            $order_by = 'id';
+            $dir = 'ASC';
+        }
+
+
+		if(Input::has('uid')){
+            $uid = Input::get('uid');
+            $accounts = User::where('id', $uid)
+                ->leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
+                ->leftjoin('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)
+                ->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')
+                ->paginate(10);
+        }
+        else if(Input::has('username')){
+            $user = '%' . Input::get('username') . '%';
+            $accounts = User::where('username', 'LIKE', $user)
+                ->leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
+                ->leftjoin('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)
+                ->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')
+                ->paginate(10);
+        }
+        else if(Input::has('email')){
+            $email = '%'. Input::get('email') . '%';
+            $accounts = User::where('email', 'LIKE' , $email)
+                ->leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
+                ->leftjoin('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)
+                ->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')
+                ->paginate(10);
+        }
+        else if(Input::has('type')){
+            $type = Input::get('type');
+            $accounts = User::where('accountType', $type)
+                ->leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
+                ->leftjoin('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)
+                ->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')
+                ->paginate(10);
+        }
+        else if(Input::has('agency')){
+            $agency = Input::get('agency');
+            $accounts = User::where('users.agencyID', $agency)
+                ->leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
+                ->join('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)
+                ->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')
+                ->paginate(10);
+        }
+        else {
+
+            $accounts = User::leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
+                ->leftjoin('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')->paginate(10);
+        }
+
+
+
+        if(!$accounts){
+            $error_response = array(
+                'error' => array(
+                    'message' => 'Nothing retrieved!',
+                    'type' => 'ORetrieveException',
+                    'code' => 400
+                )
+            );
+
+            return Response::json($error_response, 400)->setCallback(Input::get('callback'));
+        }
+        else
+            return Response::json($accounts)->setCallback(Input::get('callback'));
+
+
+
+    }
 
 
 	/**
@@ -61,8 +140,8 @@ class AccountController extends \BaseController {
                 'email' => $email,
                 'accountType' => $type,
                 'isDeleted' => '0',
-                'updated_at' => new DateTime,
-                'created_at' => new DateTime,
+                'updated_at' => Carbon::now(),
+                'created_at' => Carbon::now(),
                 'agencyID' => $agency
             ));
         }else{
@@ -73,8 +152,8 @@ class AccountController extends \BaseController {
                 'email' => $email,
                 'accountType' => $type,
                 'isDeleted' => '0',
-                'updated_at' => new DateTime,
-                'created_at' => new DateTime
+                'updated_at' => Carbon::now(),
+                'created_at' => Carbon::now()
             ));
         }
 
@@ -105,7 +184,24 @@ class AccountController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$account = User::find($id);
+
+        Log::info('inside show()');
+
+        if(!$account){
+            $error_response = array(
+                'error' => array(
+                    'message' => 'Nothing retrieved!',
+                    'type' => 'ORetrieveException',
+                    'code' => 400
+                )
+            );
+
+            return Response::json($error_response, 400)->setCallback(Input::get('callback'));
+        }
+        else
+            return Response::json($account, 200)->setCallback(Input::get('callback'));
+
 	}
 
 
@@ -117,7 +213,60 @@ class AccountController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+        $username = Input::get('username');
+        $email = Input::get('email');
+        $type = Input::get('accountType');
+        if(Input::has('agencyID'))
+            $agency = Input::get('agencyID');
+
+        if($type === 3 && $agency === null){
+            $error_response = array(
+                'error' => array(
+                    'message' => 'Please Select an Agency. Failed!',
+                    'type' => 'OInsertException',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
+
+
+        $input = Input::all();
+        $rules = array(
+            'username'    => 'required|unique:users,username,' .$id . '|alphaNum|min:4',
+            'email' => 'required|email|unique:users,email,' .$id
+        );
+
+        $validator = Validator::make($input,$rules);
+        if ($validator->fails()) {
+            $error_messages = $validator->messages();
+            $error_response = array(
+                'error' => array(
+                    'message' => $error_messages->first(),
+                    'type' => 'Exception',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
+        if(isset($agency))
+            $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now(), 'agencyID' => $agency));
+        else
+            $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now()));
+
+        if(!$account){
+            $error_response = array(
+                'error' => array(
+                    'message' => 'Update Failed!',
+                    'type' => 'OUpdateException',
+                    'code' => 400
+                )
+            );
+
+            return Response::json($error_response, 400)->setCallback(Input::get('callback'));
+        }
+        else
+            return Response::json(array('message' => 'Account updated. Success!'), 200)->setCallback(Input::get('callback'));
 	}
 
 
@@ -130,7 +279,23 @@ class AccountController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+        $account = User::find($id)->delete();
+
+        if(!$account){
+            $error_response = array(
+                'error' => array(
+                    'message' => 'Deletion Failed!',
+                    'type' => 'ODeleteException',
+                    'code' => 400
+                )
+            );
+
+            return Response::json($error_response, 400)->setCallback(Input::get('callback'));
+        }
+        else
+            return Response::json(array('message' => 'Account deleted. Success!'), 200)->setCallback(Input::get('callback'));
 	}
+
 
 
 }

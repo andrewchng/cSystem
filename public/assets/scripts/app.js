@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var app = angular.module('cSystem', ['ngResource', 'ngRoute', 'ngSanitize', 'ngCookies', 'ui.bootstrap']);
+    var app = angular.module('cSystem', ['ngResource', 'ngRoute', 'ngSanitize', 'ngCookies', 'ui.bootstrap', 'ngBootbox']);
 
     app.config(function ($routeProvider, $locationProvider, $sceDelegateProvider) {
         $routeProvider
@@ -19,6 +19,10 @@
             })
             .when('/accounts/list', {
                 templateUrl: '/assets/partials/accounts-list.html',
+                controller: 'AccountCtrl'
+            })
+            .when('/accounts/edit/:id', {
+                templateUrl: '/assets/partials/edit_accounts.html',
                 controller: 'AccountCtrl'
             })
             .when('/reports', {
@@ -167,7 +171,7 @@
                     //set own json menu
                 }
 
-                console.log($rootScope.auth);
+                //console.log($rootScope.auth);
             },function(error){
                 $scope.logging_in = false;
                 $scope.auth_error = error.data.error.message;
@@ -290,14 +294,20 @@
         };
     });
 
-    app.controller('AccountCtrl', function($scope, $http, $rootScope, $parse, $timeout, listAcc, listAgency, Account){
+    app.controller('AccountCtrl', function($scope, $http, $rootScope, $parse, $timeout,$ngBootbox, $location, listAcc, listAgency, Account){
         $scope.accounts = {};
         $scope.filter = {};
         $scope.l_accounts = {};
-        $scope.l_accounts.$resolved = true;
-        $scope.l_accounts.total = 10;
-        $scope.l_accounts.total = 5;
-        $scope.l_accounts.current_page = 1;
+        $scope.e_account = {};
+        $scope.sort_index = {
+            'id': false,
+            'username': false,
+            'email': false,
+            'accountTypeName': false,
+            'agencyName': false,
+            'created_at': false,
+            'updated_at': false
+        };
 
         listAcc().success(function (data) {
             $scope.accountTypes = data;
@@ -317,7 +327,16 @@
                 $scope.c_agency = false;
         };
 
-        $scope.validate =  function(name){
+        $scope.validate =  function(name, field){
+
+            //if(field === 'accounts') {
+            //    console.log('inside here account');
+            //    $scope.fields = $scope.accounts;
+            //}
+            //else {
+            //    console.log('inside here e_account');
+            //    $scope.field = $scope.e_account;
+            //}
             Account.validate({'name': name}, $scope.accounts).$promise.then(function(xhrResult){
                 var model = $parse(name +'.error');
                 model.assign($scope, null);
@@ -332,31 +351,155 @@
                 $scope.acc_create = true;
                 Account.create({}, $scope.accounts).$promise.then(function(xhrResult){
                     $scope.success = xhrResult.message;
+                    if ($scope.success){
+                        $timeout(function(){
+                            toastr.success($scope.success);
+                            $scope.accounts = {};
+                            $scope.accounts.type = 1;
+                            $scope.c_agency = false;
+                            $scope.acc_create = false;
+                            $scope.success = null;
+                        }, 1000);
+                    }
                 },function(error){
-                    if(error.data.error.code == 425)
-                        toastr.warning(error.data.error.message)
-                    else
-                        toastr.error(error.data.error.message);
+                    //if(error.data.error.code == 425)
+                    //    toastr.warning(error.data.error.message)
+                    //else
+                    toastr.error(error.data.error.message);
                     $scope.acc_create = false;
                 });
             }
         };
 
-        $scope.$watch('success', function () {
-            if ($scope.success){
-                $timeout(function(){
-                    toastr.success($scope.success);
-                    $scope.accounts = {};
-                    $scope.accounts.type = 1;
-                    $scope.c_agency = false;
-                    $scope.acc_create = false;
-                }, 1500);
-            }
-        });
-
         $scope.resetFilter = function() {
             $scope.filter = {};
+            $scope.l_accounts.$resolved = false;
+            $timeout(function(){
+                $scope.loadAccounts();
+            }, 1500);
         };
+
+        $scope.loadAccounts = function() {
+            $scope.filter.page = $scope.l_accounts.current_page;
+            $scope.l_accounts = Account.get($scope.filter);
+        };
+
+        $scope.loadAccounts();
+
+        $scope.pageChanged = function () {
+            $scope.l_accounts.$resolved = false;
+            $timeout(function(){
+                $scope.loadAccounts();
+            }, 1500);
+
+        };
+
+        $scope.searchAccounts = function () {
+            $scope.l_accounts.$resolved = false;
+            $scope.l_accounts.current_page = 1;
+            $timeout(function(){
+                $scope.loadAccounts();
+            }, 1500);
+        };
+
+        $scope.sort = function (index) {
+            switch (index) {
+                case 'id':
+                    $scope.sort_index.id = !$scope.sort_index.id;
+                    console.log($scope.sort_index.id);
+                    $scope.filter.order_by = index;
+                    $scope.filter.order_dir = ($scope.sort_index.id) ? 'desc' : 'asc';
+                    break;
+                case 'username':
+                    $scope.sort_index.username = !$scope.sort_index.username;
+                    $scope.filter.order_by = index;
+                    $scope.filter.order_dir = ($scope.sort_index.username) ? 'desc' : 'asc';
+                    break;
+                case 'email':
+                    $scope.sort_index.email = !$scope.sort_index.email;
+                    $scope.filter.order_by = index;
+                    $scope.filter.order_dir = ($scope.sort_index.email) ? 'desc' : 'asc';
+                    break;
+                case 'accountTypeName':
+                    $scope.sort_index.accountTypeName = !$scope.sort_index.accountTypeName;
+                    $scope.filter.order_by = index;
+                    $scope.filter.order_dir = ($scope.sort_index.accountTypeName) ? 'desc' : 'asc';
+                    break;
+                case 'agencyName':
+                    $scope.sort_index.agencyName = !$scope.sort_index.agencyName;
+                    $scope.filter.order_by = index;
+                    $scope.filter.order_dir = ($scope.sort_index.agencyName) ? 'desc' : 'asc';
+                    break;
+                case 'created_at':
+                    $scope.sort_index.created_at = !$scope.sort_index.created_at;
+                    $scope.filter.order_by = index;
+                    $scope.filter.order_dir = ($scope.sort_index.created_at) ? 'desc' : 'asc';
+                    break;
+                case 'updated_at':
+                    $scope.sort_index.updated_at = !$scope.sort_index.updated_at;
+                    $scope.filter.order_by = index;
+                    $scope.filter.order_dir = ($scope.sort_index.updated_at) ? 'desc' : 'asc';
+                    break;
+            }
+
+            $scope.l_accounts.$resolved = false;
+            $scope.l_accounts.current_page = 1;
+            $timeout(function(){
+                $scope.loadAccounts();
+            }, 1500);
+        };
+
+        $scope.loadEdit = function(){
+            $scope.url_list = $location.path().split('/');
+            var id = $scope.url_list[$scope.url_list.length-1];
+            console.log(id);
+            Account.get({'id': id}).$promise.then(function(data){
+                $scope.e_account = data;
+            },function(error){
+                toastr.error(error.data.error.message);
+
+            });
+        };
+
+        $scope.updateAcc = function(){
+            var id = $scope.url_list[$scope.url_list.length-1];
+            $scope.acc_update = true;
+            Account.save({'id': id}, $scope.e_account).$promise.then(function(xhrResult){
+                $scope.success = xhrResult.message;
+                if ($scope.success){
+                    $timeout(function(){
+                        toastr.success($scope.success);
+                        $scope.acc_update = false;
+                        $scope.success = null;
+                        $location.path('/accounts/list');
+                    }, 1000);
+                }
+            },function(error){
+                if(error.data.error.code == 425)
+                    toastr.warning(error.data.error.message)
+                else
+                    toastr.error(error.data.error.message);
+                $scope.acc_update = false;
+            });
+
+        };
+
+        $scope.deleteAcc = function (id) {
+            //$ngBootbox.confirm("Are you sure you want to delete this?");
+            bootbox.confirm("Are you sure you want to delete this?", function (result) {
+                if (result) {
+                    Account.remove({
+                        'id': id
+                    }).$promise.then(function (xhrResult) {
+                            $scope.success = xhrResult.message;
+                            $scope.loadAccounts();
+                            toastr.success($scope.success);
+                        }
+                    );
+                }
+            });
+        };
+
 
     });
 
@@ -387,17 +530,6 @@
                     }
                     return $scope.isActiveMenuItem(currentValue);
                 }, false);
-            }
-        };
-
-        $scope.checkSubMenu = function (menu) {
-            if(!menu.submenu) {
-                console.log("inside FALSE");
-                return false;
-            }
-            else{
-                console.log("inside TRUE");
-                return true;
             }
         };
 
@@ -466,7 +598,7 @@
 
 
     app.factory('Account', ['$resource', function ($resource) {
-        return $resource(api_url + '/account', {
+        return $resource(api_url + '/account/:id', {
                 id: '@id',
                 name: '@name'
             },
@@ -477,7 +609,7 @@
                     params: {}
                 },
                 'save': {
-                    method: "POST",
+                    method: "PUT",
                     url: api_url + '/account/:id',
                     withCredentials: true,
                     params: {}

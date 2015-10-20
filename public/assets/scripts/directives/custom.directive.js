@@ -45,7 +45,6 @@
                         var url = '';
                         if(previous_value.length > 1) {
                             var first_url = previous_value[previous_value.length -1].url.split('/')[1];
-                            console.log(first_url);
                             url = '/' + first_url +'/' + current_value_url;
                         }
                         else

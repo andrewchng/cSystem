@@ -26,7 +26,7 @@
 
                     <div class="col-md-7 col-xs-12">
                         <input type="text" class="form-control input-lg" name="username" required
-                               ng-model="accounts.username" placeholder="type desired username" ng-blur="validate('username')"/>
+                               ng-model="accounts.username" placeholder="type desired username" ng-blur="validate('username', 'accounts')"/>
                     </div>
                     <div class="col-md-3 col-xs-12 input-error">
                         {{username.error}}
@@ -38,7 +38,7 @@
 
                     <div class="col-md-7 col-xs-12">
                         <input type="password" class="form-control input-lg" name="password" required
-                               ng-model="accounts.password" placeholder="type desired password" ng-blur="validate('password')"/>
+                               ng-model="accounts.password" placeholder="type desired password" ng-blur="validate('password', 'accounts')"/>
                     </div>
                     <div class="col-md-3 col-xs-12 input-error">
                         {{password.error}}
@@ -50,7 +50,7 @@
 
                     <div class="col-md-7 col-xs-12">
                         <input type="text" class="form-control input-lg" name="email" required
-                               ng-model="accounts.email" placeholder="type desired email" ng-blur="validate('email')"/>
+                               ng-model="accounts.email" placeholder="type desired email" ng-blur="validate('email', 'accounts')"/>
                     </div>
                     <div class="col-md-3 col-xs-12 input-error">
                         {{email.error}}
