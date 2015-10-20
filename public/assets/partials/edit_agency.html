@@ -4,31 +4,31 @@
 
 <h1 style="padding-left: 100px">Edit Agency</h1>
 <br><br>
-<form id="editAgencyForm" class="form-horizontal" role="form" ng-controller="AdminCtrl" ng-init="pAgency()" ng-repeat="agency in pagencies">
-    <div class="form-group">
+<form id="editAgencyForm" class="form-horizontal" role="form" ng-controller="AdminCtrl" ng-init="pAgency()">
+    <div class="form-group" >
         <label class="col-sm-2 control-label">Agency Name:</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="name" value="agency.agencyName"/>
+            <input type="text" ng-model="ename" />
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Agency Address:</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="add" value="agency.agencyAddress"/>
+            <input type="text" ng-model="eadd" />
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Agency Tel:</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="tel" value="agency.agencyTel"/>
+            <input type="text" ng-model="etel" />
         </div>
     </div>
     <br>
     <div class='form-group'>
         <div class='col-sm-10 col-sm-offset-2'>
-            <input type="button" ng-click="eAgency(agency.agencyID)" value="Edit"/>
+            <input type="button" ng-click="eAgency()" value="Edit"/>
         </div>
     </div>
     <br>

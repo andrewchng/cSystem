@@ -24,7 +24,7 @@ class AgencyController extends BaseController
         return $agency->toJson();
     }
 
-    public function find()
+    public function populate()
     {
         $id = Input::get('id');
         $agency = Agency::find($id);
@@ -48,6 +48,7 @@ class AgencyController extends BaseController
 
     public function delete()
     {
+        //Soft Delete
         $id = Input::get('id');
         DB::table('agency')
             ->where('agencyID', $id)

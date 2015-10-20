@@ -231,40 +231,40 @@
         };
 
         $scope.fAgency = function (data) {
-            var url = "//api.ssad.localhost/agency/find";
-            $http.post(url, {
-                'id': data
-            }).success(function (data) {
-                //console.log(data);
-                $rootScope.editAgenData = data;
-                $location.path('/agency/edit');
-            });
+            $rootScope.editAgenID = data;
+            $location.path('/agency/edit');
         };
 
         $scope.pAgency = function () {
-            $scope.pagencies = $rootScope.editAgenData;
-        };
+            var url = "//api.ssad.localhost/agency/populate";
+            $http.post(url, {
+                'id': $rootScope.editAgenID}).success(function (data) {
+                $scope.ename=data.agencyName;
+                $scope.eadd=data.agencyAddress;
+                $scope.etel=data.agencyTel;
+            });
+        }
 
-        $scope.eAgency = function (data) {
+        $scope.eAgency = function () {
             var url = "//api.ssad.localhost/agency/edit";
-            if (!$scope.name)
+            if (!$scope.ename)
             {
                 alert("Enter Name");
             }
-            else if (!$scope.add)
+            else if (!$scope.eadd)
             {
                 alert("Enter Address");
             }
-            else if (!$scope.tel)
+            else if (!$scope.etel)
             {
                 alert("Enter Tel");
             }
             else {
                 $http.post(url, {
-                    'id': data,
-                    'name': $scope.name,
-                    'add': $scope.add,
-                    'tel': $scope.tel
+                    'id': $rootScope.editAgenID,
+                    'name': $scope.ename,
+                    'add': $scope.eadd,
+                    'tel': $scope.etel
                 }).success(function (data) {
                     console.log(data);
                     $location.path('/agency/list');
@@ -279,6 +279,13 @@
             }).success(function (data) {
                 console.log(data);
                 $route.reload();
+            });
+        };
+
+        $scope.lReport = function () {
+            var url = '//api.ssad.localhost/report/list';
+            $http.get(url).success(function(data) {
+                $scope.reports = data;
             });
         };
     });
