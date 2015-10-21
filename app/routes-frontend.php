@@ -13,7 +13,7 @@ Route::group(array('before' => ''), function()
     Route::get('/accounts/create', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
     Route::get('/accounts/list', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
     Route::get('/accounts/edit/{id}', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
-    Route::get('/reports', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
+    Route::get('/reports/list', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
     Route::get('/agency/add', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
     Route::get('/agency/list', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 });
