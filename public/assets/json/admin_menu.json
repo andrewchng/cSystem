@@ -38,8 +38,14 @@
     },
     {
       "name": "View Reports",
-      "href": "/reports",
+      "href": "/reports/list",
       "iconClass": "fa fa-th-list fa-lg"
+    },
+    {
+      "name": "View Subscribers",
+      "href": "/subscribers/list",
+      "iconClass": "fa fa-check-circle-o"
     }
+
     ]
 }

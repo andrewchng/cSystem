@@ -25,7 +25,7 @@
                 templateUrl: '/assets/partials/edit_accounts.html',
                 controller: 'AccountCtrl'
             })
-            .when('/reports', {
+            .when('/reports/list', {
                 templateUrl: '/assets/partials/admin_report.html',
                 controller: 'AdminCtrl'
             })

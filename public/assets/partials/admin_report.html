@@ -1,53 +1,60 @@
-<br><br><br><br><br>
-<head>
-    <style>
-        table, th , td  {
-            border: 1px solid grey;
-            border-collapse: collapse;
-            padding: 10px;
-        }
-        table tr:nth-child(odd) {
-            background-color: #f1f1f1;
-        }
-        table tr:nth-child(even) {
-            background-color: #ffffff;
-        }
-    </style>
-</head>
+<style>
+    table, th, td {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 10px;
+    }
 
-<h1 style="padding-left: 100px">Reports</h1>
-<br><br>
-<div style="margin-left:100px" ng-controller="AdminCtrl" ng-init="lReport()">
-    <table>
-        <tr>
-            <td>ID</td>
-            <td>Report Type</td>
-            <td>Report Name</td>
-            <td>Reported By</td>
-            <td>Contact No</td>
-            <td>Location</td>
-            <td>Created At</td>
-            <td>Updated At</td>
-            <td>Comment</td>
-            <td>Deleted</td>
-            <td>Approved</td>
-            <td>Assigned To</td>
-            <td>Status</td>
-        </tr>
-        <tr ng-repeat="report in reports">
-            <td>{{ report.reportID }}</td>
-            <td>{{ report.reportType }}</td>
-            <td>{{ report.reportName }}</td>
-            <td>{{ report.reportedBy }}</td>
-            <td>{{ report.contactNo }}</td>
-            <td>{{ report.location }}</td>
-            <td>{{ report.created_at }}</td>
-            <td>{{ report.updated_at }}</td>
-            <td>{{ report.comment }}</td>
-            <td>{{ report.isDeleted }}</td>
-            <td>{{ report.isApproved }}</td>
-            <td>{{ report.assignedTo }}</td>
-            <td>{{ report.status }}</td>
-        </tr>
-    </table>
+    table tr:nth-child(odd) {
+        background-color: #f1f1f1;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+</style>
+
+<div class="spacer visible-xs"></div>
+<div class="container-fluid-full">
+    <h3 class="page-title">
+        Reports
+    </h3>
+
+    <div link-breadcrumb></div>
+    <div id="dashboard_page">
+        <div ng-init="lReport()">
+            <table>
+                <tr>
+                    <td>ID</td>
+                    <td>Report Type</td>
+                    <td>Report Name</td>
+                    <td>Reported By</td>
+                    <td>Contact No</td>
+                    <td>Location</td>
+                    <td>Created At</td>
+                    <td>Updated At</td>
+                    <td>Comment</td>
+                    <td>Deleted</td>
+                    <td>Approved</td>
+                    <td>Assigned To</td>
+                    <td>Status</td>
+                </tr>
+                <tr ng-repeat="report in reports">
+                    <td>{{ report.reportID }}</td>
+                    <td>{{ report.reportType }}</td>
+                    <td>{{ report.reportName }}</td>
+                    <td>{{ report.reportedBy }}</td>
+                    <td>{{ report.contactNo }}</td>
+                    <td>{{ report.location }}</td>
+                    <td>{{ report.created_at }}</td>
+                    <td>{{ report.updated_at }}</td>
+                    <td>{{ report.comment }}</td>
+                    <td>{{ report.isDeleted }}</td>
+                    <td>{{ report.isApproved }}</td>
+                    <td>{{ report.assignedTo }}</td>
+                    <td>{{ report.status }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
