@@ -10,13 +10,13 @@ class AgencyTableSeeder extends Seeder {
     public function run()
     {
 
-        $data = array(
-            array('agencyName'=>'Alliance Pest Management Pte Ltd', 'agencyAddress'=>'48 Toh Guan Rd E, Singapore 608586', 'agencyTel' => '6515 4646', 'isDeleted' => '0', 'createdAt' => new DateTime()),
-            array('agencyName'=>'TP Dept', 'agencyAddress'=>'10 Ubi Avenue 3, 408865', 'agencyTel' => '6547 0000', 'isDeleted' => '0', 'createdAt' => new DateTime())
-
+        DB::table('agency')->insert(
+            array('agencyName'=>'Alliance Pest Management Pte Ltd', 'agencyAddress'=>'48 Toh Guan Rd E, Singapore 608586', 'agencyTel' => '65154646', 'created_at' => new DateTime(), 'updated_at' => new DateTime())
         );
 
-        Agency::insert($data);
+        DB::table('agency')->insert(
+            array('agencyName'=>'TP Dept', 'agencyAddress'=>'10 Ubi Avenue 3, 408865', 'agencyTel' => '65470000', 'created_at' => new DateTime(), 'updated_at' => new DateTime())
+        );
 
     }
 }
