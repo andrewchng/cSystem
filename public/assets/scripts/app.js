@@ -294,7 +294,7 @@
         };
     });
 
-    app.controller('AccountCtrl', function($scope, $http, $rootScope, $parse, $timeout,$ngBootbox, $location, listAcc, listAgency, Account){
+    app.controller('AccountCtrl', function($scope, $http, $rootScope, $parse, $timeout, $location, listAcc, listAgency, Account){
         $scope.accounts = {};
         $scope.filter = {};
         $scope.l_accounts = {};

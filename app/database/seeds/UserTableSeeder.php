@@ -15,7 +15,6 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('admin'),
             'email' => 'admin@ssad',
             'accountType' => '1',
-            'isDeleted' => '0',
             'updated_at' => new DateTime,
             'created_at' => new DateTime
         ));
@@ -24,7 +23,6 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('operator'),
             'email' => 'operator@ssad',
             'accountType' => '2',
-            'isDeleted' => '0',
             'updated_at' => new DateTime,
             'created_at' => new DateTime
         ));

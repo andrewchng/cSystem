@@ -30,7 +30,7 @@ class AccountController extends \BaseController {
             $uid = Input::get('uid');
             $accounts = User::where('id', $uid)
                 ->leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
-                ->leftjoin('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)
+                ->leftjoin('Agency', 'Agency.agencyId', '=', 'users.agencyId')->orderBy($order_by, $dir)
                 ->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')
                 ->paginate(10);
         }
@@ -38,7 +38,7 @@ class AccountController extends \BaseController {
             $user = '%' . Input::get('username') . '%';
             $accounts = User::where('username', 'LIKE', $user)
                 ->leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
-                ->leftjoin('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)
+                ->leftjoin('Agency', 'Agency.agencyId', '=', 'users.agencyId')->orderBy($order_by, $dir)
                 ->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')
                 ->paginate(10);
         }
@@ -46,7 +46,7 @@ class AccountController extends \BaseController {
             $email = '%'. Input::get('email') . '%';
             $accounts = User::where('email', 'LIKE' , $email)
                 ->leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
-                ->leftjoin('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)
+                ->leftjoin('Agency', 'Agency.agencyId', '=', 'users.agencyId')->orderBy($order_by, $dir)
                 ->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')
                 ->paginate(10);
         }
@@ -54,22 +54,22 @@ class AccountController extends \BaseController {
             $type = Input::get('type');
             $accounts = User::where('accountType', $type)
                 ->leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
-                ->leftjoin('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)
+                ->leftjoin('Agency', 'Agency.agencyId', '=', 'users.agencyId')->orderBy($order_by, $dir)
                 ->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')
                 ->paginate(10);
         }
         else if(Input::has('agency')){
             $agency = Input::get('agency');
-            $accounts = User::where('users.agencyID', $agency)
+            $accounts = User::where('users.agencyId', $agency)
                 ->leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
-                ->join('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)
+                ->join('Agency', 'Agency.agencyId', '=', 'users.agencyId')->orderBy($order_by, $dir)
                 ->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')
                 ->paginate(10);
         }
         else {
 
             $accounts = User::leftjoin('AccountType', 'AccountType.accountTypeId', '=', 'users.accountType')
-                ->leftjoin('Agency', 'Agency.agencyID', '=', 'users.agencyID')->orderBy($order_by, $dir)->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')->paginate(10);
+                ->leftjoin('Agency', 'Agency.agencyId', '=', 'users.agencyId')->orderBy($order_by, $dir)->select('id', 'username', 'email', 'accountTypeName', 'agencyName', 'users.created_at as created_at', 'users.updated_at as updated_at')->paginate(10);
         }
 
 
@@ -142,7 +142,7 @@ class AccountController extends \BaseController {
                 'isDeleted' => '0',
                 'updated_at' => Carbon::now(),
                 'created_at' => Carbon::now(),
-                'agencyID' => $agency
+                'angecyId' => $agency
             ));
         }else{
 
@@ -250,7 +250,7 @@ class AccountController extends \BaseController {
             return Response::json($error_response, 425)->setCallback(Input::get('callback'));
         }
         if(isset($agency))
-            $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now(), 'agencyID' => $agency));
+            $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now(), 'angecyId' => $agency));
         else
             $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now()));
 
@@ -279,7 +279,23 @@ class AccountController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+        $current = Auth::id();
+
+        if($id === $current){
+            $error_response = array(
+                'error' => array(
+                    'message' => 'Deletion Failed! You cannot delete your own account!',
+                    'type' => 'ODeleteException',
+                    'code' => 400
+                )
+            );
+
+            return Response::json($error_response, 400)->setCallback(Input::get('callback'));
+        }
+
+
         $account = User::find($id)->delete();
+
 
         if(!$account){
             $error_response = array(
