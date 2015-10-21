@@ -28,8 +28,8 @@
             <td>Agency Name</td>
             <td>Agency Address</td>
             <td>Agency Tel</td>
-            <td>Deleted</td>
             <td>Created At</td>
+            <td>Updated At</td>
             <td></td>
             <td></td>
         </tr>
@@ -38,8 +38,8 @@
             <td>{{ agency.agencyName }}</td>
             <td>{{ agency.agencyAddress }}</td>
             <td>{{ agency.agencyTel }}</td>
-            <td>{{ agency.isDeleted }}</td>
-            <td>{{ agency.createdAt }}</td>
+            <td>{{ agency.created_at }}</td>
+            <td>{{ agency.updated_at }}</td>
             <form id="listAgencyForm" class="form-horizontal" role="form" ng-controller="AdminCtrl" >
                 <td><input type="button" ng-click="fAgency(agency.agencyID)" value="Edit"/></td>
                 <td><input type="button" ng-click="dAgency(agency.agencyID)" value="Delete"/></td>

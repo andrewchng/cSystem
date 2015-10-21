@@ -17,8 +17,8 @@ class c_Agency extends Migration {
             $table->string('agencyName', 50);
             $table->string('agencyAddress', 100);
             $table->integer('agencyTel');
-            $table->integer('isDeleted');
-            $table->dateTime('createdAt');
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
         });
 	}
 

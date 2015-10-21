@@ -8,12 +8,8 @@ class AgencyController extends BaseController
         $add = Input::get('add');
         $tel = Input::get('tel');
 
-        DB::table('agency')->insert(
-            ['agencyName'=>"$name", 'agencyAddress'=>"$add", 'agencyTel'=>"$tel" , 'isDeleted'=> 0, 'createdAt'=> new DateTime]);
-
-        //Eloquent Create Method cannot work for me
-        /*Agency::create(array(
-            'agencyName'=>"$name", 'agencyAddress'=>"$add", 'agencyTel'=>"$tel" , 'isDeleted'=> 0, 'createdAt'=> new DateTime));*/
+        Agency::create(array(
+            'agencyName'=>"$name", 'agencyAddress'=>"$add", 'agencyTel'=>"$tel"));
 
         return "Agency Created.";
     }
@@ -39,9 +35,11 @@ class AgencyController extends BaseController
         $add = Input::get('add');
         $tel = Input::get('tel');
 
-        DB::table('agency')
+        Agency::find($id)->update(array('agencyName' => $name, 'agencyAddress' => $add, 'agencyTel' => $tel));
+
+        /*DB::table('agency')
             ->where('agencyID', $id)
-            ->update(['agencyName' => $name, 'agencyAddress' => $add, 'agencyTel' => $tel]);
+            ->update(['agencyName' => $name, 'agencyAddress' => $add, 'agencyTel' => $tel]);*/
 
         return "Agency Updated.";
     }
@@ -50,9 +48,7 @@ class AgencyController extends BaseController
     {
         //Soft Delete
         $id = Input::get('id');
-        DB::table('agency')
-            ->where('agencyID', $id)
-            ->update(['isDeleted' => 1]);
+        Agency::find($id)->update(array('isDeleted' => 1));
 
         return "Agency Deleted.";
     }

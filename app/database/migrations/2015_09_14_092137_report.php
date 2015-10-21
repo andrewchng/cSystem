@@ -20,7 +20,8 @@ class c_Report extends Migration {
             $table-> string('reportedBy', 50);
             $table-> integer('contactNo');
             $table-> string('location', 100);
-            $table-> dateTime('reportDateTime');
+            $table-> dateTime('created_at');
+            $table-> dateTime('updated_at');
             $table-> string('comment');
             $table-> integer('isDeleted');
             $table-> integer('isApproved');

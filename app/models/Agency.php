@@ -5,7 +5,8 @@ class Agency extends Eloquent
 
     protected $table = 'Agency';
     protected $primaryKey = 'agencyID';
-    protected $fillable = array('agencyName', 'agencyAddress', 'agencyTel');
+    protected $fillable = array('agencyName', 'agencyAddress', 'agencyTel', 'isDeleted');
+    protected $guarded = array('agencyID');
 
     public function user()
     {
