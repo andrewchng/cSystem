@@ -139,10 +139,9 @@ class AccountController extends \BaseController {
                 'password' => Hash::make($password),
                 'email' => $email,
                 'accountType' => $type,
-                'isDeleted' => '0',
                 'updated_at' => Carbon::now(),
                 'created_at' => Carbon::now(),
-                'angecyId' => $agency
+                'agencyId' => $agency
             ));
         }else{
 
@@ -151,7 +150,6 @@ class AccountController extends \BaseController {
                 'password' => Hash::make($password),
                 'email' => $email,
                 'accountType' => $type,
-                'isDeleted' => '0',
                 'updated_at' => Carbon::now(),
                 'created_at' => Carbon::now()
             ));
