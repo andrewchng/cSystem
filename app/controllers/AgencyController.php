@@ -37,10 +37,6 @@ class AgencyController extends BaseController
 
         Agency::find($id)->update(array('agencyName' => $name, 'agencyAddress' => $add, 'agencyTel' => $tel));
 
-        /*DB::table('agency')
-            ->where('agencyID', $id)
-            ->update(['agencyName' => $name, 'agencyAddress' => $add, 'agencyTel' => $tel]);*/
-
         return "Agency Updated.";
     }
 
@@ -48,7 +44,8 @@ class AgencyController extends BaseController
     {
         //Soft Delete
         $id = Input::get('id');
-        Agency::find($id)->update(array('isDeleted' => 1));
+        $agency = Agency::find($id);
+        $agency->delete();
 
         return "Agency Deleted.";
     }
