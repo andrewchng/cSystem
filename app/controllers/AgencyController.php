@@ -42,7 +42,6 @@ class AgencyController extends BaseController
 
     public function delete()
     {
-        //Soft Delete
         $id = Input::get('id');
         $agency = Agency::find($id);
         $agency->delete();

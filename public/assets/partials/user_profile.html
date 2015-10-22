@@ -1,0 +1,74 @@
+<br><br><br><br><br>
+<head>
+    <style>
+        h3 {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<h1 style="padding-left: 100px">User Profile</h1>
+<br><br>
+<h3 style="padding-left: 100px">User Details</h3>
+<br>
+<form id="updateProfileForm" class="form-horizontal" role="form" ng-init="pUserProfile()">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Username:</label>
+        <div class="col-sm-8">
+            <label ng-model="upusername">{{upusername}}</label>
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Account Type:</label>
+        <div class="col-sm-8">
+            <label ng-model="upacctype">{{upacctype}}</label>
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Agency:</label>
+        <div class="col-sm-8">
+            <label ng-model="upagency">{{upagency}}</label>
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Email:</label>
+        <div class="col-sm-8">
+            <input type="text" ng-model="upemail" />
+        </div>
+    </div>
+    <br>
+    <div class='form-group'>
+        <div class='col-sm-10 col-sm-offset-2'>
+            <input type="button" ng-click="eUserProfile()" value="Update"/>
+        </div>
+    </div>
+    <br>
+</form>
+<br>
+<h3 style="padding-left: 100px">Change Password</h3>
+<br>
+<form id="changePassForm" class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Old Password:</label>
+        <div class="col-sm-8">
+            <input type="password" ng-model="upopass" />
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">New Password:</label>
+        <div class="col-sm-8">
+            <input type="password" ng-model="upnpass" />
+        </div>
+    </div>
+    <br>
+    <div class='form-group'>
+        <div class='col-sm-10 col-sm-offset-2'>
+            <input type="button" ng-click="changePass()" value="Change Password"/>
+        </div>
+    </div>
+    <br>
+</form>

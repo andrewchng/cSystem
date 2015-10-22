@@ -20,6 +20,9 @@ Route::get('/getActivities', 'AdminController@listActivities');
 
 //POST
 Route::post('/auth/login', 'AuthController@login');
+Route::post('/user/changepass', 'UserProfileController@changePass');
+Route::post('/user/populate', 'UserProfileController@populate');
+Route::post('/user/edit', 'UserProfileController@edit');
 Route::post('/account/validate/{name}', 'AdminController@accValidate');
 Route::post('/agency/create', 'AgencyController@create');
 Route::post('/agency/populate', 'AgencyController@populate');

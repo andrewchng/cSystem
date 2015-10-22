@@ -9,6 +9,10 @@
                 templateUrl: '/assets/partials/login.html',
                 controller: 'LoginCtrl'
             })
+            .when('/user/profile', {
+                templateUrl: '/assets/partials/user_profile.html',
+                controller: 'LoginCtrl'
+            })
             .when('/admin', {
                 templateUrl: '/assets/partials/admin.html',
                 controller: 'AdminCtrl'
@@ -141,7 +145,7 @@
     ]);
 
 
-    app.controller('LoginCtrl', function($scope, $http, $rootScope, $timeout, $location, $cookies, Auth, loginRedirectionProperties){
+    app.controller('LoginCtrl', function($scope, $http, $rootScope, $timeout, $location, $cookies, Auth, loginRedirectionProperties, $route){
         jQuery("input[name='username']").focus();
 
         var expireDate = new Date();
@@ -196,6 +200,57 @@
                 }, 1000);
             }
         });
+
+        $scope.changePass = function () {
+            var url = "//api.ssad.localhost/user/changepass";
+            if (!$scope.upopass)
+            {
+                alert("Enter Old Password");
+            }
+            else if (!$scope.upnpass)
+            {
+                alert("Enter New Password");
+            }
+            else {
+                $http.post(url, {
+                    'id': ($cookies.getObject('user')).id,
+                    'opass': $scope.upopass,
+                    'npass': $scope.upnpass
+                }).success(function (data) {
+                    console.log(data);
+                    $route.reload();
+                });
+            }
+        };
+
+        $scope.pUserProfile = function () {
+            var url = "//api.ssad.localhost/user/populate";
+            $http.post(url, {
+                'id': ($cookies.getObject('user')).id
+            }).success(function (data) {
+                $scope.upusername=data.username;
+                $scope.upacctype=data.accountType;
+                $scope.upagency=data.agencyId;
+                $scope.upemail=data.email;
+            });
+        };
+
+        $scope.eUserProfile = function () {
+            var url = "//api.ssad.localhost/user/edit";
+            if (!$scope.upemail)
+            {
+                alert("Enter Email");
+            }
+            else {
+                $http.post(url, {
+                    'id': ($cookies.getObject('user')).id,
+                    'email': $scope.upemail
+                }).success(function (data) {
+                    console.log(data);
+                    $route.reload();
+                });
+            }
+        };
     });
 
     app.controller('AdminCtrl', function($scope, $http, $rootScope, $location, $route, listAcc){
