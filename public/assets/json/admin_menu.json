@@ -44,7 +44,7 @@
     {
       "name": "View Subscribers",
       "href": "/subscribers/list",
-      "iconClass": "fa fa-check-circle-o"
+      "iconClass": "fa fa-check-circle-o fa-lg"
     }
 
     ]

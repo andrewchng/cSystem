@@ -33,6 +33,12 @@
     font-weight: 300;
     font-size: 1.1em;
 }
+
+#dashboard_page .activity_head {
+    font-size: 0.8em;
+
+}
+
 .breadcrumb {
     margin-right: 25px;
 }
@@ -42,6 +48,11 @@
 }
 .margin-bottom-5 {
     margin-bottom: 5px;
+}
+
+.text-slider {
+    padding-top: 9px;
+    background-color: rgba(244, 244, 244, 0.4);
 }
 
 

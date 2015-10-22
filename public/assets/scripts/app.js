@@ -485,7 +485,6 @@
         };
 
         $scope.deleteAcc = function (id) {
-            //$ngBootbox.confirm("Are you sure you want to delete this?");
             bootbox.confirm("Are you sure you want to delete this?", function (result) {
                 if (result) {
                     Account.remove({
@@ -493,6 +492,21 @@
                     }).$promise.then(function (xhrResult) {
                             $scope.success = xhrResult.message;
                             $scope.loadAccounts();
+                            toastr.success($scope.success);
+                        }
+                    );
+                }
+            });
+        };
+
+        $scope.accountResetPass = function(id, user, type) {
+            var new_pass = type.toLowerCase();
+            bootbox.confirm("Are you sure you want to reset this account - " + user + ' (' + type + ')', function (result) {
+                if (result) {
+                    Account.reset({
+                        'id': id
+                    }, {'pass': new_pass}).$promise.then(function (xhrResult) {
+                            $scope.success = xhrResult.message;
                             toastr.success($scope.success);
                         }
                     );
@@ -574,9 +588,8 @@
                 // return the promise that already exists.
                 return promise;
             } else {
-                //console.log($rootScope.menuItem);
                 promise = $http.get($rootScope.menuItem);
-                //console.log(promise);
+
                 return promise;
             }
         }
@@ -592,6 +605,13 @@
     app.factory('listAgency', function($http){
         return function() {
             var promise = $http.get(api_url + '/listAgencies');
+            return promise;
+        }
+    });
+
+    app.factory('Activities', function($http){
+        return function() {
+            var promise = $http.get(api_url + '/getActivities');
             return promise;
         }
     });
@@ -629,6 +649,12 @@
                 'validate': {
                     method: "POST",
                     url: api_url + '/account/validate/:name',
+                    withCredentials: true,
+                    params: {}
+                },
+                'reset': {
+                    method: "POST",
+                    url: api_url + '/account/resetpass/:id',
                     withCredentials: true,
                     params: {}
                 }

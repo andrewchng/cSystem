@@ -32,6 +32,7 @@ module.exports = function(grunt) {
                 src: [
                     './bower_components/jquery/dist/jquery.js',
                     './bower_components/toastr/toastr.js',
+                    './bower_components/slick-carousel/slick/slick.js',
                     './bower_components/bootbox/bootbox.js',
                     './bower_components/angular/angular.js',
                     './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',

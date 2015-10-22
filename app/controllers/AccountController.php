@@ -310,6 +310,14 @@ class AccountController extends \BaseController {
             return Response::json(array('message' => 'Account deleted. Success!'), 200)->setCallback(Input::get('callback'));
 	}
 
+    public function resetPass($id){
+        $new_pass = Input::get('pass');
+
+        User::find($id)->update(array('password'=>Hash::make($new_pass)));
+
+        return Response::json(array('message' => 'Password resetted to <b>' . $new_pass . '</b> Success!'), 200)->setCallback(Input::get('callback'));
+    }
+
 
 
 }

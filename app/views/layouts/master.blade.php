@@ -18,6 +18,8 @@
     <link href="/assets/styles/font-awesome.min.css" rel="stylesheet">
     {{--toastr--}}
     <link href="/assets/styles/toastr.min.css" rel="stylesheet">
+    {{--slick--}}
+    <link href="/assets/styles/slick.css" rel="stylesheet">
     {{--Main CSS--}}
     <link href="/assets/styles/main.css" rel="stylesheet">
 

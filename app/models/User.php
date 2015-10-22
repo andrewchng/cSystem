@@ -18,7 +18,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'users';
     protected $primaryKey = 'id';
-    protected $guarded = array('remember_token', 'isDeleted'); // attributes may not be mass assigned
+    protected $guarded = array(); // attributes may not be mass assigned
     protected $fillable = array('username', 'email', 'password', 'accountType', 'updated_at', 'created_at', 'agencyID');
 	/**
 	 * The attributes excluded from the model's JSON form.
