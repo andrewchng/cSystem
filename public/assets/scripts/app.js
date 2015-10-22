@@ -476,7 +476,7 @@
                 }
             },function(error){
                 if(error.data.error.code == 425)
-                    toastr.warning(error.data.error.message)
+                    toastr.warning(error.data.error.message);
                 else
                     toastr.error(error.data.error.message);
                 $scope.acc_update = false;

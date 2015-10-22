@@ -119,6 +119,8 @@ class AccountController extends \BaseController {
         $type = Input::get('type');
         $agency = Input::get('agency');
 
+        Log::info('agencyID is ' . $agency);
+
         if($type === 3 && $agency === null){
             $error_response = array(
                 'error' => array(
@@ -141,7 +143,7 @@ class AccountController extends \BaseController {
                 'accountType' => $type,
                 'updated_at' => Carbon::now(),
                 'created_at' => Carbon::now(),
-                'agencyId' => $agency
+                'agencyID' => $agency
             ));
         }else{
 
@@ -214,8 +216,8 @@ class AccountController extends \BaseController {
         $username = Input::get('username');
         $email = Input::get('email');
         $type = Input::get('accountType');
-        if(Input::has('agencyID'))
-            $agency = Input::get('agencyID');
+        if(Input::has('agencyId'))
+            $agency = Input::get('agencyId');
 
         if($type === 3 && $agency === null){
             $error_response = array(
@@ -231,7 +233,7 @@ class AccountController extends \BaseController {
 
         $input = Input::all();
         $rules = array(
-            'username'    => 'required|unique:users,username,' .$id . '|alphaNum|min:4',
+            'username'    => 'required|unique:users,username,' .$id . '|min:4',
             'email' => 'required|email|unique:users,email,' .$id
         );
 
@@ -248,7 +250,7 @@ class AccountController extends \BaseController {
             return Response::json($error_response, 425)->setCallback(Input::get('callback'));
         }
         if(isset($agency))
-            $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now(), 'angecyId' => $agency));
+            $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now(), 'agencyId' => $agency));
         else
             $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now()));
 
