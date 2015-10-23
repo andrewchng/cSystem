@@ -573,13 +573,13 @@
     });
 
     app.controller('OperatorCtrl', function($scope, $http, $rootScope, Auth){
-        var url = '//api.ssad.localhost/operator/list';
+        var url = '//api.ssad.localhost/report/list';
         $http.get(url).success(function(data,status,headers,config) {
             $scope.reportList = data;
         });
 
         $scope.createReport = function () {
-            var url = "//api.ssad.localhost/operator/create";
+            var url = "//api.ssad.localhost/report/create";
             if (!$scope.reportName) {
                 alert("Enter Name");
             }
@@ -610,13 +610,12 @@
 
         }
             $scope.deleteReport = function ($reportID){
-                var url = "//api.ssad.localhost/operator/delete";
+                var url = "//api.ssad.localhost/report/delete";
                 if (confirm("Are you sure you want to delete this report?") == true) {
                     $http.post(url, {
                         'reportID': $reportID
                     }).success(function (data, status, headers, config) {
                         console.log("Report deleted successfully");
-                        console.log($reportID);
                         location.reload();
                     });
                 }
