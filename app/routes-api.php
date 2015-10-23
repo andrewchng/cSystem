@@ -16,6 +16,7 @@ Route::get('/listAgencies', 'AdminController@listAgencies');
 Route::get('/agency/list', 'AgencyController@listing');
 Route::get('/report/list', 'ReportController@listing');
 Route::get('/getActivities', 'AdminController@listActivities');
+Route::get('/report/populate', 'ReportController@populate');
 
 
 //POST
@@ -31,5 +32,6 @@ Route::post('/agency/delete', 'AgencyController@delete');
 Route::post('/account/resetpass/{id}', 'AccountController@resetPass');
 Route::post('/report/create', 'ReportController@create');
 Route::post('/report/delete', 'ReportController@delete');
+
 
 Route::resource('account' ,'AccountController');

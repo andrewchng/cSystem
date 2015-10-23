@@ -26,4 +26,12 @@ class ReportController extends BaseController
         $delReport = Report::find($reportID);
         $delReport->delete();
     }
+
+    public function populate()
+    {
+        $reportID = Input::get('reportID');
+        $editReport = Report::find($reportID);
+
+        return $editReport->toJson();
+    }
 }

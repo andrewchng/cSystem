@@ -12,7 +12,7 @@
             <th>Location</th>
             <th>Date/Time</th>
             <th>Status</th>
-            <th>edit/delete</th>
+            <th>Actions</th>
 
         </tr>
         <tr ng-repeat="report in reportList" class="info">
@@ -29,8 +29,10 @@
 
             <td>
                 <div ng-if="report.status == 1">
-                    <button type="submit"  ng-click="editReport()" name="edit">edit</button>
-                    <button type="submit" ng-click="deleteReport(report.reportID)"  name="delete">delete</button>
+                    <a href="/report/edit/{{report.reportID}}" >
+                        <button  type="submit" class="btn btn-md btn-default" ng-click="editReport(report.reportID)" name="edit">edit</button>
+                    </a>
+                    <button type="submit" class="btn btn-md btn-default" ng-click="deleteReport(report.reportID)"  name="delete">delete</button>
                 </div>
                 <div ng-if="report.status == 2 ">
                     Not applicable

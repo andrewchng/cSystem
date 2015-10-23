@@ -23,5 +23,6 @@ Route::get($route_padding . '/agency/edit', array('before' => '', 'uses' => 'Fro
 Route::get($route_padding . 'operator', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 Route::get($route_padding .'operator/create_report', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 Route::get($route_padding .'operator/manage_report', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
+Route::get($route_padding .'report/edit', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 
 

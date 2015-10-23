@@ -57,6 +57,10 @@
                 templateUrl: '/assets/partials/manage_report.html',
                 controller: 'OperatorCtrl'
             })
+            .when('/report/edit/:id', {
+                templateUrl: '/assets/partials/edit_report.html',
+                controller: 'OperatorCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -620,6 +624,22 @@
                     });
                 }
             }
+            //$scope.pReport = function ($reportID){
+            //    var url = "//api.ssad.localhost/report/edit";
+            //        $http.post(url, {
+            //            'reportID': $reportID
+            //        }).success(function (data, status, headers, config) {
+            //            console.log("Report data posted successfully");
+            //            $scope.reportType=data.reportType;
+            //            $scope.reportName=data.reportName;
+            //            $scope.reportedBy=data.reportedBy;
+            //            $scope.contactNo=data.contactNo;
+            //            $scope.location=data.location;
+            //
+            //        })
+            //
+            //
+            //}
         });
 
     app.controller('SidebarCtrl', function($scope, $http, $location, $rootScope, $timeout, retrieveMenu){
