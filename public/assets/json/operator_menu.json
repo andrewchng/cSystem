@@ -8,12 +8,12 @@
     },
     {
       "name": "Create Report",
-      "href": "/create_report",
+      "href": "/operator/create_report",
       "iconClass": "fa fa-pencil-square-o fa-lg"
     },
     {
-      "name" : "Manage Incident",
-      "href" : "/manage_incident",
+      "name" : "Manage Reports",
+      "href" : "/operator/manage_report",
       "iconClass": "fa fa-list fa-lg"
     }
   ]

@@ -49,12 +49,12 @@
                 templateUrl: '/assets/partials/operator.html',
                 controller: 'OperatorCtrl'
             })
-            .when('/create_report', {
+            .when('/operator/create_report', {
                 templateUrl: '/assets/partials/create_report.html',
                 controller: 'OperatorCtrl'
             })
-            .when('/manage_incident', {
-                templateUrl: '/assets/partials/manage_incident.html',
+            .when('/operator/manage_report', {
+                templateUrl: '/assets/partials/manage_report.html',
                 controller: 'OperatorCtrl'
             })
             .otherwise({

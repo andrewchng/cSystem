@@ -1,0 +1,29 @@
+<br><br><br><br><br>
+
+<h1 style="padding-left: 100px">Manage Reports</h1>
+<br><br>
+<div class="table-responsive " style="padding-left:100px;">
+
+    <table class="table table-hover" style="width:1000px;">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Date/Time</th>
+            <th>Status</th>
+            <th>edit/delete</th>
+
+        </tr>
+        <tr ng-repeat="reports in reportList" class="info">
+            <td>{{reports.reportID}}</td>
+            <td>{{reports.reportName}}</td>
+            <td>{{reports.reportType}}</td>
+            <td>{{reports.location}}</td>
+            <td>{{reports.reportDateTime}}</td>
+            <td>{{reports.status}}</td>
+            <td><button type="submit" id="submit" ng-click="editReport()" name="edit">edit</button></td>
+            <td><button type="submit" id="submit" ng-click="deleteReport()" name="delete">delete</button></td>
+        </tr>
+    </table>
+</div>

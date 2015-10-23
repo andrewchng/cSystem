@@ -6,10 +6,9 @@
 <br><br>
 <form class="form-horizontal" role="form">
     <div class="form-group">
-        <label class="col-sm-2 control-label">Incident</label>
+        <label class="col-sm-2 control-label">Report Name</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder="Incident">
-            {{ message }}
+            <input type="text" ng-model="reportName" class="form-control" placeholder="Fatal Accident between two 4-seaters">
         </div>
     </div>
     <br>
@@ -23,34 +22,34 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Type</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="type" class="form-control" placeholder="1 , 2 , 3">
+            <input type="text" ng-model="reportType" class="form-control" placeholder="1 , 2 , 3">
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Date/Time</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="datetime" class="form-control"  id="calendar" placeholder="230515 1400pm">
+            <input type="datetime-local" ng-model="reportDateTime" class="form-control" placeholder="230515 1400pm">
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Reported By</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="report" class="form-control" placeholder="John Doe">
+            <input type="text" ng-model="reportedBy" class="form-control" placeholder="John Doe">
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Contact</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="contact" class="form-control" placeholder="91885633">
+            <input type="text" ng-model="contactNo" class="form-control" placeholder="91885633">
         </div>
     </div>
     <br>
     <div class='form-group'>
         <div class='col-sm-10 col-sm-offset-2'>
-            <button type="submit" id="submit" ng-click="insertdata()" name="submit">SUBMIT</button>
+            <button type="submit" id="submit" ng-click="createReport()" name="submit">SUBMIT</button>
         </div>
     </div>
     <br>
