@@ -28,8 +28,16 @@
             </td>
 
             <td>
-                <button type="submit"  ng-click="editReport()" name="edit">edit</button>
-                <button type="submit"  ng-click="deleteReport()" name="delete">delete</button>
+                <div ng-if="report.status == 1">
+                    <button type="submit"  ng-click="editReport()" name="edit">edit</button>
+                    <button type="submit" ng-click="deleteReport(report.reportID)"  name="delete">delete</button>
+                </div>
+                <div ng-if="report.status == 2 ">
+                    Not applicable
+                </div>
+                <div ng-if="report.status == 3 ">
+                    Not applicable
+                </div>
             </td>
 
         </tr>

@@ -12,15 +12,18 @@ class ReportController extends BaseController
 
         Report::create(array(
             'reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy","status"=>1));
-//        ReportStatusType::create(array(
-//            'reportStatusTypeName'=>'Pending'));
-//        ReportType::create(array(
-//            'reportTypeName'=>"Traffic"));
     }
 
     public function listing()
     {
         $report = Report::all();
         return $report->toJson();
+    }
+
+    public function delete()
+    {
+        $reportID = Input::get('reportID');
+        $delReport = Report::find($reportID);
+        $delReport->delete();
     }
 }

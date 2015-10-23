@@ -580,20 +580,15 @@
 
         $scope.createReport = function () {
             var url = "//api.ssad.localhost/operator/create";
-            if (!$scope.reportName)
-            {
+            if (!$scope.reportName) {
                 alert("Enter Name");
             }
-            else if (!$scope.location)
-            {
+            else if (!$scope.location) {
                 alert("Enter location");
             }
             else if (!$scope.reportType) {
                 alert("Enter Report Type");
             }
-            //else if (!$scope.reportDateTime) {
-            //    alert("Enter Date/Time");
-            //}
             else if (!$scope.reportedBy) {
                 alert("Enter name of the reporter");
             }
@@ -605,15 +600,28 @@
                     'reportName': $scope.reportName,
                     'location': $scope.location,
                     'reportType': $scope.reportType,
-                    //'reportDateTime': $scope.reportDateTime,
                     'reportedBy': $scope.reportedBy,
                     'contactNo': $scope.contactNo
                 }).success(function (data, status, headers, config) {
                     console.log("Data inserted successfully");
+                    alert("Report Created");
                 });
             }
-        };
-    });
+
+        }
+            $scope.deleteReport = function ($reportID){
+                var url = "//api.ssad.localhost/operator/delete";
+                if (confirm("Are you sure you want to delete this report?") == true) {
+                    $http.post(url, {
+                        'reportID': $reportID
+                    }).success(function (data, status, headers, config) {
+                        console.log("Report deleted successfully");
+                        console.log($reportID);
+                        location.reload();
+                    });
+                }
+            }
+        });
 
     app.controller('SidebarCtrl', function($scope, $http, $location, $rootScope, $timeout, retrieveMenu){
         //console.log($rootScope.menuItem);

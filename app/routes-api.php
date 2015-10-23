@@ -30,5 +30,6 @@ Route::post('/agency/edit', 'AgencyController@edit');
 Route::post('/agency/delete', 'AgencyController@delete');
 Route::post('/account/resetpass/{id}', 'AccountController@resetPass');
 Route::post('/operator/create', 'ReportController@create');
+Route::post('/operator/delete', 'ReportController@delete');
 
 Route::resource('account' ,'AccountController');
