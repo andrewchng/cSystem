@@ -15,15 +15,23 @@
             <th>edit/delete</th>
 
         </tr>
-        <tr ng-repeat="reports in reportList" class="info">
-            <td>{{reports.reportID}}</td>
-            <td>{{reports.reportName}}</td>
-            <td>{{reports.reportType}}</td>
-            <td>{{reports.location}}</td>
-            <td>{{reports.reportDateTime}}</td>
-            <td>{{reports.status}}</td>
-            <td><button type="submit" id="submit" ng-click="editReport()" name="edit">edit</button></td>
-            <td><button type="submit" id="submit" ng-click="deleteReport()" name="delete">delete</button></td>
+        <tr ng-repeat="report in reportList" class="info">
+            <td>{{report.reportID}}</td>
+            <td>{{report.reportName}}</td>
+            <td>{{report.reportType}}</td>
+            <td>{{report.location}}</td>
+            <td>{{report.created_at}}</td>
+            <td>
+                <div ng-if="report.status == 1">Pending</div>
+                <div ng-if="report.status == 2">In Progress</div>
+                <div ng-if="report.status == 3">Resolved</div>
+            </td>
+
+            <td>
+                <button type="submit"  ng-click="editReport()" name="edit">edit</button>
+                <button type="submit"  ng-click="deleteReport()" name="delete">delete</button>
+            </td>
+
         </tr>
     </table>
-</div>
+</div>x

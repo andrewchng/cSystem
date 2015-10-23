@@ -573,13 +573,46 @@
     });
 
     app.controller('OperatorCtrl', function($scope, $http, $rootScope, Auth){
-        //$scope.message ='testing';
-        $scope.insertdata = function(){
-            $http.post("/assets/scripts/postReportData.php",{'location':$scope.location,'type':$scope.type, 'datetime':$scope.datetime, 'report':$scope.report, 'contact':$scope.contact})
-                .success(function(data,status,headers,config){
-                    console.log("Data Inserted successfully!")
+        var url = '//api.ssad.localhost/operator/list';
+        $http.get(url).success(function(data,status,headers,config) {
+            $scope.reportList = data;
+        });
+
+        $scope.createReport = function () {
+            var url = "//api.ssad.localhost/operator/create";
+            if (!$scope.reportName)
+            {
+                alert("Enter Name");
+            }
+            else if (!$scope.location)
+            {
+                alert("Enter location");
+            }
+            else if (!$scope.reportType) {
+                alert("Enter Report Type");
+            }
+            //else if (!$scope.reportDateTime) {
+            //    alert("Enter Date/Time");
+            //}
+            else if (!$scope.reportedBy) {
+                alert("Enter name of the reporter");
+            }
+            else if (!$scope.contactNo) {
+                alert("Enter contact No of the reporter");
+            }
+            else {
+                $http.post(url, {
+                    'reportName': $scope.reportName,
+                    'location': $scope.location,
+                    'reportType': $scope.reportType,
+                    //'reportDateTime': $scope.reportDateTime,
+                    'reportedBy': $scope.reportedBy,
+                    'contactNo': $scope.contactNo
+                }).success(function (data, status, headers, config) {
+                    console.log("Data inserted successfully");
                 });
-        }
+            }
+        };
     });
 
     app.controller('SidebarCtrl', function($scope, $http, $location, $rootScope, $timeout, retrieveMenu){

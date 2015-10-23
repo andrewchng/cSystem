@@ -14,7 +14,7 @@ Route::get('/auth/logout', 'AuthController@logout');
 Route::get('/getAccount_T', 'AdminController@listAccountTypes');
 Route::get('/listAgencies', 'AdminController@listAgencies');
 Route::get('/agency/list', 'AgencyController@listing');
-Route::get('/report/list', 'ReportController@listing');
+Route::get('/operator/list', 'ReportController@listing');
 Route::get('/getActivities', 'AdminController@listActivities');
 
 
@@ -29,6 +29,6 @@ Route::post('/agency/populate', 'AgencyController@populate');
 Route::post('/agency/edit', 'AgencyController@edit');
 Route::post('/agency/delete', 'AgencyController@delete');
 Route::post('/account/resetpass/{id}', 'AccountController@resetPass');
-Route::post('/report/create', 'ReportController@create');
+Route::post('/operator/create', 'ReportController@create');
 
 Route::resource('account' ,'AccountController');

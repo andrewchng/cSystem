@@ -9,12 +9,15 @@ class ReportController extends BaseController
         $reportType = Input::get('reportType');
         $contactNo = Input::get('contactNo');
         $reportedBy = Input::get('reportedBy');
-        $reportDateTime = Input::get('reportDataTime');
-        $date = date('Y-m-d H:i:s');
 
-        DB::table('Reports')->insert(
-            ['reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy",'reportDateTime'=>"$reportDateTime",'created_at'=>'$date']);
+        Report::create(array(
+            'reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy","status"=>1));
+//        ReportStatusType::create(array(
+//            'reportStatusTypeName'=>'Pending'));
+//        ReportType::create(array(
+//            'reportTypeName'=>"Traffic"));
     }
+
     public function listing()
     {
         $report = Report::all();

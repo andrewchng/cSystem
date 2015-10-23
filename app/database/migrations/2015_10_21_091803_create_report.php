@@ -20,21 +20,20 @@ class CreateReport extends Migration {
             $table-> string('reportedBy', 50);
             $table-> integer('contactNo');
             $table-> string('location', 100);
-            $table-> dateTime('created_at');
-            $table-> dateTime('updated_at');
-            $table-> string('comment') -> nullabe();
+            $table-> string('comment') -> nullable();
             $table-> integer('isDeleted');
             $table-> dateTime('deleted_at') -> nullable();
             $table-> integer('isApproved');
             $table-> string('assignedTo', 80);
             $table-> integer('status') -> unsigned();
+            $table-> timestamps();
 
         });
 
-        Schema::table('Reports', function(Blueprint $table){
-            $table-> foreign('reportType')->references('reportTypeId')->on('ReportType');
-            $table-> foreign('status')->references('reportStatusTypeId')->on('ReportStatusType');
-        });
+//        Schema::table('Reports', function(Blueprint $table){
+//            $table-> foreign('reportType')->references('reportTypeId')->on('ReportType');
+//            $table-> foreign('status')->references('reportStatusTypeId')->on('ReportStatusType');
+//        });
 	}
 
 	/**
