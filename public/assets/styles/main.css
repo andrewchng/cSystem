@@ -39,6 +39,16 @@
 
 }
 
+#dashboard_page .circle-green {
+    color: #009900;
+    margin-right: 9px;
+}
+
+#dashboard_page .circle-yellow {
+    color: #FFFF00;
+    margin-right: 9px;
+}
+
 .breadcrumb {
     margin-right: 25px;
 }
