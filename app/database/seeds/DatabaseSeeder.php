@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('AgencyTableSeeder');
         $this->call('ReportTypeStatusSeeder');
         $this->call('GenAccSeeder');
+		$this->call('ReportTableSeeder');
 	}
 
 }

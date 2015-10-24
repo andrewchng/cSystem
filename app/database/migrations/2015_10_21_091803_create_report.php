@@ -30,10 +30,10 @@ class CreateReport extends Migration {
 
         });
 
-//        Schema::table('Reports', function(Blueprint $table){
-//            $table-> foreign('reportType')->references('reportTypeId')->on('ReportType');
-//            $table-> foreign('status')->references('reportStatusTypeId')->on('ReportStatusType');
-//        });
+        Schema::table('Reports', function(Blueprint $table){
+            $table-> foreign('reportType')->references('reportTypeId')->on('ReportType');
+            $table-> foreign('status')->references('reportStatusTypeId')->on('ReportStatusType');
+        });
 	}
 
 	/**

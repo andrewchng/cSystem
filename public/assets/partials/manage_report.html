@@ -1,9 +1,7 @@
-<br><br><br><br><br>
-
-<h1 style="padding-left: 100px">Manage Reports</h1>
-<br><br>
+<br><br><br>
+<!--<h1 style="padding-left: 100px">Manage Reports</h1>-->
 <div class="table-responsive " style="padding-left:100px;">
-
+    <h3>Pending</h3>
     <table class="table table-hover" style="width:1000px;">
         <tr>
             <th>No</th>
@@ -11,37 +9,81 @@
             <th>Type</th>
             <th>Location</th>
             <th>Date/Time</th>
-            <th>Status</th>
+            <!--<th>Status</th>-->
             <th>Actions</th>
 
         </tr>
-        <tr ng-repeat="report in reportList" class="info">
+        <tr ng-repeat="report in reportList" ng-if="report.status == 1" class="danger">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
-            <td>{{report.reportType}}</td>
+            <td>
+                <div ng-if="report.reportType == 1">Traffic</div>
+                <div ng-if="report.reportType == 2">Dengue</div>
+            </td>
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
-            <td>
-                <div ng-if="report.status == 1">Pending</div>
-                <div ng-if="report.status == 2">In Progress</div>
-                <div ng-if="report.status == 3">Resolved</div>
-            </td>
+            <!--<td>-->
+                <!--Pending-->
+            <!--</td>-->
 
             <td>
                 <div ng-if="report.status == 1">
                     <a href="/report/edit/{{report.reportID}}" >
-                        <button  type="submit" class="btn btn-md btn-default" ng-click="editReport(report.reportID)" name="edit">edit</button>
+                        <button  type="submit" class="btn btn-xs btn-default" ng-click="editReport(report.reportID)" name="edit">edit</button>
                     </a>
-                    <button type="submit" class="btn btn-md btn-default" ng-click="deleteReport(report.reportID)"  name="delete">delete</button>
-                </div>
-                <div ng-if="report.status == 2 ">
-                    Not applicable
-                </div>
-                <div ng-if="report.status == 3 ">
-                    Not applicable
+                    <button type="submit" class="btn btn-xs btn-default" ng-click="deleteReport(report.reportID)"  name="delete">delete</button>
                 </div>
             </td>
-
         </tr>
     </table>
-</div>x
+    <h3>In Progress</h3>
+    <table class="table table-hover" style="width:1000px;">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Date/Time</th>
+            <!--<th>Status</th>-->
+            <th>Actions</th>
+
+        </tr>
+        <tr ng-repeat="report in reportList" class="info" ng-if="report.status == 2">
+            <td>{{report.reportID}}</td>
+            <td>{{report.reportName}}</td>
+            <td>
+                <div ng-if="report.reportType == 1">Traffic</div>
+                <div ng-if="report.reportType == 2">Dengue</div>
+            </td>
+            <td>{{report.location}}</td>
+            <td>{{report.created_at}}</td>
+            <!--<td>In Progress</td>-->
+            <td>Not applicable</td>
+        </tr>
+    </table>
+    <h3>Resolved</h3>
+    <table class="table table-hover" style="width:1000px;">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Date/Time</th>
+            <!--<th>Status</th>-->
+            <th>Actions</th>
+
+        </tr>
+        <tr ng-repeat="report in reportList" class="success" ng-if="report.status == 3">
+            <td>{{report.reportID}}</td>
+            <td>{{report.reportName}}</td>
+            <td>
+                <div ng-if="report.reportType == 1">Traffic</div>
+                <div ng-if="report.reportType == 2">Dengue</div>
+            </td>
+            <td>{{report.location}}</td>
+            <td>{{report.created_at}}</td>
+            <!--<td>Resolved</td>-->
+            <td>Not applicable</td>
+        </tr>
+    </table>
+</div>
