@@ -28,9 +28,7 @@
 
             <td>
                 <div ng-if="report.status == 1">
-                    <a href="/report/edit/{{report.reportID}}" >
-                        <button  type="submit" class="btn btn-xs btn-default" ng-click="editReport(report.reportID)" name="edit">edit</button>
-                    </a>
+                    <button  type="submit" class="btn btn-xs btn-default" ng-click="findReport(report.reportID)" name="edit">edit</button>
                     <button type="submit" class="btn btn-xs btn-default" ng-click="deleteReport(report.reportID)"  name="delete">delete</button>
                 </div>
             </td>

@@ -34,4 +34,19 @@ class ReportController extends BaseController
 
         return $editReport->toJson();
     }
+
+    public function update()
+    {
+        $reportID = Input::get('reportID');
+        $reportName = Input::get('reportName');
+        $location = Input::get('location');
+        $reportType = Input::get('reportType');
+        $contactNo = Input::get('contactNo');
+        $reportedBy = Input::get('reportedBy');
+
+        Report::where('reportID', $reportID)
+                ->update(array(
+                    'reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy")
+                 );
+    }
 }

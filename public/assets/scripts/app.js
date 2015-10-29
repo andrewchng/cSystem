@@ -58,7 +58,7 @@
                 controller: 'OperatorCtrl'
             })
             .when('/report/edit/:id', {
-                templateUrl: '/assets/partials/edit_report.html',
+                templateUrl: '/assets/partials/update_report.html',
                 controller: 'OperatorCtrl'
             })
             .otherwise({
@@ -576,7 +576,7 @@
 
     });
 
-    app.controller('OperatorCtrl', function($scope, $http, $rootScope, Auth){
+    app.controller('OperatorCtrl', function($scope, $http, $rootScope, $location, Auth){
         var url = '//api.ssad.localhost/report/list';
         $http.get(url).success(function(data,status,headers,config) {
             $scope.reportList = data;
@@ -624,23 +624,62 @@
                     });
                 }
             }
-            //$scope.pReport = function ($reportID){
-            //    var url = "//api.ssad.localhost/report/edit";
-            //        $http.post(url, {
-            //            'reportID': $reportID
-            //        }).success(function (data, status, headers, config) {
-            //            console.log("Report data posted successfully");
-            //            $scope.reportType=data.reportType;
-            //            $scope.reportName=data.reportName;
-            //            $scope.reportedBy=data.reportedBy;
-            //            $scope.contactNo=data.contactNo;
-            //            $scope.location=data.location;
-            //
-            //        })
-            //
-            //
-            //}
-        });
+
+            $scope.findReport = function ($reportID) {
+                $rootScope.EditReportID = $reportID;
+                $location.url('/report/edit/' + $reportID);
+            };
+
+            $scope.populateReport = function (){
+                var url = "//api.ssad.localhost/report/populate";
+                    $http.post(url, {
+                        'reportID': $rootScope.EditReportID
+                    }).success(function (data, status, headers, config) {
+                        console.log("Report data populated successfully");
+                        $scope.reportType=data.reportType;
+                        $scope.reportName=data.reportName;
+                        $scope.reportedBy=data.reportedBy;
+                        $scope.contactNo=data.contactNo;
+                        $scope.location=data.location;
+
+                    })
+            }
+
+        $scope.updateReport = function () {
+            var url = "//api.ssad.localhost/report/update";
+            if (!$scope.reportName) {
+                alert("Enter Name");
+            }
+            else if (!$scope.location) {
+                alert("Enter location");
+            }
+            else if (!$scope.reportType) {
+                alert("Enter Report Type");
+            }
+            else if (!$scope.reportedBy) {
+                alert("Enter name of the reporter");
+            }
+            else if (!$scope.contactNo) {
+                alert("Enter contact No of the reporter");
+            }
+            else {
+                $http.post(url, {
+                    'reportID': $rootScope.EditReportID,
+                    'reportName': $scope.reportName,
+                    'location': $scope.location,
+                    'reportType': $scope.reportType,
+                    'reportedBy': $scope.reportedBy,
+                    'contactNo': $scope.contactNo
+                }).success(function (data, status, headers, config) {
+                    console.log("Report updated successfully");
+                    alert("Report Updated!");
+                    $location.path('/operator/manage_report')
+                });
+            }
+
+        }
+
+    });
 
     app.controller('SidebarCtrl', function($scope, $http, $location, $rootScope, $timeout, retrieveMenu){
         //console.log($rootScope.menuItem);
@@ -661,7 +700,6 @@
                 }, false);
             }
         };
-
 
     });
 
