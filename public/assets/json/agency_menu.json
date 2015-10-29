@@ -1,0 +1,15 @@
+{
+  "board": "Agency Board",
+  "menu_list" : [
+    {
+      "name" : "Home",
+      "href" : "/agency",
+      "iconClass": "fa fa-dashboard fa-lg"
+    },
+    {
+      "name" : "Manage Reports",
+      "href" : "/agency/manage_report",
+      "iconClass": "fa fa-list fa-lg"
+    }
+  ]
+}

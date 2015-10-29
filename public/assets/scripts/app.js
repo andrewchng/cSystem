@@ -61,6 +61,19 @@
                 templateUrl: '/assets/partials/update_report.html',
                 controller: 'OperatorCtrl'
             })
+
+            .when('/report/edit/:id', {
+                templateUrl: '/assets/partials/update_report.html',
+                controller: 'OperatorCtrl'
+            })
+            .when('/agency', {
+                templateUrl: '/assets/partials/agency.html',
+                controller: 'AgencyCtrl'
+            })
+            .when('/agency/manage_report', {
+                templateUrl: '/assets/partials/manage_report.html',
+                controller: 'AgencyCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -176,7 +189,7 @@
                 }
                 else {
                     loginRedirectionProperties.setPath('agency');
-                    //set own json menu
+                    $cookies.put('menuItem', '/assets/json/agency_menu.json', {'expires': expireDate});
                 }
 
                 //console.log($rootScope.auth);
@@ -194,6 +207,7 @@
                             window.location.href = $rootScope.homeUrl('operator');
                             break;
                         case 'agency':
+                            window.location.href = $rootScope.homeUrl('agency');
                             break;
                         case 'admin':
                             window.location.href = $rootScope.homeUrl('admin');
@@ -680,6 +694,14 @@
         }
 
     });
+
+    app.controller('AgencyCtrl', function($scope, $http, $rootScope, $location, Auth){
+        var url = '//api.ssad.localhost/report/list';
+        $http.get(url).success(function(data,status,headers,config) {
+            $scope.reportList = data;
+        });
+    });
+
 
     app.controller('SidebarCtrl', function($scope, $http, $location, $rootScope, $timeout, retrieveMenu){
         //console.log($rootScope.menuItem);
