@@ -625,21 +625,26 @@
                     'assignedTo': $scope.assignedTo
                 }).success(function (data, status, headers, config) {
                     console.log("Data inserted successfully");
-                    alert("Report Created");
+                    toastr.success('Report Created.');
                 });
             }
 
         }
             $scope.deleteReport = function ($reportID){
                 var url = "//api.ssad.localhost/report/delete";
-                if (confirm("Are you sure you want to delete this report?") == true) {
+                bootbox.confirm("Are you sure you want to delete this report?", function (result) {
+                if (result) {
                     $http.post(url, {
                         'reportID': $reportID
                     }).success(function (data, status, headers, config) {
                         console.log("Report deleted successfully");
                         location.reload();
+                        //$location.path('/operator/manage_report')
+                        //toastr.success('Report Deleted.');
+
                     });
-                }
+                    }
+                })
             }
 
             $scope.findReport = function ($reportID) {
@@ -700,7 +705,7 @@
                     'assignedTo': $scope.assignedTo
                 }).success(function (data, status, headers, config) {
                     console.log("Report updated successfully");
-                    alert("Report Updated!");
+                    toastr.success('Report Updated.');
                     $location.path('/operator/manage_report')
                 });
             }
@@ -749,7 +754,7 @@
                     'comment': $scope.comment
                 }).success(function (data, status, headers, config) {
                     console.log("Report updated successfully");
-                    alert("Report Updated!");
+                    toastr.success('Report Updated');
                     $location.path('/agency/manage_report')
                 });
         }

@@ -17,19 +17,19 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Type</label>
         <div class="col-sm-8">
-        <select ng-model="reportType" class="form-control" >
-            <option value="" disabled hidden>Select a Report Type</option>
-            <option value=1>Traffic</option>
-            <option value=2>Dengue</option>
-        </select>
-            </div>
+            <select ng-model="reportType" class="form-control" >
+                <option value="" disabled hidden>Select Report Type</option>
+                <option value=1>Traffic</option>
+                <option value=2>Dengue</option>
+            </select>
+        </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Assign To</label>
         <div class="col-sm-8">
             <select ng-model="assignedTo" class="form-control">
-                <option value="" disabled hidden>Select Agency to assign</option>
+                <option value="" disabled hidden>Select Agency</option>
                 <option ng-repeat="agency in agencyList" value="{{agency.agencyName}}">{{agency.agencyName}}</option>
             </select>
         </div>
