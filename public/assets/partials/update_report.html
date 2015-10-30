@@ -21,7 +21,19 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Type</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="reportType" class="form-control" placeholder="1 , 2 , 3">
+            <select ng-model="reportType" class="form-control" >
+                <option value=1>Traffic</option>
+                <option value=2>Dengue</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Assign To</label>
+        <div class="col-sm-8">
+            <select ng-model="assignedTo" class="form-control">
+                <option ng-repeat="agency in agencyList" value="{{agency.agencyName}}">{{agency.agencyName}}</option>
+            </select>
         </div>
     </div>
     <br>

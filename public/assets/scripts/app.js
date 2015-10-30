@@ -595,11 +595,21 @@
     });
 
     app.controller('OperatorCtrl', function($scope, $http, $rootScope, $location, Auth){
-        var url = '//api.ssad.localhost/report/list';
-        $http.get(url).success(function(data,status,headers,config) {
-            $scope.reportList = data;
-        });
+        $scope.listReports = function () {
+            var url = '//api.ssad.localhost/report/list';
+            $http.get(url).success(function (data, status, headers, config) {
+                $scope.reportList = data;
+                console.log($scope.reportList);
+            });
+        }
 
+        $scope.retrieveAgency = function () {
+            var url = '//api.ssad.localhost/agency/list';
+            $http.get(url).success(function (data, status, headers, config) {
+                $scope.agencyList = data;
+                console.log($scope.agencyList);
+            });
+        }
         $scope.createReport = function () {
             var url = "//api.ssad.localhost/report/create";
             if (!$scope.reportName) {
@@ -617,13 +627,17 @@
             else if (!$scope.contactNo) {
                 alert("Enter contact No of the reporter");
             }
+            else if (!$scope.assignedTo) {
+                alert("Enter a agency");
+            }
             else {
                 $http.post(url, {
                     'reportName': $scope.reportName,
                     'location': $scope.location,
                     'reportType': $scope.reportType,
                     'reportedBy': $scope.reportedBy,
-                    'contactNo': $scope.contactNo
+                    'contactNo': $scope.contactNo,
+                    'assignedTo': $scope.assignedTo
                 }).success(function (data, status, headers, config) {
                     console.log("Data inserted successfully");
                     alert("Report Created");
@@ -649,8 +663,14 @@
             };
 
             $scope.populateReport = function (){
-                var url = "//api.ssad.localhost/report/populate";
-                    $http.post(url, {
+                var url = '//api.ssad.localhost/agency/list';
+                $http.get(url).success(function (data, status, headers, config) {
+                    $scope.agencyList = data;
+                    console.log($scope.agencyList);
+                });
+
+                var url2 = "//api.ssad.localhost/report/populate";
+                    $http.post(url2, {
                         'reportID': $rootScope.operatorReportID
                     }).success(function (data, status, headers, config) {
                         console.log("Report data populated successfully");
@@ -680,6 +700,9 @@
             else if (!$scope.contactNo) {
                 alert("Enter contact No of the reporter");
             }
+            else if (!$scope.assignedTo) {
+                alert("Enter a agency");
+            }
             else {
                 $http.post(url, {
                     'reportID': $rootScope.operatorReportID,
@@ -688,6 +711,7 @@
                     'reportType': $scope.reportType,
                     'reportedBy': $scope.reportedBy,
                     'contactNo': $scope.contactNo,
+                    'assignedTo': $scope.assignedTo
                 }).success(function (data, status, headers, config) {
                     console.log("Report updated successfully");
                     alert("Report Updated!");

@@ -9,9 +9,10 @@ class ReportController extends BaseController
         $reportType = Input::get('reportType');
         $contactNo = Input::get('contactNo');
         $reportedBy = Input::get('reportedBy');
+        $assignedTo = Input::get('assignedTo');
 
-        Report::create(array(
-            'reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy","status"=>1));
+        Report::create(
+            array('reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy","status"=>1, 'assignedTo'=>"$assignedTo"));
     }
 
     public function listing()
@@ -27,11 +28,11 @@ class ReportController extends BaseController
         $delReport->delete();
     }
 
+
     public function populate()
     {
         $reportID = Input::get('reportID');
         $editReport = Report::find($reportID);
-
         return $editReport->toJson();
     }
 
@@ -43,11 +44,10 @@ class ReportController extends BaseController
         $reportType = Input::get('reportType');
         $contactNo = Input::get('contactNo');
         $reportedBy = Input::get('reportedBy');
+        $assignedTo = Input::get('assignedTo');
 
-        Report::where('reportID', $reportID)
-                ->update(array(
-                    'reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy")
-                 );
+        Report::where('reportID', $reportID)->update(
+            array('reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy", 'assignedTo'=>"$assignedTo"));
     }
 
     public function updateStatus()
@@ -56,9 +56,7 @@ class ReportController extends BaseController
         $comment = Input::get('comment');
         $status = Input::get('status');
 
-        Report::where('reportID', $reportID)
-            ->update(array(
-                    'comment'=>"$comment",'status'=>"$status")
-            );
+
+        Report::where('reportID', $reportID)->update(array('comment'=>"$comment",'status'=>"$status"));
     }
 }

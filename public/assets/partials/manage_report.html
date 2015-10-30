@@ -1,15 +1,15 @@
 <br><br><br>
 <!--<h1 style="padding-left: 100px">Manage Reports</h1>-->
-<div class="table-responsive " style="padding-left:100px;">
+<div class="table-responsive " style="padding-left:50px;" ng-init="listReports()")>
     <h3>Pending</h3>
-    <table class="table table-hover" style="width:1000px;">
+    <table class="table table-hover" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
             <th>Type</th>
             <th>Location</th>
-            <th>Date/Time</th>
-            <!--<th>Status</th>-->
+            <th>Created at</th>
+            <th>Updated at</th>
             <th>Actions</th>
 
         </tr>
@@ -22,9 +22,7 @@
             </td>
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
-            <!--<td>-->
-                <!--Pending-->
-            <!--</td>-->
+            <td>{{report.updated_at}}</td>
 
             <td>
                 <div ng-if="report.status == 1">
@@ -35,14 +33,14 @@
         </tr>
     </table>
     <h3>In Progress</h3>
-    <table class="table table-hover" style="width:1000px;">
+    <table class="table table-hover" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
             <th>Type</th>
             <th>Location</th>
-            <th>Date/Time</th>
-            <!--<th>Status</th>-->
+            <th>Created at</th>
+            <th>Updated at</th>
             <th>Actions</th>
 
         </tr>
@@ -55,19 +53,19 @@
             </td>
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
-            <!--<td>In Progress</td>-->
+            <td>{{report.updated_at}}</td>
             <td>Not applicable</td>
         </tr>
     </table>
     <h3>Resolved</h3>
-    <table class="table table-hover" style="width:1000px;">
+    <table class="table table-hover" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
             <th>Type</th>
             <th>Location</th>
-            <th>Date/Time</th>
-            <!--<th>Status</th>-->
+            <th>Created at</th>
+            <th>Updated at</th>
             <th>Actions</th>
 
         </tr>
@@ -80,7 +78,7 @@
             </td>
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
-            <!--<td>Resolved</td>-->
+            <td>{{report.updated_at}}</td>
             <td>Not applicable</td>
         </tr>
     </table>

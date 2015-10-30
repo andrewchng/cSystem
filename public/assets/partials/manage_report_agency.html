@@ -1,14 +1,14 @@
 <br><br><br>
 <!--<h1 style="padding-left: 100px">Manage Reports</h1>-->
-<div class="table-responsive " style="padding-left:100px;">
+<div class="table-responsive " style="padding-left:50px;">
     <h3>Pending</h3>
-    <table class="table table-hover" style="width:1000px;">
+    <table class="table table-hover" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
             <th>Location</th>
-            <th>Date/Time</th>
-            <!--<th>Status</th>-->
+            <th>Created at</th>
+            <th>Updated at</th>
             <th>Actions</th>
 
         </tr>
@@ -17,23 +17,20 @@
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
-            <!--<td>-->
-            <!--Pending-->
-            <!--</td>-->
-
+            <td>{{report.updated_at}}</td>
             <td>
                 <button type="submit" class="btn btn-xs btn-default" ng-click="findReport(report.reportID)"  name="update">update</button>
             </td>
         </tr>
     </table>
     <h3>In Progress</h3>
-    <table class="table table-hover" style="width:1000px;">
+    <table class="table table-hover" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
             <th>Location</th>
-            <th>Date/Time</th>
-            <!--<th>Status</th>-->
+            <th>Created at</th>
+            <th>Updated at</th>
             <th>Actions</th>
 
         </tr>
@@ -42,20 +39,20 @@
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
-            <!--<td>In Progress</td>-->
+            <td>{{report.updated_at}}</td>
             <td>
                 <button type="submit" class="btn btn-xs btn-default" ng-click="findReport(report.reportID)"  name="update">update</button>
             </td>
         </tr>
     </table>
     <h3>Resolved</h3>
-    <table class="table table-hover" style="width:1000px;">
+    <table class="table table-hover" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
             <th>Location</th>
-            <th>Date/Time</th>
-            <!--<th>Status</th>-->
+            <th>Created at</th>
+            <th>Updated at</th>
             <th>Actions</th>
 
         </tr>
@@ -64,7 +61,7 @@
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
-            <!--<td>Resolved</td>-->
+            <td>{{report.updated_at}}</td>
             <td>
                 <button type="submit" class="btn btn-xs btn-default" ng-click="findReport(report.reportID)"  name="update">update</button>
             </td>
