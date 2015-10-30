@@ -1,8 +1,8 @@
 <br><br><br>
 <!--<h1 style="padding-left: 100px">Manage Reports</h1>-->
 <div class="table-responsive " style="padding-left:50px;" ng-init="listReports()")>
-    <h3>Pending</h3>
-    <table class="table table-hover" style="width:1100px;">
+    <h4>Pending</h4>
+    <table class="table table-bordered" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
@@ -10,8 +10,8 @@
             <th>Location</th>
             <th>Created at</th>
             <th>Updated at</th>
+            <th>Assigned To</th>
             <th>Actions</th>
-
         </tr>
         <tr ng-repeat="report in reportList" ng-if="report.status == 1" class="danger">
             <td>{{report.reportID}}</td>
@@ -23,17 +23,18 @@
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
             <td>{{report.updated_at}}</td>
-
+            <td>{{report.assignedTo}}</td>
             <td>
                 <div ng-if="report.status == 1">
-                    <button  type="submit" class="btn btn-xs btn-default" ng-click="findReport(report.reportID)" name="edit">edit</button>
-                    <button type="submit" class="btn btn-xs btn-default" ng-click="deleteReport(report.reportID)"  name="delete">delete</button>
+                    <button type="submit" class="btn btn-xs btn-default btn-block" ng-click="findReport(report.reportID)" name="edit">edit</button>
+                    <button type="submit" class="btn btn-xs btn-default btn-block" ng-click="deleteReport(report.reportID)"  name="delete">delete</button>
                 </div>
             </td>
         </tr>
     </table>
-    <h3>In Progress</h3>
-    <table class="table table-hover" style="width:1100px;">
+    <br>
+    <h4>In Progress</h4>
+    <table class="table table-bordered" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
@@ -41,8 +42,8 @@
             <th>Location</th>
             <th>Created at</th>
             <th>Updated at</th>
+            <th>Assigned To</th>
             <th>Actions</th>
-
         </tr>
         <tr ng-repeat="report in reportList" class="info" ng-if="report.status == 2">
             <td>{{report.reportID}}</td>
@@ -54,11 +55,13 @@
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
             <td>{{report.updated_at}}</td>
-            <td>Not applicable</td>
+            <td>{{report.assignedTo}}</td>
+            <td>N.A.</td>
         </tr>
     </table>
-    <h3>Resolved</h3>
-    <table class="table table-hover" style="width:1100px;">
+    <br>
+    <h4>Resolved</h4>
+    <table class="table table-bordered" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
@@ -66,6 +69,7 @@
             <th>Location</th>
             <th>Created at</th>
             <th>Updated at</th>
+            <th>Assigned To</th>
             <th>Actions</th>
 
         </tr>
@@ -79,7 +83,9 @@
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
             <td>{{report.updated_at}}</td>
-            <td>Not applicable</td>
+            <td>{{report.assignedTo}}</td>
+            <td>N.A.</td>
         </tr>
     </table>
+    <br>
 </div>

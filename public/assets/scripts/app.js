@@ -659,12 +659,13 @@
                         'reportID': $rootScope.operatorReportID
                     }).success(function (data, status, headers, config) {
                         console.log("Report data populated successfully");
+                        $scope.reportID=data.reportID;
                         $scope.reportType=data.reportType;
                         $scope.reportName=data.reportName;
                         $scope.reportedBy=data.reportedBy;
                         $scope.contactNo=data.contactNo;
                         $scope.location=data.location;
-
+                        $scope.assignedTo=data.assignedTo;
                     })
             }
 
@@ -708,7 +709,7 @@
 
     });
 
-    app.controller('AgencyCtrl', function($scope, $http, $rootScope, $location, Auth){
+    app.controller('AgencyCtrl', function($scope, $http, $rootScope, $location, Account){
         var url = '//api.ssad.localhost/report/list';
         $http.get(url).success(function(data,status,headers,config) {
             $scope.reportList = data;
@@ -730,6 +731,7 @@
                 'reportID': $rootScope.AgencyReportID
             }).success(function (data, status, headers, config) {
                 console.log("Report data populated successfully");
+                $scope.reportID=data.reportID;
                 $scope.reportType=data.reportType;
                 $scope.reportName=data.reportName;
                 $scope.reportedBy=data.reportedBy;

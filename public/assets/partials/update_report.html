@@ -1,13 +1,13 @@
 <br><br><br><br><br>
 
-<h1 style="padding-left: 100px">Edit Report</h1>
+<h2 style="padding-left: 100px">Edit Report No {{reportID}} </h2>
 <br><br>
 
 <form class="form-horizontal" role="form"  ng-init="populateReport()">
     <div class="form-group">
         <label class="col-sm-2 control-label">Report Name</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="reportName" class="form-control" placeholder="Fatal Accident between two 4-seaters">
+            <input type="text" ng-model="reportName" class="form-control">
         </div>
     </div>
     <br>
@@ -32,7 +32,8 @@
         <label class="col-sm-2 control-label">Assign To</label>
         <div class="col-sm-8">
             <select ng-model="assignedTo" class="form-control">
-                <option ng-repeat="agency in agencyList" value="{{agency.agencyName}}">{{agency.agencyName}}</option>
+                <option value="" hidden disabled>{{assignedTo}}</option>
+                <option ng-repeat="agency in agencyList" ng-select="" value="{{agency.agencyName}}">{{agency.agencyName}}</option>
             </select>
         </div>
     </div>
@@ -40,20 +41,20 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Reported By</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="reportedBy" class="form-control" placeholder="John Doe">
+            <input type="text" ng-model="reportedBy" class="form-control">
         </div>
     </div>
     <br>
     <div class="form-group">
         <label class="col-sm-2 control-label">Contact</label>
         <div class="col-sm-8">
-            <input type="text" ng-model="contactNo" class="form-control" placeholder="91885633">
+            <input type="text" ng-model="contactNo" class="form-control">
         </div>
     </div>
     <br>
     <div class='form-group'>
         <div class='col-sm-10 col-sm-offset-2'>
-            <button type="submit" class="btn btn-md btn-default" ng-click="updateReport()" name="submit">SUBMIT</button>
+            <button type="submit" class="btn btn-sm btn-default" ng-click="updateReport()" name="submit">Submit</button>
         </div>
     </div>
     <br>
