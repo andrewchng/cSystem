@@ -34,6 +34,7 @@ Route::post('/report/create', 'ReportController@create');
 Route::post('/report/delete', 'ReportController@delete');
 Route::post('/report/populate', 'ReportController@populate');
 Route::post('/report/update', 'ReportController@update');
+Route::post('/report/updateStatus', 'ReportController@updateStatus');
 
 
 Route::resource('account' ,'AccountController');

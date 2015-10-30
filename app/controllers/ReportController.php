@@ -43,10 +43,24 @@ class ReportController extends BaseController
         $reportType = Input::get('reportType');
         $contactNo = Input::get('contactNo');
         $reportedBy = Input::get('reportedBy');
+//        $comment = Input::get('comment');
+//        $status = Input::get('status');
 
         Report::where('reportID', $reportID)
                 ->update(array(
                     'reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy")
                  );
     }
-}
+
+    public function updateStatus()
+    {
+        $reportID = Input::get('reportID');
+        $comment = Input::get('comment');
+        //$status = Input::get('status');
+
+        Report::where('reportID', $reportID)
+            ->update(array(
+                    'comment'=>"$comment")
+            );
+    }
+} //,'status'=>"$status"

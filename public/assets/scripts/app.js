@@ -71,7 +71,11 @@
                 controller: 'AgencyCtrl'
             })
             .when('/agency/manage_report', {
-                templateUrl: '/assets/partials/manage_report.html',
+                templateUrl: '/assets/partials/manage_report_agency.html',
+                controller: 'AgencyCtrl'
+            })
+            .when('/report/update/:id', {
+                templateUrl: '/assets/partials/update_report_agency.html',
                 controller: 'AgencyCtrl'
             })
             .otherwise({
@@ -640,14 +644,14 @@
             }
 
             $scope.findReport = function ($reportID) {
-                $rootScope.EditReportID = $reportID;
+                $rootScope.operatorReportID = $reportID;
                 $location.url('/report/edit/' + $reportID);
             };
 
             $scope.populateReport = function (){
                 var url = "//api.ssad.localhost/report/populate";
                     $http.post(url, {
-                        'reportID': $rootScope.EditReportID
+                        'reportID': $rootScope.operatorReportID
                     }).success(function (data, status, headers, config) {
                         console.log("Report data populated successfully");
                         $scope.reportType=data.reportType;
@@ -678,12 +682,13 @@
             }
             else {
                 $http.post(url, {
-                    'reportID': $rootScope.EditReportID,
+                    'reportID': $rootScope.operatorReportID,
                     'reportName': $scope.reportName,
                     'location': $scope.location,
                     'reportType': $scope.reportType,
                     'reportedBy': $scope.reportedBy,
-                    'contactNo': $scope.contactNo
+                    'contactNo': $scope.contactNo,
+                    'comment':$scope.comment
                 }).success(function (data, status, headers, config) {
                     console.log("Report updated successfully");
                     alert("Report Updated!");
@@ -700,6 +705,46 @@
         $http.get(url).success(function(data,status,headers,config) {
             $scope.reportList = data;
         });
+
+        $scope.findReport = function ($reportID) {
+            $rootScope.AgencyReportID = $reportID;
+            $location.url('/report/update/' + $reportID);
+        };
+
+        $scope.dropBoxSelected = function ($status) {
+            $rootScope.AgencyReportStatus = $status;
+            console.log($rootScope.AgencyReportStatus);
+        };
+
+        $scope.populateReport = function (){
+            var url = "//api.ssad.localhost/report/populate";
+            $http.post(url, {
+                'reportID': $rootScope.AgencyReportID
+            }).success(function (data, status, headers, config) {
+                console.log("Report data populated successfully");
+                $scope.reportType=data.reportType;
+                $scope.reportName=data.reportName;
+                $scope.reportedBy=data.reportedBy;
+                $scope.contactNo=data.contactNo;
+                $scope.location=data.location;
+                $scope.status=data.status;
+                $scope.comment=data.comment;
+
+            })
+        }
+        $scope.updateReport = function () {
+            var url = "//api.ssad.localhost/report/updateStatus";
+                $http.post(url, {
+                    'reportID': $rootScope.AgencyReportID,
+                    //'status': $scope.status,
+                    'comment': $scope.comment
+                }).success(function (data, status, headers, config) {
+                    console.log("Report updated successfully");
+                    console.log($scope.status);
+                    alert("Report Updated!");
+                    $location.path('/agency/manage_report')
+                });
+        }
     });
 
 

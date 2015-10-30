@@ -1,0 +1,73 @@
+<br><br><br>
+<!--<h1 style="padding-left: 100px">Manage Reports</h1>-->
+<div class="table-responsive " style="padding-left:100px;">
+    <h3>Pending</h3>
+    <table class="table table-hover" style="width:1000px;">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Date/Time</th>
+            <!--<th>Status</th>-->
+            <th>Actions</th>
+
+        </tr>
+        <tr ng-repeat="report in reportList" ng-if="report.status == 1" class="danger">
+            <td>{{report.reportID}}</td>
+            <td>{{report.reportName}}</td>
+            <td>{{report.location}}</td>
+            <td>{{report.created_at}}</td>
+            <!--<td>-->
+            <!--Pending-->
+            <!--</td>-->
+
+            <td>
+                <button type="submit" class="btn btn-xs btn-default" ng-click="findReport(report.reportID)"  name="update">update</button>
+            </td>
+        </tr>
+    </table>
+    <h3>In Progress</h3>
+    <table class="table table-hover" style="width:1000px;">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Date/Time</th>
+            <!--<th>Status</th>-->
+            <th>Actions</th>
+
+        </tr>
+        <tr ng-repeat="report in reportList" class="info" ng-if="report.status == 2">
+            <td>{{report.reportID}}</td>
+            <td>{{report.reportName}}</td>
+            <td>{{report.location}}</td>
+            <td>{{report.created_at}}</td>
+            <!--<td>In Progress</td>-->
+            <td>
+                <button type="submit" class="btn btn-xs btn-default" ng-click="findReport(report.reportID)"  name="update">update</button>
+            </td>
+        </tr>
+    </table>
+    <h3>Resolved</h3>
+    <table class="table table-hover" style="width:1000px;">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Date/Time</th>
+            <!--<th>Status</th>-->
+            <th>Actions</th>
+
+        </tr>
+        <tr ng-repeat="report in reportList" class="success" ng-if="report.status == 3">
+            <td>{{report.reportID}}</td>
+            <td>{{report.reportName}}</td>
+            <td>{{report.location}}</td>
+            <td>{{report.created_at}}</td>
+            <!--<td>Resolved</td>-->
+            <td>
+                <button type="submit" class="btn btn-xs btn-default" ng-click="findReport(report.reportID)"  name="update">update</button>
+            </td>
+        </tr>
+    </table>
+</div>
