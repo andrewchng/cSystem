@@ -688,7 +688,6 @@
                     'reportType': $scope.reportType,
                     'reportedBy': $scope.reportedBy,
                     'contactNo': $scope.contactNo,
-                    'comment':$scope.comment
                 }).success(function (data, status, headers, config) {
                     console.log("Report updated successfully");
                     alert("Report Updated!");
@@ -729,18 +728,16 @@
                 $scope.location=data.location;
                 $scope.status=data.status;
                 $scope.comment=data.comment;
-
             })
         }
         $scope.updateReport = function () {
             var url = "//api.ssad.localhost/report/updateStatus";
                 $http.post(url, {
                     'reportID': $rootScope.AgencyReportID,
-                    //'status': $scope.status,
+                    'status': $scope.status,
                     'comment': $scope.comment
                 }).success(function (data, status, headers, config) {
                     console.log("Report updated successfully");
-                    console.log($scope.status);
                     alert("Report Updated!");
                     $location.path('/agency/manage_report')
                 });

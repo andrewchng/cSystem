@@ -43,8 +43,6 @@ class ReportController extends BaseController
         $reportType = Input::get('reportType');
         $contactNo = Input::get('contactNo');
         $reportedBy = Input::get('reportedBy');
-//        $comment = Input::get('comment');
-//        $status = Input::get('status');
 
         Report::where('reportID', $reportID)
                 ->update(array(
@@ -56,11 +54,11 @@ class ReportController extends BaseController
     {
         $reportID = Input::get('reportID');
         $comment = Input::get('comment');
-        //$status = Input::get('status');
+        $status = Input::get('status');
 
         Report::where('reportID', $reportID)
             ->update(array(
-                    'comment'=>"$comment")
+                    'comment'=>"$comment",'status'=>"$status")
             );
     }
-} //,'status'=>"$status"
+}
