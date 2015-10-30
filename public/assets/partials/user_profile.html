@@ -11,6 +11,12 @@
 <br><br>
 <h3 style="padding-left: 100px">User Details</h3>
 <br>
+
+<div class="alert alert-danger fade in" ng-repeat="error in errors">
+    {{error.message}}
+</div>
+<br>
+
 <form id="updateProfileForm" class="form-horizontal" role="form" ng-init="pUserProfile()">
     <div class="form-group">
         <label class="col-sm-2 control-label">Username:</label>
@@ -50,6 +56,12 @@
 <br>
 <h3 style="padding-left: 100px">Change Password</h3>
 <br>
+
+<div class="alert alert-danger fade in" ng-repeat="perror in perrors">
+    {{perror.message}}
+</div>
+<br>
+
 <form id="changePassForm" class="form-horizontal" role="form">
     <div class="form-group">
         <label class="col-sm-2 control-label">Old Password:</label>

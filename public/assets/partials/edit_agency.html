@@ -7,6 +7,10 @@
 
     <div link-breadcrumb></div>
 
+    <div class="alert alert-danger fade in" ng-repeat="error in errors">
+        {{error.message}}
+    </div>
+
     <div id="dashboard_page">
         <form id="editAgencyForm" class="form form-horizontal" role="form" ng-init="pAgency()">
             <div class="portlet box grey-gallery">
@@ -21,7 +25,7 @@
                         <label class="col-sm-2 control-label">Agency Name:</label>
 
                         <div class="col-sm-8">
-                            <input type="text" ng-model="ename"/>
+                            <input type="text" class="form-control input-lg" required ng-model="ename"/>
                         </div>
                     </div>
                     <br>
@@ -30,7 +34,7 @@
                         <label class="col-sm-2 control-label">Agency Address:</label>
 
                         <div class="col-sm-8">
-                            <input type="text" ng-model="eadd"/>
+                            <input type="text" class="form-control input-lg" required ng-model="eadd"/>
                         </div>
                     </div>
                     <br>
@@ -39,7 +43,7 @@
                         <label class="col-sm-2 control-label">Agency Tel:</label>
 
                         <div class="col-sm-8">
-                            <input type="text" ng-model="etel"/>
+                            <input type="text" class="form-control input-lg" required ng-model="etel"/>
                         </div>
                     </div>
                 </div>

@@ -5,13 +5,34 @@ class AgencyController extends BaseController
     public function create()
     {
         $name = Input::get('name');
-        $add = Input::get('add');
-        $tel = Input::get('tel');
+        $add = Input::get('address');
+        $tel = Input::get('tel_no');
 
-        Agency::create(array(
-            'agencyName'=>"$name", 'agencyAddress'=>"$add", 'agencyTel'=>"$tel"));
+        $input = Input::all();
+        $rules = array(
+            'name'    => 'required|min:1|max:50',
+            'address' => 'required|min:1|max:100',
+            'tel_no' => 'required|numeric|digits_between:3,11'
+        );
 
-        return "Agency Created.";
+        $validator = Validator::make($input,$rules);
+        if ($validator->fails()) {
+            $error_messages = $validator->messages();
+            $error_response = array(
+                'error' => array(
+                    'message' => $error_messages->first(),
+                    'type' => 'Exception',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
+        else {
+            Agency::create(array(
+                'agencyName'=>"$name", 'agencyAddress'=>"$add", 'agencyTel'=>"$tel"));
+
+            return "Agency Created.";
+        }
     }
 
     public function listing()
@@ -32,12 +53,33 @@ class AgencyController extends BaseController
     {
         $id = Input::get('id');
         $name = Input::get('name');
-        $add = Input::get('add');
-        $tel = Input::get('tel');
+        $add = Input::get('address');
+        $tel = Input::get('tel_no');
 
-        Agency::find($id)->update(array('agencyName' => $name, 'agencyAddress' => $add, 'agencyTel' => $tel));
+        $input = Input::all();
+        $rules = array(
+            'name'    => 'required|min:1|max:50',
+            'address' => 'required|min:1|max:100',
+            'tel_no' => 'required|numeric|digits_between:3,11'
+        );
 
-        return "Agency Updated.";
+        $validator = Validator::make($input,$rules);
+        if ($validator->fails()) {
+            $error_messages = $validator->messages();
+            $error_response = array(
+                'error' => array(
+                    'message' => $error_messages->first(),
+                    'type' => 'Exception',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
+        else {
+            Agency::find($id)->update(array('agencyName' => $name, 'agencyAddress' => $add, 'agencyTel' => $tel));
+
+            return "Agency Updated.";
+        }
     }
 
     public function delete()

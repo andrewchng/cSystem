@@ -225,24 +225,20 @@
 
         $scope.changePass = function () {
             var url = "//api.ssad.localhost/user/changepass";
-            if (!$scope.upopass)
-            {
-                alert("Enter Old Password");
-            }
-            else if (!$scope.upnpass)
-            {
-                alert("Enter New Password");
-            }
-            else {
-                $http.post(url, {
-                    'id': ($cookies.getObject('user')).id,
-                    'opass': $scope.upopass,
-                    'npass': $scope.upnpass
-                }).success(function (data) {
-                    console.log(data);
-                    $route.reload();
-                });
-            }
+            $http.post(url, {
+                'id': ($cookies.getObject('user')).id,
+                'old_password': $scope.upopass,
+                'new_password': $scope.upnpass
+            }).success(function (data) {
+                console.log(data);
+                $timeout(function(){
+                    toastr.success(data);
+                }, 1000);
+                $route.reload();
+            }).error(function(data) {
+                console.log(data);
+                $scope.perrors = data;
+            });
         };
 
         $scope.pUserProfile = function () {
@@ -259,23 +255,23 @@
 
         $scope.eUserProfile = function () {
             var url = "//api.ssad.localhost/user/edit";
-            if (!$scope.upemail)
-            {
-                alert("Enter Email");
-            }
-            else {
-                $http.post(url, {
-                    'id': ($cookies.getObject('user')).id,
-                    'email': $scope.upemail
-                }).success(function (data) {
-                    console.log(data);
-                    $route.reload();
-                });
-            }
+            $http.post(url, {
+                'id': ($cookies.getObject('user')).id,
+                'email': $scope.upemail
+            }).success(function (data) {
+                console.log(data);
+                $timeout(function(){
+                    toastr.success(data);
+                }, 1000);
+                $route.reload();
+            }).error(function(data) {
+                console.log(data);
+                $scope.errors = data;
+            });
         };
     });
 
-    app.controller('AdminCtrl', function($scope, $http, $rootScope, $location, $route, listAcc){
+    app.controller('AdminCtrl', function($scope, $http, $rootScope, $location, $route, $timeout){
 
         $scope.lAgency = function () {
             var url = '//api.ssad.localhost/agency/list';
@@ -286,29 +282,23 @@
 
         $scope.cAgency = function () {
             var url = "//api.ssad.localhost/agency/create";
-            if (!$scope.name)
-            {
-                alert("Enter Name");
-            }
-            else if (!$scope.add)
-            {
-                alert("Enter Address");
-            }
-            else if (!$scope.tel) {
-                alert("Enter Tel");
-            }
-            else {
-                $http.post(url, {
-                    'name': $scope.name,
-                    'add': $scope.add,
-                    'tel': $scope.tel
-                }).success(function (data) {
-                    console.log(data);
+            $http.post(url, {
+                'name': $scope.name,
+                'address': $scope.add,
+                'tel_no': $scope.tel
+            }).success(function (data) {
+                console.log(data);
+                $timeout(function(){
+                    toastr.success(data);
                     $scope.name = '';
                     $scope.add = '';
                     $scope.tel = '';
-                });
-            }
+                }, 1000);
+                $route.reload();
+            }).error(function(data) {
+                console.log(data);
+                $scope.errors = data;
+            });
         };
 
         $scope.fAgency = function (data) {
@@ -328,29 +318,21 @@
 
         $scope.eAgency = function () {
             var url = "//api.ssad.localhost/agency/edit";
-            if (!$scope.ename)
-            {
-                alert("Enter Name");
-            }
-            else if (!$scope.eadd)
-            {
-                alert("Enter Address");
-            }
-            else if (!$scope.etel)
-            {
-                alert("Enter Tel");
-            }
-            else {
-                $http.post(url, {
-                    'id': $rootScope.editAgenID,
-                    'name': $scope.ename,
-                    'add': $scope.eadd,
-                    'tel': $scope.etel
-                }).success(function (data) {
-                    console.log(data);
-                    $location.path('/agency/list');
-                });
-            }
+            $http.post(url, {
+                'id': $rootScope.editAgenID,
+                'name': $scope.ename,
+                'address': $scope.eadd,
+                'tel_no': $scope.etel
+            }).success(function (data) {
+                console.log(data);
+                $timeout(function(){
+                    toastr.success(data);
+                }, 1000);
+                $location.path('/agency/list');
+            }).error(function(data) {
+                console.log(data);
+                $scope.errors = data;
+            });
         };
 
         $scope.dAgency = function (data) {
@@ -359,6 +341,9 @@
                 'id': data
             }).success(function (data) {
                 console.log(data);
+                $timeout(function(){
+                    toastr.success(data);
+                }, 1000);
                 $route.reload();
             });
         };

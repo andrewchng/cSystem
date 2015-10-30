@@ -24,18 +24,38 @@ class UserProfileController extends BaseController
 
     public function changePass() {
         $id = Input::get('id');
-        $opass = Input::get('opass');
-        $npass = Input::get('npass');
+        $opass = Input::get('old_password');
+        $npass = Input::get('new_password');
 
-        $user = User::find($id);
-        if($user) {
-            if (Hash::check($opass, $user->password)){
-                $npass = Hash::make($npass);
-                User::find($id)->update(array('password' => $npass));
-                return "Password Changed.";
-            }
-            else {
-                return "Wrong Old Password.";
+        $input = Input::all();
+        $rules = array(
+            'old_password'    => 'required|min:1|max:50',
+            'new_password' => 'required|min:1|max:50'
+        );
+
+        $validator = Validator::make($input,$rules);
+        if ($validator->fails()) {
+            $error_messages = $validator->messages();
+            $error_response = array(
+                'error' => array(
+                    'message' => $error_messages->first(),
+                    'type' => 'Exception',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
+        else {
+            $user = User::find($id);
+            if($user) {
+                if (Hash::check($opass, $user->password)){
+                    $npass = Hash::make($npass);
+                    User::find($id)->update(array('password' => $npass));
+                    return "Password Changed.";
+                }
+                else {
+                    return "Wrong Old Password.";
+                }
             }
         }
     }
@@ -45,8 +65,27 @@ class UserProfileController extends BaseController
         $id = Input::get('id');
         $email = Input::get('email');
 
-        User::find($id)->update(array('email' => $email));
+        $input = Input::all();
+        $rules = array(
+            'email'    => 'required|min:5|max:100|email'
+        );
 
-        return "User Profile Updated.";
+        $validator = Validator::make($input,$rules);
+        if ($validator->fails()) {
+            $error_messages = $validator->messages();
+            $error_response = array(
+                'error' => array(
+                    'message' => $error_messages->first(),
+                    'type' => 'Exception',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
+        else {
+            User::find($id)->update(array('email' => $email));
+
+            return "User Profile Updated.";
+        }
     }
 }
