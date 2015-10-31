@@ -768,7 +768,7 @@
                     'comment': $scope.comment
                 }).success(function (data, status, headers, config) {
                     console.log("Report updated successfully");
-                    toastr.success('Report Updated');
+                    toastr.success('Report Updated.');
                     $location.path('/agency/manage_report')
                 });
         }
