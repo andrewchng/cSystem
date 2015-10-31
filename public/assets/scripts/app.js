@@ -639,7 +639,6 @@
                     }).success(function (data, status, headers, config) {
                         console.log("Report deleted successfully");
                         location.reload();
-                        //$location.path('/operator/manage_report')
                         //toastr.success('Report Deleted.');
 
                     });
@@ -714,11 +713,26 @@
 
     });
 
-    app.controller('AgencyCtrl', function($scope, $http, $rootScope, $location, Account){
-        var url = '//api.ssad.localhost/report/list';
-        $http.get(url).success(function(data,status,headers,config) {
-            $scope.reportList = data;
-        });
+    app.controller('AgencyCtrl', function($scope, $http, $rootScope, $location, $filter){
+        $scope.listReports = function () {
+            var url = '//api.ssad.localhost/report/list';
+            $http.get(url).success(function (data, status, headers, config) {
+                $scope.reportList = data
+            });
+
+            var url2 = '//api.ssad.localhost/agency/list';
+            $http.get(url2).success(function (data, status, headers, config) {
+                $scope.agencyList = data;
+
+                //find the current agency
+                $scope.currentAgencyId = $rootScope.auth.agencyId;
+                console.log($scope.currentAgencyId);
+                $scope.currentAgencyName = $scope.agencyList[$scope.currentAgencyId-1].agencyName;
+                console.log($scope.currentAgencyName);
+            });
+
+
+        }
 
         $scope.findReport = function ($reportID) {
             $rootScope.AgencyReportID = $reportID;

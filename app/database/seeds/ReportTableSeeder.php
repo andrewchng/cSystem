@@ -40,6 +40,39 @@ class ReportTableSeeder extends Seeder
         );
         Report::create(
             array(
+                'reportType' => 1,
+                'reportName' => 'Minor Accident between two 4-seaters',
+                'reportedBy' => 'Mac Tan',
+                'contactNo'  => 98337484,
+                'location'   => 'Blk 502 Seragoon S650330',
+                'status'     => 1,
+                'assignedTo' => 'TP Dept'
+            )
+        );
+        Report::create(
+            array(
+                'reportType' => 1,
+                'reportName' => 'Minor Accident between two buses',
+                'reportedBy' => 'Sophia Tan',
+                'contactNo'  => 98598114,
+                'location'   => 'Boon Lay st 11',
+                'status'     => 2,
+                'assignedTo' => 'TP Dept'
+            )
+        );
+        Report::create(
+            array(
+                'reportType' => 1,
+                'reportName' => 'Fatal Accident between two motocyclist',
+                'reportedBy' => 'William Goh',
+                'contactNo'  => 98197484,
+                'location'   => 'Depot Road S542000',
+                'status'     => 1,
+                'assignedTo' => 'TP Dept'
+            )
+        );
+        Report::create(
+            array(
                 'reportType' => 2,
                 'reportName' => 'Multiple dengue outbreaks in the HDB block 706',
                 'reportedBy' => 'KK Hospital',
