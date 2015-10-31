@@ -23,7 +23,7 @@ class ReportTableSeeder extends Seeder
                 'reportedBy' => 'Mary Tan',
                 'contactNo'  => 98598984,
                 'location'   => 'Boon Lay st 24',
-                'status'     => 2,
+                'status'     => 3,
                 'assignedTo' => 'TP Dept'
             )
         );
@@ -106,7 +106,7 @@ class ReportTableSeeder extends Seeder
         );
         Report::create(
             array(
-                'reportType' => 1,
+                'reportType' => 2,
                 'reportName' => 'Multiple dengue outbreaks in the HDB block 801',
                 'reportedBy' => 'KK Hospital',
                 'contactNo'  => 65668555,
