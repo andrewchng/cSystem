@@ -39,9 +39,9 @@
                     <td>Assigned To</td>
                     <td>Status</td>
                 </tr>
-                <tr ng-repeat="report in reports">
+                <tr ng-repeat="report in reports | pagination: curPage * pageSize | limitTo: pageSize">
                     <td>{{ report.reportID }}</td>
-                    <td>{{ report.reportType }}</td>
+                    <td>{{ report.reportTypeName }}</td>
                     <td>{{ report.reportName }}</td>
                     <td>{{ report.reportedBy }}</td>
                     <td>{{ report.contactNo }}</td>
@@ -52,9 +52,15 @@
                     <td>{{ report.isDeleted }}</td>
                     <td>{{ report.isApproved }}</td>
                     <td>{{ report.assignedTo }}</td>
-                    <td>{{ report.status }}</td>
+                    <td>{{ report.reportStatusTypeName }}</td>
                 </tr>
             </table>
+            <div class="pagination-div" ng-show="reports.length">
+                <br>
+                <button ng-click="curPage=curPage-1" ng-disabled="curPage == 0" type="button">PREV</button>
+                <span>Page {{curPage + 1}} of {{ rnumberOfPages() }}</span>
+                <button ng-click="curPage = curPage+1" ng-disabled="curPage >= reports.length/pageSize - 1" type="button">NEXT</button>
+            </div>
         </div>
     </div>
 </div>

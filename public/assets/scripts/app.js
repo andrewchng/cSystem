@@ -271,6 +271,15 @@
         };
     });
 
+    app.filter('pagination', function()
+    {
+        return function(input, start)
+        {
+            start = +start;
+            return input.slice(start);
+        };
+    });
+
     app.controller('AdminCtrl', function($scope, $http, $rootScope, $location, $route, $timeout, Analytics){
 
         $scope.accDataSource = {
@@ -283,7 +292,6 @@
             },
             data: []
         };
-
 
         $scope.acctypeDataSource = {
             chart: {
@@ -302,7 +310,6 @@
             },
             data: []
         };
-
 
         $scope.agDataSource = {
             chart: {
@@ -326,8 +333,6 @@
             data: []
         };
 
-
-
         $scope.getAccAnalytics = function(){
             Analytics.account().$promise.then(function(xhrResult){
                 $scope.analytics_acc = xhrResult;
@@ -343,16 +348,19 @@
             });
         };
 
-
-
-
         $scope.getAccAnalytics();
         $scope.getAgAnalytics();
 
+        // pagination
+        $scope.curPage = 0;// current Page
+        $scope.pageSize = 5;
 
-
+        $scope.numberOfPages = function() {
+            return Math.ceil($scope.agencies.length / $scope.pageSize);
+        };
 
         $scope.lAgency = function () {
+            $scope.agencies = [];
             var url = '//api.ssad.localhost/agency/list';
             $http.get(url).success(function(data) {
                 $scope.agencies = data;
@@ -427,7 +435,12 @@
             });
         };
 
+        $scope.rnumberOfPages = function() {
+            return Math.ceil($scope.reports.length / $scope.pageSize);
+        };
+
         $scope.lReport = function () {
+            $scope.reports = [];
             var url = '//api.ssad.localhost/report/list';
             $http.get(url).success(function(data) {
                 $scope.reports = data;

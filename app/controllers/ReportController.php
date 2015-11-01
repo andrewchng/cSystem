@@ -17,8 +17,13 @@ class ReportController extends BaseController
 
     public function listing()
     {
-        $report = Report::all();
-        return $report->toJson();
+        $report = DB::table('reports')
+            ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
+            ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
+            ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName')
+            ->get();
+
+        return json_encode($report);
     }
 
     public function delete()
@@ -55,7 +60,6 @@ class ReportController extends BaseController
         $reportID = Input::get('reportID');
         $comment = Input::get('comment');
         $status = Input::get('status');
-
 
         Report::where('reportID', $reportID)->update(array('comment'=>"$comment",'status'=>"$status"));
     }
