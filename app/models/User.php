@@ -19,13 +19,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'users';
     protected $primaryKey = 'id';
     protected $guarded = array(); // attributes may not be mass assigned
-    protected $fillable = array('username', 'email', 'password', 'accountType', 'updated_at', 'created_at', 'agencyID');
+    protected $fillable = array('username', 'email', 'password', 'accountType', 'updated_at', 'created_at', 'agencyId');
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('password', 'remember_token');
+	protected $hidden = array('password');
 
 
     /**
@@ -38,15 +38,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->password;
     }
 
-    public function getRememberToken()
-    {
-        return $this->remember_token;
-    }
-
-    public function setRememberToken($value)
-    {
-        $this->remember_token = $value;
-    }
+//    public function getRememberToken()
+//    {
+//        return $this->remember_token;
+//    }
+//
+//    public function setRememberToken($value)
+//    {
+//        $this->remember_token = $value;
+//    }
 
     public function agency(){
         return $this->hasOne('Agency');

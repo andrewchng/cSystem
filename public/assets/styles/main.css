@@ -49,6 +49,15 @@
     margin-right: 9px;
 }
 
+#dashboard_page .circle-red {
+    color: #cc0000;
+    margin-right: 9px;
+}
+
+#dashboard_page .analytic-sec {
+    margin-top: 100px;
+}
+
 .breadcrumb {
     margin-right: 25px;
 }
@@ -1015,6 +1024,18 @@ Default table
     display: inline-block;
     margin-left: 10px;
     vertical-align: middle;
+}
+
+#updateProfileForm {
+    margin-top: 40px;
+}
+
+#changePassForm {
+    margin-top: 40px;
+}
+
+legend {
+    font-family: 'Indie Flower', cursive;
 }
 
 

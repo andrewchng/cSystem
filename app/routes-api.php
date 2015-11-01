@@ -17,7 +17,9 @@ Route::get('/agency/list', 'AgencyController@listing');
 Route::get('/report/list', 'ReportController@listing');
 Route::get('/getActivities', 'AdminController@listActivities');
 Route::get('/report/populate', 'ReportController@populate');
-
+Route::get('/getAnalytics/accounts', 'AdminController@accAnalysis');
+Route::get('/getAnalytics/agencies', 'AdminController@agenAnalysis');
+Route::get('/getAnalytics/reports', 'AdminController@reportAnalysis');
 
 //POST
 Route::post('/auth/login', 'AuthController@login');

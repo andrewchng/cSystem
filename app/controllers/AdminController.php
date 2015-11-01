@@ -1,12 +1,11 @@
 <?php
 
+use Carbon\Carbon;
 
 class AdminController extends BaseController {
 
     public function listAccountTypes(){
         $data = Accounts::all(['accountTypeName', 'accountTypeId']);
-//        Log::INFO($data);
-//        $data = Accounts::lists('accountTypeName', 'accountTypeId');
 
         return Response::json($data->toArray())->setCallback(Input::get('callback'));
     }
@@ -35,7 +34,7 @@ class AdminController extends BaseController {
 
                 $input['username'] = Input::get('username');
                 $rules = array(
-                    'username'    => 'unique:users,username|alphaNum|min:4'
+                    'username'    => 'unique:users,username|min:4'
                 );
                 // run the validation rules on the inputs from the form
                 $validator = Validator::make($input,$rules);
@@ -119,6 +118,84 @@ class AdminController extends BaseController {
             }
         }
     }
+
+
+    public function listActivities(){
+        $c_u_result = User::where(DB::raw('date(created_at)'), Carbon::today())->get();
+        $u_u_result = User::where(DB::raw('date(updated_at)'), Carbon::today())->where(DB::raw('date(created_at)'), '<', DB::raw('date(updated_at)'))->get();
+        $c_a_result = Agency::where(DB::raw('date(created_at)'), Carbon::today())->get();
+        $u_a_result = Agency::where(DB::raw('date(updated_at)'), Carbon::today())->where(DB::raw('date(created_at)'), '<', DB::raw('date(updated_at)'))->get();
+        //retrive report activities
+        $c_r_result = Report::where(DB::raw('date(Reports.created_at)'), Carbon::today())->where('isDeleted', 0)
+            ->leftjoin('ReportStatusType', 'ReportStatusType.reportStatusTypeId', '=', 'Reports.status')
+            ->leftjoin('ReportType', 'ReportType.ReportTypeId', '=', 'Reports.ReportType')->lists('reportName', 'reportedBy', 'location', 'reportStatusTypeName', 'reportTypeName', 'Reports.created_at', 'Reports.updated_at');
+        $u_r_result = Report::where(DB::raw('date(Reports.updated_at)'), Carbon::today())->where(DB::raw('date(Reports.created_at)'), '<', DB::raw('date(Reports.updated_at)'))->where('isDeleted', 0)
+            ->leftjoin('ReportStatusType', 'ReportStatusType.reportStatusTypeId', '=', 'Reports.status')
+            ->leftjoin('ReportType', 'ReportType.ReportTypeId', '=', 'Reports.ReportType')->lists('reportName', 'reportedBy', 'location', 'reportStatusTypeName', 'reportTypeName', 'Reports.created_at', 'Reports.updated_at');
+        $d_r_result = Report::where(DB::raw('date(Reports.deleted_at)'), Carbon::today())->where('isDeleted', 1)
+            ->leftjoin('ReportStatusType', 'ReportStatusType.reportStatusTypeId', '=', 'Reports.status')
+            ->leftjoin('ReportType', 'ReportType.ReportTypeId', '=', 'Reports.ReportType')->lists('reportName', 'reportedBy', 'location', 'reportStatusTypeName', 'reportTypeName', 'Reports.created_at', 'Reports.updated_at');
+
+
+        $result = array('users_created' => $c_u_result, 'users_updated' => $u_u_result, 'agencies_created' => $c_a_result, 'agencies_updated' => $u_a_result, 'reports_created' => $c_r_result, 'reports_updated' => $u_r_result, 'reports_deleted' => $d_r_result);
+
+
+        return Response::json($result)->setCallback(Input::get('callback'));
+    }
+
+
+    public function accAnalysis(){
+        $acc_created_months = array();
+        $acc_type_created = array();
+
+        for($i=4; $i>=0; $i--){
+            $this_mon = Carbon::now()->month - $i;
+            $data = User::whereMonth('created_at' , '=', $this_mon)->count();
+
+            $this_mon_name = date("F", mktime(0, 0, 0, $this_mon, 10));
+
+            array_push($acc_created_months, array('label' => $this_mon_name, 'value' => $data));
+        }
+
+        $admin_data  = User::where('accountType', 1)->count();
+        $op_data = User::where('accountType', 2)->count();
+        $ag_data = User::where('accountType', 3)->count();
+        array_push($acc_type_created, array('label' => 'admin', 'value' => $admin_data));
+        array_push($acc_type_created, array('label' => 'operator', 'value' => $op_data));
+        array_push($acc_type_created, array('label' => 'agency', 'value' => $ag_data));
+
+
+
+        $result= array('past_months' => $acc_created_months, 'total_acctype' => $acc_type_created);
+
+
+
+        return Response::json($result)->setCallback(Input::get('callback'));
+    }
+
+    public function agenAnalysis(){
+        $ag_created_months = array();
+//        $ag_type_created = array();
+
+        for($i=4; $i>=0; $i--){
+            $this_mon = Carbon::now()->month - $i;
+            $data = Agency::whereMonth('created_at' , '=', $this_mon)->count();
+
+            $this_mon_name = date("F", mktime(0, 0, 0, $this_mon, 10));
+
+            array_push($ag_created_months, array('label' => $this_mon_name, 'value' => $data));
+        }
+        $result= array('past_months' => $ag_created_months);
+
+        return Response::json($result)->setCallback(Input::get('callback'));
+    }
+
+    public function reportAnalysis(){
+
+    }
+
+
+
 
 
 }

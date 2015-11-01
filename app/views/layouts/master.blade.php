@@ -25,6 +25,7 @@
 
 
 
+
 </head>
 <body ng-cloak>
 
@@ -32,8 +33,15 @@
 @yield('content')
 </div>
 
-<script src="/assets/scripts/main-plugins.js"></script>
-<script src="/assets/scripts/app.js"></script>
-<script src="/assets/scripts/directives/custom.directive.js"></script>
+<script type="text/javascript" src="/assets/scripts/fusioncharts.js"></script>
+<script type="text/javascript" src="/assets/scripts/fusioncharts.charts.js"></script>
+<script type="text/javascript" src="/assets/scripts/main-plugins.js"></script>
+<script type="text/javascript" src="/assets/scripts/themes/fusioncharts.theme.fint.js"></script>
+<script type="text/javascript" src="/assets/scripts/themes/fusioncharts.theme.ocean.js"></script>
+<script type="text/javascript" src="/assets/scripts/themes/fusioncharts.theme.zune.js"></script>
+<script type="text/javascript" src="/assets/scripts/themes/fusioncharts.theme.carbon.js"></script>
+<script type="text/javascript" src="/assets/scripts/angular-fusioncharts.min.js"></script>
+<script type="text/javascript" src="/assets/scripts/app.js"></script>
+<script  type="text/javascript" src="/assets/scripts/directives/custom.directive.js"></script>
 </body>
 </html>

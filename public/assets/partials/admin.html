@@ -4,6 +4,51 @@
         Overview
     </h3>
 
+    <div id="dashboard_page">
+        <br/><br/>
+        <today-activity></today-activity>
 
+        <div class="analytic-sec" style="min-height: 1500px">
+            <div class="acc_analytics">
+                <div class="col-md-6 col-xs-12">
+                    <div fusioncharts
+                         width="100%"
+                         height="400"
+                         type="column2d"
+                         dataSource="{{accDataSource}}">
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div fusioncharts
+                         width="100%"
+                         height="400"
+                         type="pie3d"
+                         dataSource="{{acctypeDataSource}}">
+                    </div>
+                </div>
+            </div>
+            <div class="agency_analytics">
+                <div class="col-md-12 col-xs-12">
+                    <div fusioncharts
+                         width="100%"
+                         height="400"
+                         type="column2d"
+                         dataSource="{{agDataSource}}">
+                    </div>
+                </div>
+            </div>
+            <div class="report_analytics">
+                <div class="col-md-16 col-xs-12">
+                    <div fusioncharts
+                         width="100%"
+                         height="400"
+                         type="line2d"
+                         dataSource="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 

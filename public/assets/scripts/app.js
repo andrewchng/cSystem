@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var app = angular.module('cSystem', ['ngResource', 'ngRoute', 'ngSanitize', 'ngCookies', 'ui.bootstrap', 'ngBootbox']);
+    var app = angular.module('cSystem', ['ngResource', 'ngRoute', 'ngSanitize', 'ngCookies', 'ui.bootstrap', 'ngBootbox', "ng-fusioncharts"]);
 
     app.config(function ($routeProvider, $locationProvider, $sceDelegateProvider) {
         $routeProvider
@@ -271,7 +271,86 @@
         };
     });
 
-    app.controller('AdminCtrl', function($scope, $http, $rootScope, $location, $route, $timeout){
+    app.controller('AdminCtrl', function($scope, $http, $rootScope, $location, $route, $timeout, Analytics){
+
+        $scope.accDataSource = {
+            chart: {
+                caption: "Accounts created",
+                subCaption: "over 5 months",
+                "bgColor": "#DDDDDD",
+                "bgAlpha": "50",
+                theme: "ocean"
+            },
+            data: []
+        };
+
+
+        $scope.acctypeDataSource = {
+            chart: {
+                caption: "Number of account types",
+                startingangle: "120",
+                showlabels: "0",
+                showlegend: "1",
+                enablemultislicing: "0",
+                slicingdistance: "15",
+                showpercentvalues: "1",
+                showpercentintooltip: "1",
+                plottooltext: "Number of $label: $datavalue",
+                "bgColor": "#DDDDDD",
+                "bgAlpha": "50",
+                theme: "fint"
+            },
+            data: []
+        };
+
+
+        $scope.agDataSource = {
+            chart: {
+                caption: "Agencies created",
+                subCaption: "over 5 months",
+                "bgColor": "#DDDDDD",
+                "bgAlpha": "50",
+                theme: "zune"
+            },
+            data: []
+        };
+
+        $scope.reportDataSource = {
+            chart: {
+                caption: "Reports made",
+                subCaption: "over 5 months",
+                "bgColor": "#DDDDDD",
+                "bgAlpha": "50",
+                theme: "carbon"
+            },
+            data: []
+        };
+
+
+
+        $scope.getAccAnalytics = function(){
+            Analytics.account().$promise.then(function(xhrResult){
+                $scope.analytics_acc = xhrResult;
+                $scope.accDataSource.data = $scope.analytics_acc.past_months;
+                $scope.acctypeDataSource.data = $scope.analytics_acc.total_acctype;
+            });
+        };
+
+        $scope.getAgAnalytics = function(){
+            Analytics.agency().$promise.then(function(xhrResult){
+                $scope.analytics_ag = xhrResult;
+                $scope.agDataSource.data = $scope.analytics_ag.past_months;
+            });
+        };
+
+
+
+
+        $scope.getAccAnalytics();
+        $scope.getAgAnalytics();
+
+
+
 
         $scope.lAgency = function () {
             var url = '//api.ssad.localhost/agency/list';
@@ -862,6 +941,28 @@
             return promise;
         }
     });
+
+    app.factory('Analytics', ['$resource', function ($resource) {
+        return $resource(api_url + '/getAnalytics', {
+
+        },{
+            'account': {
+                url: api_url + '/getAnalytics/accounts',
+                method: 'GET',
+                withCredentials: true
+            },
+            'agency': {
+                url: api_url + '/getAnalytics/agencies',
+                method: 'GET',
+                withCredentials: true
+            },
+            'report': {
+                url: api_url + '/getAnalytics/reports',
+                method: 'GET',
+                withCredentials: true
+            }
+        });
+    }]);
 
 
     app.factory('Account', ['$resource', function ($resource) {

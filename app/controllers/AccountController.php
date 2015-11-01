@@ -119,7 +119,6 @@ class AccountController extends \BaseController {
         $type = Input::get('type');
         $agency = Input::get('agency');
 
-        Log::info('agencyID is ' . $agency);
 
         if($type === 3 && $agency === null){
             $error_response = array(
@@ -141,9 +140,7 @@ class AccountController extends \BaseController {
                 'password' => Hash::make($password),
                 'email' => $email,
                 'accountType' => $type,
-                'updated_at' => Carbon::now(),
-                'created_at' => Carbon::now(),
-                'agencyID' => $agency
+                'agencyId' => $agency
             ));
         }else{
 
@@ -151,9 +148,7 @@ class AccountController extends \BaseController {
                 'username' => $username,
                 'password' => Hash::make($password),
                 'email' => $email,
-                'accountType' => $type,
-                'updated_at' => Carbon::now(),
-                'created_at' => Carbon::now()
+                'accountType' => $type
             ));
         }
 
