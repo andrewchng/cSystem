@@ -282,6 +282,28 @@
 
     app.controller('AdminCtrl', function($scope, $http, $rootScope, $location, $route, $timeout, Analytics){
 
+        var d = new Date();
+        var month = new Array();
+        month[0] = "January";
+        month[1] = "February";
+        month[2] = "March";
+        month[3] = "April";
+        month[4] = "May";
+        month[5] = "June";
+        month[6] = "July";
+        month[7] = "August";
+        month[8] = "September";
+        month[9] = "October";
+        month[10] = "November";
+        month[11] = "December";
+        //var n = month[d.getMonth()];
+        $scope.months = new Array();
+
+        for(var i=4; i>=0; i--){
+            $scope.months.push(month[d.getMonth()-i]);
+        }
+
+
         $scope.accDataSource = {
             chart: {
                 caption: "Accounts created",
@@ -322,16 +344,130 @@
             data: []
         };
 
-        $scope.reportDataSource = {
-            chart: {
-                caption: "Reports made",
-                subCaption: "over 5 months",
+        $scope.repDataSource = {
+            "chart": {
+                "caption": "No. of reports",
+                "subCaption": "over 5 months",
+                "captionFontSize": "14",
+                "subcaptionFontSize": "14",
+                "subcaptionFontBold": "0",
+                "paletteColors": "#0075c2,#1aaf5d,#FF0066",
                 "bgColor": "#DDDDDD",
-                "bgAlpha": "50",
-                theme: "carbon"
+                "showBorder": "0",
+                "showShadow": "0",
+                "showCanvasBorder": "0",
+                "usePlotGradientColor": "0",
+                "legendBorderAlpha": "0",
+                "legendShadow": "0",
+                "showAxisLines": "0",
+                "showAlternateHGridColor": "0",
+                "divlineThickness": "1",
+                "divLineDashed": "1",
+                "divLineDashLen": "1",
+                "divLineGapLen": "1",
+                "xAxisName": "Month",
+                "showValues": "0"
             },
-            data: []
+            "categories": [
+                {
+                    "category": [
+                        {"label":$scope.months[0]},{"label":$scope.months[1]},{"label":$scope.months[2]},{"label":$scope.months[3]},{"label":$scope.months[4]}
+                    ]
+                }
+            ],
+            "dataset": [
+                {
+                    "seriesname": "All Reports",
+                    "data": [
+
+                    ]
+                },
+                {
+                    "seriesname": "Traffic Reports",
+                    "data": [
+
+                    ]
+                },
+                {
+                    "seriesname": "Dengue Reports",
+                    "data": [
+
+                    ]
+                }
+            ]
+            //,
+            //"trendlines": [
+            //    {
+            //        "line": [
+            //            {
+            //                "startvalue": "2",
+            //                "color": "#6baa01",
+            //                "valueOnRight": "1",
+            //                "displayvalue": "Average"
+            //            }
+            //        ]
+            //    }
+            //]
         };
+
+
+
+        $scope.repStatusDataSource = {
+            "chart": {
+                "caption": "Reports' status",
+                "subCaption": "over 5 months",
+                "captionFontSize": "14",
+                "subcaptionFontSize": "14",
+                "subcaptionFontBold": "0",
+                "paletteColors": "#FF0000,#3366FF,#00FF33",
+                "bgColor": "#DDDDDD",
+                "showBorder": "0",
+                "showShadow": "0",
+                "showCanvasBorder": "0",
+                "usePlotGradientColor": "0",
+                "legendBorderAlpha": "0",
+                "legendShadow": "0",
+                "showAxisLines": "0",
+                "showAlternateHGridColor": "0",
+                "divlineAlpha": "100",
+                "divlineColor": "#999999",
+                "divlineThickness": "1",
+                "divLineDashed": "1",
+                "divLineDashLen": "1",
+                "divLineGapLen": "1",
+                "xAxisName": "Month",
+                "canvasBgColor": "#ffffff",
+                "showValues": "0"
+            },
+            "categories": [
+                {
+                    "category": [
+                        {"label":$scope.months[0]},{"label":$scope.months[1]},{"label":$scope.months[2]},{"label":$scope.months[3]},{"label":$scope.months[4]}
+                    ]
+                }
+            ],
+            "dataset": [
+                {
+                    "seriesname": "Pending",
+                    "data": [
+
+                    ]
+                },
+                {
+                    "seriesname": "Ongoing",
+                    "data": [
+
+                    ]
+                },
+                {
+                    "seriesname": "Resolved",
+                    "data": [
+
+                    ]
+                }
+            ]
+        };
+
 
         $scope.getAccAnalytics = function(){
             Analytics.account().$promise.then(function(xhrResult){
@@ -348,8 +484,25 @@
             });
         };
 
+        $scope.getRepAnalytics = function(){
+            Analytics.reports().$promise.then(function(xhrResult){
+                $scope.analytics_rep = xhrResult;
+                console.log($scope.analytics_rep);
+                $scope.repDataSource.dataset[0].data = $scope.analytics_rep.past_months;
+                $scope.repDataSource.dataset[1].data = $scope.analytics_rep.t_past_months;
+                $scope.repDataSource.dataset[2].data = $scope.analytics_rep.d_past_months;
+                $scope.repStatusDataSource.dataset[0].data = $scope.analytics_rep.pendin;
+                $scope.repStatusDataSource.dataset[1].data = $scope.analytics_rep.ongoing;
+                $scope.repStatusDataSource.dataset[2].data = $scope.analytics_rep.resolved;
+
+            });
+        };
+
+
+
         $scope.getAccAnalytics();
         $scope.getAgAnalytics();
+        $scope.getRepAnalytics();
 
         // pagination
         $scope.curPage = 0;// current Page
@@ -655,7 +808,7 @@
 
         $scope.accountResetPass = function(id, user, type) {
             var new_pass = type.toLowerCase();
-            bootbox.confirm("Are you sure you want to reset this account - " + user + ' (' + type + ')', function (result) {
+            bootbox.confirm("Are you sure you want to reset the password of this account - " + user + ' (' + type + ')', function (result) {
                 if (result) {
                     Account.reset({
                         'id': id
@@ -969,7 +1122,7 @@
                 method: 'GET',
                 withCredentials: true
             },
-            'report': {
+            'reports': {
                 url: api_url + '/getAnalytics/reports',
                 method: 'GET',
                 withCredentials: true

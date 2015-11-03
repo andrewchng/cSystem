@@ -175,7 +175,6 @@ class AdminController extends BaseController {
 
     public function agenAnalysis(){
         $ag_created_months = array();
-//        $ag_type_created = array();
 
         for($i=4; $i>=0; $i--){
             $this_mon = Carbon::now()->month - $i;
@@ -191,7 +190,45 @@ class AdminController extends BaseController {
     }
 
     public function reportAnalysis(){
+        $rep_cat = array();
+        $rep_created_months = array();
+        $rep_traffic_created_months = array();
+        $rep_dengue_created_months = array();
+        $pending_months = array();
+        $ongoing_months = array();
+        $resolved_months = array();
 
+        $avg = 0;
+
+        for($i=4; $i>=0; $i--){
+            $this_mon = Carbon::now()->month - $i;
+
+            $data = Report::whereMonth('created_at' , '=', $this_mon)->count();
+            $data_t = Report::whereMonth('created_at' , '=', $this_mon)->where('reportType', 1)->count();
+            $data_d = Report::whereMonth('created_at' , '=', $this_mon)->where('reportType', 2)->count();
+
+            //status
+            $s_data_p = Report::whereMonth('updated_at' , '=', $this_mon)->where('status', 1)->count();
+            $s_data_o = Report::whereMonth('updated_at' , '=', $this_mon)->where('status', 2)->count();
+            $s_data_r = Report::whereMonth('updated_at' , '=', $this_mon)->where('status', 3)->count();
+
+            $avg += $data;
+            array_push($rep_created_months, array('value' => $data));
+            array_push($rep_traffic_created_months, array('value' => $data_t));
+            array_push($rep_dengue_created_months, array('value' => $data_d));
+            array_push($pending_months, array('value' => $s_data_p));
+            array_push($ongoing_months, array('value' => $s_data_o));
+            array_push($resolved_months, array('value' => $s_data_r));
+
+        }
+
+
+
+        $result= array('avg' => ceil($avg/5), 'past_months' => $rep_created_months,
+            't_past_months' => $rep_traffic_created_months, 'd_past_months' => $rep_dengue_created_months,
+            'pendin' => $pending_months, 'ongoing' => $ongoing_months, 'resolved' => $resolved_months);
+
+        return Response::json($result)->setCallback(Input::get('callback'));
     }
 
 

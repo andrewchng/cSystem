@@ -58,6 +58,10 @@
     margin-top: 100px;
 }
 
+#dashboard_page .analytic-sec div {
+    margin-top: 10px;
+}
+
 .breadcrumb {
     margin-right: 25px;
 }
@@ -1037,6 +1041,7 @@ Default table
 legend {
     font-family: 'Indie Flower', cursive;
 }
+
 
 
 

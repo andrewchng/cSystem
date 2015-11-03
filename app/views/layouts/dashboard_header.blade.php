@@ -2,7 +2,7 @@
 <div class="page-header-inner">
     <!-- BEGIN LOGO -->
     <div class="page-logo col-md-3">
-        <a href="/admin">
+        <a href="#">
             <i class="fa fa-globe fa-lg"></i>
             cSystem
         </a>
