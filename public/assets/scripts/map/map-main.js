@@ -4,9 +4,6 @@ var ONE_MAP = {
 	TOKEN: null
 }
 
-// var ACCESS_KEY = 
-// var API_URL = ;
-// var TOKEN;
 
 function hexToRgb(hex, toString) {
 	toString = typeof toString !== 'undefined' ? toString : true;
@@ -51,18 +48,18 @@ function addLayer(layerData) {
 	}
 }
 
-function generateGraphics(data, featInfo) {
+function generateGraphics(data) {
 	var graphic;
-	var type = featInfo.FEATTYPE.toUpperCase();
+	var type = data.FEATTYPE.toUpperCase();
     if (type == "LINE") {
-        graphic = generateLineGraphic(data.XY, featInfo.COLOR, featInfor.LINETHICKNESS);
+        graphic = generateLineGraphic(data.XY, data.COLOR, data.LINETHICKNESS);
     }
     else if (type == "POLYGON") {
-        graphic = generatePolygonGraphic(data.XY, data.SYMBOLCOLOR, featInfo.OUTLINECOLOR, featInfo.LINETHICKNESS);
+        graphic = generatePolygonGraphic(data.XY, data.SYMBOLCOLOR, data.OUTLINECOLOR, data.LINETHICKNESS);
     }
     else if (type == "POINT") {
-        graphic = generatePointGraphic(data.XY, data.ICON_NAME, featInfo.iconPath);
-    }
+        graphic = generatePointGraphic(data.XY, data.ICONNAME, data.IconPath);
+    }  
     graphic.attributes = data;
     return graphic;
 }

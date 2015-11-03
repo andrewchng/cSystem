@@ -21,6 +21,14 @@ Route::get('/getAnalytics/accounts', 'AdminController@accAnalysis');
 Route::get('/getAnalytics/agencies', 'AdminController@agenAnalysis');
 Route::get('/getAnalytics/reports', 'AdminController@reportAnalysis');
 
+Route::get('/map/dengue/ext', 'OneMapParser@getExternalData');
+Route::get('/map/dengue/local', 'OneMapParser@getLocalData');
+Route::resource('/map/dengue', 'OneMapParser');
+
+Route::get('/map/traffic/ext', 'LTAParser@getExternalData');
+Route::get('/map/traffic/local', 'LTAParser@getLocalData');
+Route::resource('/map/traffic', 'LTAParser');
+
 //POST
 Route::post('/auth/login', 'AuthController@login');
 Route::post('/user/changepass', 'UserProfileController@changePass');

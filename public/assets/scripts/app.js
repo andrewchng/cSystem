@@ -101,6 +101,35 @@
     //    $rootScope.menuItem = '/assets/json/admin_menu.json';
     //});
 
+    app.controller('PublicCtrl', function($scope, $http, $location, $rootScope, $timeout, retrieveMenu){
+        $scope.listReports = function () {
+            console.log("Called list report");
+            var url = '//api.ssad.localhost/report/list';
+            $http.get(url).success(function (data, status, headers, config) {
+                $.each(data, function(e,v) {
+                    if (v.reportTypeName == 'Dengue') {
+                        v.icon = 'http://t1.onemap.sg/icons/DENGUE_CLUSTER/mosquitoa20.jpg'
+                    } else if (v.reportTypeName == 'Traffic') {
+                        v.icon = 'assets/styles/img/incident.png'
+                    }
+                });
+                $scope.reportList = data;
+            });
+            // var url2 = '//api.ssad.localhost/agency/list';
+            // $http.get(url2).success(function (data, status, headers, config) {
+            //     $scope.agencyList = data;
+
+            //     //find the current agency
+            //     $scope.currentAgencyId = $rootScope.auth.agencyId;
+            //     console.log($scope.currentAgencyId);
+            //     $scope.currentAgencyName = $scope.agencyList[$scope.currentAgencyId-1].agencyName;
+            //     console.log($scope.currentAgencyName);
+            // });
+
+
+        }
+    });
+
     app.controller('AppCtrl', [
         '$scope', '$http', '$location', '$rootScope', '$routeParams', '$timeout', '$cookies', 'Auth',
         function ($scope, $http, $location, $rootScope, $routeParams, $timeout, $cookies, Auth) {
@@ -1041,7 +1070,6 @@
         };
 
     });
-
 }());
 (function () {
     'use strict';

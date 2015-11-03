@@ -11,7 +11,7 @@ class ReportTableSeeder extends Seeder
                 'reportName' => 'Fatal Accident between two 4-seaters',
                 'reportedBy' => 'John Tan',
                 'contactNo'  => 98597484,
-                'location'   => 'Bukit Batok Ave 2',
+                'location'   => 'BUKIT BATOK EAST AVENUE 2',
                 'status'     => 1,
                 'assignedTo' => 'TP Dept'
             )
@@ -22,7 +22,7 @@ class ReportTableSeeder extends Seeder
                 'reportName' => 'Minor Accident between two 7-seaters',
                 'reportedBy' => 'Mary Tan',
                 'contactNo'  => 98598984,
-                'location'   => 'Boon Lay st 24',
+                'location'   => 'BOON LAY AVENUE',
                 'status'     => 3,
                 'assignedTo' => 'TP Dept'
             )
@@ -33,7 +33,7 @@ class ReportTableSeeder extends Seeder
                 'reportName' => 'Fatal Accident between two 4-seaters',
                 'reportedBy' => 'John Tan',
                 'contactNo'  => 98597484,
-                'location'   => 'HillView Ave',
+                'location'   => 'HILLVIEW AVENUE',
                 'status'     => 1,
                 'assignedTo' => 'TP Dept'
             )
@@ -44,7 +44,7 @@ class ReportTableSeeder extends Seeder
                 'reportName' => 'Minor Accident between two 4-seaters',
                 'reportedBy' => 'Mac Tan',
                 'contactNo'  => 98337484,
-                'location'   => 'Blk 502 Seragoon S650330',
+                'location'   => 'BUKIT BATOK STREET 33',
                 'status'     => 1,
                 'assignedTo' => 'TP Dept'
             )
@@ -55,7 +55,7 @@ class ReportTableSeeder extends Seeder
                 'reportName' => 'Minor Accident between two buses',
                 'reportedBy' => 'Sophia Tan',
                 'contactNo'  => 98598114,
-                'location'   => 'Boon Lay st 11',
+                'location'   => 'BOON LAY AVENUE',
                 'status'     => 2,
                 'assignedTo' => 'TP Dept'
             )
@@ -66,7 +66,7 @@ class ReportTableSeeder extends Seeder
                 'reportName' => 'Fatal Accident between two motocyclist',
                 'reportedBy' => 'William Goh',
                 'contactNo'  => 98197484,
-                'location'   => 'Depot Road S542000',
+                'location'   => 'DEPOT ROAD',
                 'status'     => 1,
                 'assignedTo' => 'TP Dept'
             )
@@ -77,7 +77,7 @@ class ReportTableSeeder extends Seeder
                 'reportName' => 'Multiple dengue outbreaks in the HDB block 706',
                 'reportedBy' => 'KK Hospital',
                 'contactNo'  => 65668555,
-                'location'   => 'Block 706 HDB Clementi West',
+                'location'   => '706 CLEMENTI WEST STREET 2',
                 'status'     => 2,
                 'assignedTo' => 'Alliance Pest Management Pte Ltd'
             )
@@ -88,7 +88,7 @@ class ReportTableSeeder extends Seeder
                 'reportName' => 'Accident along the road between cyclist and van',
                 'reportedBy' => 'Philip Goh',
                 'contactNo'  => 81598984,
-                'location'   => 'Bukit Batok West Ave 3',
+                'location'   => 'BUKIT BATOK WEST AVENUE 3',
                 'status'     => 2,
                 'assignedTo' => 'TP Dept'
             )
@@ -99,7 +99,7 @@ class ReportTableSeeder extends Seeder
                 'reportName' => 'Multiple dengue outbreaks in the HDB block 601',
                 'reportedBy' => 'KK Hospital',
                 'contactNo'  => 65668555,
-                'location'   => 'Block 601 HDB Clementi West',
+                'location'   => '601 CLEMENTI WEST STREET 1',
                 'status'     => 2,
                 'assignedTo' => 'Alliance Pest Management Pte Ltd'
             )
@@ -107,10 +107,10 @@ class ReportTableSeeder extends Seeder
         Report::create(
             array(
                 'reportType' => 2,
-                'reportName' => 'Multiple dengue outbreaks in the HDB block 801',
+                'reportName' => 'Multiple dengue outbreaks in the HDB block 221',
                 'reportedBy' => 'KK Hospital',
                 'contactNo'  => 65668555,
-                'location'   => 'Block 221 Bukit Batok Central',
+                'location'   => '221 BUKIT BATOK EAST AVENUE 3',
                 'status'     => 3,
                 'assignedTo' => 'Alliance Pest Management Pte Ltd'
             )
@@ -121,7 +121,7 @@ class ReportTableSeeder extends Seeder
                 'reportName' => 'Multiple dengue outbreaks in the HDB block 506',
                 'reportedBy' => 'KK Hospital',
                 'contactNo'  => 65668555,
-                'location'   => 'Block 506 Bishan Ave 5',
+                'location'   => '506 BISHAN STREET 11',
                 'status'     => 1,
                 'assignedTo' => 'Alliance Pest Management Pte Ltd'
             )
@@ -129,10 +129,10 @@ class ReportTableSeeder extends Seeder
         Report::create(
             array(
                 'reportType' => 2,
-                'reportName' => 'Multiple dengue outbreaks in the HDB block 506',
+                'reportName' => 'Multiple dengue outbreaks in the HDB block 510',
                 'reportedBy' => 'KK Hospital',
                 'contactNo'  => 65668555,
-                'location'   => 'Block 776 Bishan Ave 3',
+                'location'   => '510 BISHAN STREET 13',
                 'status'     => 3,
                 'assignedTo' => 'Alliance Pest Management Pte Ltd'
             )
