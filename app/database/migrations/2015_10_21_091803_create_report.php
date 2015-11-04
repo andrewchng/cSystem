@@ -21,9 +21,9 @@ class CreateReport extends Migration {
             $table-> integer('contactNo');
             $table-> string('location', 100);
             $table-> string('comment') -> nullable();
+            $table-> string('description') -> nullable();
             $table-> integer('isDeleted');
             $table->softDeletes();
-            //$table-> dateTime('deleted_at') -> nullable();
             $table-> integer('isApproved');
             $table-> integer('assignedTo') -> unsigned();
             $table-> integer('status') -> unsigned();

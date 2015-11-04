@@ -10,9 +10,10 @@ class ReportController extends BaseController
         $contactNo = Input::get('contactNo');
         $reportedBy = Input::get('reportedBy');
         $assignedTo = Input::get('assignedTo');
+        $description = Input::get('description');
 
         Report::create(
-            array('reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy","status"=>1, 'assignedTo'=>"$assignedTo"));
+            array('reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy","status"=>1, 'assignedTo'=>"$assignedTo", 'description'=>"$description"));
     }
 
     public function listing()
@@ -64,9 +65,10 @@ class ReportController extends BaseController
         $contactNo = Input::get('contactNo');
         $reportedBy = Input::get('reportedBy');
         $assignedTo = Input::get('assignedTo');
+        $description = Input::get('description');
 
         Report::where('reportID', $reportID)->update(
-            array('reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy", 'assignedTo'=>"$assignedTo"));
+            array('reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy", 'assignedTo'=>"$assignedTo", 'description'=>"$description"));
     }
 
     public function updateStatus()

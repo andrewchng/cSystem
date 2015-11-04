@@ -854,8 +854,6 @@
             $http.get(url).success(function (data, status, headers, config) {
                 $scope.reportList = data;
             });
-
-            toastr.warning('Please enter the report name.');
         };
 
         listReportT().success(function (data) {
@@ -867,7 +865,6 @@
             var url = '//api.ssad.localhost/agency/list';
             $http.get(url).success(function (data, status, headers, config) {
                 $scope.agencyList = data;
-                console.log($scope.agencyList);
             });
         };
         $scope.createReport = function () {
@@ -897,7 +894,8 @@
                     'reportType': $scope.reportType,
                     'reportedBy': $scope.reportedBy,
                     'contactNo': $scope.contactNo,
-                    'assignedTo': $scope.assignedTo
+                    'assignedTo': $scope.assignedTo,
+                    'description':$scope.description
                 }).success(function (data, status, headers, config) {
                     toastr.success('Report Created.');
                 });
@@ -944,6 +942,7 @@
                         $scope.contactNo=data.contactNo;
                         $scope.location=data.location;
                         $scope.assignedTo=data.assignedTo;
+                        $scope.description=data.description;
                     })
             };
 
@@ -975,7 +974,8 @@
                     'reportType': $scope.reportType,
                     'reportedBy': $scope.reportedBy,
                     'contactNo': $scope.contactNo,
-                    'assignedTo': $scope.assignedTo
+                    'assignedTo': $scope.assignedTo,
+                    'description': $scope.description
                 }).success(function (data, status, headers, config) {
                     console.log("Report updated successfully");
                     toastr.success('Report Updated.');
@@ -1032,28 +1032,34 @@
                 $scope.location=data.location;
                 $scope.status=data.status;
                 $scope.comment=data.comment;
+                $scope.description=data.description;
             })
 
             var url2 = "//api.ssad.localhost/report/listStatus";
             $http.get(url2).success(function (data, status, headers, config) {
                 $scope.reportTypeStatuses = data;
-                console.log($scope.reportTypeStatuses);
             });
 
 
         }
         $scope.updateReport = function () {
-            var url = "//api.ssad.localhost/report/updateStatus";
-                $http.post(url, {
-                    'reportID': $rootScope.AgencyReportID,
-                    'status': $scope.status,
-                    'comment': $scope.comment
-                }).success(function (data, status, headers, config) {
-                    console.log("Report updated successfully");
-                    toastr.success('Report Updated.');
-                    $location.path('/agency/manage_report')
-                });
-        }
+
+            bootbox.confirm("Are you sure you want to update this report?", function (result) {
+                if (result) {
+                    var url = "//api.ssad.localhost/report/updateStatus";
+                    $http.post(url, {
+                        'reportID': $rootScope.AgencyReportID,
+                        'status': $scope.status,
+                        'comment': $scope.comment
+                    }).success(function (data, status, headers, config) {
+                        console.log("Report updated successfully");
+                        toastr.success('Report Updated.');
+                        $location.path('/agency/manage_report')
+                    });
+                }
+            });
+        };
+
     });
 
 
