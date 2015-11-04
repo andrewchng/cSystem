@@ -260,13 +260,11 @@
                 'new_password': $scope.upnpass
             }).success(function (data) {
                 console.log(data);
-                $timeout(function(){
-                    toastr.success(data);
-                }, 1000);
+                toastr.success(data);
                 $route.reload();
             }).error(function(data) {
                 console.log(data);
-                $scope.perrors = data;
+                toastr.warning(data.error.message);
             });
         };
 
@@ -289,13 +287,11 @@
                 'email': $scope.upemail
             }).success(function (data) {
                 console.log(data);
-                $timeout(function(){
-                    toastr.success(data);
-                }, 1000);
+                toastr.success(data);
                 $route.reload();
             }).error(function(data) {
                 console.log(data);
-                $scope.errors = data;
+                toastr.warning(data.error.message);
             });
         };
     });
@@ -557,16 +553,14 @@
                 'tel_no': $scope.tel
             }).success(function (data) {
                 console.log(data);
-                $timeout(function(){
-                    toastr.success(data);
-                    $scope.name = '';
-                    $scope.add = '';
-                    $scope.tel = '';
-                }, 1000);
+                toastr.success(data);
+                $scope.name = '';
+                $scope.add = '';
+                $scope.tel = '';
                 $route.reload();
             }).error(function(data) {
                 console.log(data);
-                $scope.errors = data;
+                toastr.warning(data.error.message);
             });
         };
 
@@ -594,13 +588,11 @@
                 'tel_no': $scope.etel
             }).success(function (data) {
                 console.log(data);
-                $timeout(function(){
-                    toastr.success(data);
-                }, 1000);
+                toastr.success(data);
                 $location.path('/agency/list');
             }).error(function(data) {
                 console.log(data);
-                $scope.errors = data;
+                toastr.warning(data.error.message);
             });
         };
 
@@ -610,10 +602,11 @@
                 'id': data
             }).success(function (data) {
                 console.log(data);
-                $timeout(function(){
-                    toastr.success(data);
-                }, 1000);
+                toastr.success(data);
                 $route.reload();
+            }).error(function(data) {
+                console.log(data);
+                toastr.error("Cannot Delete Agency");
             });
         };
 

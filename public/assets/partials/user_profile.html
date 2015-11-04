@@ -4,12 +4,6 @@
         User Profile
     </h3>
 
-
-    <div class="alert alert-danger fade in" ng-repeat="error in errors">
-        {{error.message}}
-    </div>
-
-
     <form id="updateProfileForm" class="form-horizontal" role="form" ng-init="pUserProfile()">
         <fieldset>
             <legend>User Details</legend>
@@ -56,10 +50,6 @@
             </div>
         </fieldset>
     </form>
-
-    <div class="alert alert-danger fade in" ng-repeat="perror in perrors">
-        {{perror.message}}
-    </div>
 
     <form id="changePassForm" class="form-horizontal" role="form">
         <fieldset>

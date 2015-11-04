@@ -54,7 +54,14 @@ class UserProfileController extends BaseController
                     return "Password Changed.";
                 }
                 else {
-                    return "Wrong Old Password.";
+                    $error_response = array(
+                        'error' => array(
+                            'message' => "Wrong Old Password",
+                            'type' => 'Exception',
+                            'code' => 425
+                        )
+                    );
+                    return Response::json($error_response, 425)->setCallback(Input::get('callback'));
                 }
             }
         }
