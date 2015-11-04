@@ -874,25 +874,6 @@
 
         $scope.createReport = function () {
             var url = "//api.ssad.localhost/report/create";
-            if (!$scope.reportName) {
-                toastr.warning('Please enter the report name.');
-            }
-            else if (!$scope.location) {
-                toastr.warning('Please enter the location of incident.');
-            }
-            else if (!$scope.reportType) {
-                toastr.warning('Please enter the report type.');
-            }
-            else if (!$scope.assignedTo) {
-                toastr.warning('Please enter the the agency to assign to.');
-            }
-            else if (!$scope.reportedBy) {
-                toastr.warning('Please enter the name of the reporter.');
-            }
-            else if (!$scope.contactNo) {
-                toastr.warning('Please enter the contact number of the reporter.');
-            }
-            else {
                 $http.post(url, {
                     'reportName': $scope.reportName,
                     'location': $scope.location,
@@ -903,12 +884,13 @@
                     'description':$scope.description
                 }).success(function (data, status, headers, config) {
                     $location.url('/operator/home/');
+                    toastr.success('Report Created.');
                 }).error(function(data) {
                     console.log(data);
-                    toastr.error("test");
+                    toastr.error(data.error.message);
                 });
-            }
-            toastr.success('Report Created.');
+
+
 
         };
             $scope.deleteReport = function ($reportID){
@@ -919,11 +901,11 @@
                         'reportID': $reportID
                     }).success(function (data, status, headers, config) {
                         console.log("Report deleted successfully");
-                        location.reload();
-
+                        window.setTimeout(function(){location.reload()},1000)
+                        toastr.success('Report Deleted.');
                     });
                     }
-                    toastr.success('Report Deleted.');
+
 
                 })
             };
@@ -958,25 +940,7 @@
 
         $scope.updateReport = function () {
             var url = "//api.ssad.localhost/report/update";
-            if (!$scope.reportName) {
-                toastr.warning('Please enter the report name.');
-            }
-            else if (!$scope.location) {
-                toastr.warning('Please enter the location of incident.');
-            }
-            else if (!$scope.reportType) {
-                toastr.warning('Please enter the report type.');
-            }
-            else if (!$scope.assignedTo) {
-                toastr.warning('Please enter the the agency to assign to.');
-            }
-            else if (!$scope.reportedBy) {
-                toastr.warning('Please enter the name of the reporter.');
-            }
-            else if (!$scope.contactNo) {
-                toastr.warning('Please enter the contact number of the reporter.');
-            }
-            else {
+
                 bootbox.confirm("Are you sure you want to update this report?", function (result) {
                     if (result) {
                         $http.post(url, {
@@ -992,10 +956,13 @@
                             console.log("Report updated successfully");
                             toastr.success('Report Updated.');
                             $location.path('/operator/manage_report')
+                        }).error(function(data) {
+                            console.log(data);
+                            toastr.error(data.error.message);
                         });
                     }
                 });
-            }
+
 
         };
 

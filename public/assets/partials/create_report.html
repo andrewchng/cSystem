@@ -46,7 +46,7 @@
     </div>
     <br>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Contact</label>
+        <label class="col-sm-2 control-label">Contact No</label>
         <div class="col-sm-8">
             <input type="text" ng-model="contactNo" class="form-control" placeholder="91885633">
         </div>
@@ -61,8 +61,9 @@
     <br>
 
     <div class='form-group'>
-        <div class='col-sm-10 col-sm-offset-2'>
-            <button type="submit" class="btn btn-sm btn-default" id="submit" ng-click="createReport()" name="submit">Submit</button>
+        <div class='col-sm-10 col-sm-offset-5'>
+            <button type="submit" class="btn btn-sm green" id="submit" ng-click="createReport()" name="submit"><i class="fa fa-save"></i> Submit</button>
+            <a href="/operator/home" class="btn btn-sm btn-default"><i class="fa fa-times-circle-o"></i> Cancel</a>
         </div>
     </div>
     <br>

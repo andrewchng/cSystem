@@ -14,7 +14,13 @@ class ReportController extends BaseController
 
         $input = Input::all();
         $rules = array(
-            'name'    => 'required|min:2|max:50',
+            'reportName'  => 'required|min:1|max:100',
+            'location' => 'required|max:100',
+            'reportType' =>'required|numeric',
+            'assignedTo' =>'required|numeric',
+            'contactNo' =>'required|numeric|digits_between:3,11',
+            'reportedBy'=>'required|alpha|max:50',
+            'description' => 'max:255'
 
         );
 
@@ -90,8 +96,38 @@ class ReportController extends BaseController
         $assignedTo = Input::get('assignedTo');
         $description = Input::get('description');
 
-        Report::where('reportID', $reportID)->update(
-            array('reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy", 'assignedTo'=>"$assignedTo", 'description'=>"$description"));
+
+        $input = Input::all();
+        $rules = array(
+            'reportName'  => 'required|max:100',
+            'location' => 'required|max:100',
+            'reportType' =>'required|numeric',
+            'assignedTo' =>'required|numeric',
+            'contactNo' =>'required|numeric|digits_between:3,11',
+            'reportedBy'=>'required|alpha|max:50',
+            'description' => 'max:255'
+        );
+
+
+        $validator = Validator::make($input,$rules);
+        if ($validator->fails()) {
+            $error_messages = $validator->messages();
+            $error_response = array(
+                'error' => array(
+                    'message' => $error_messages->first(),
+                    'type' => 'Exception',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
+        else {
+            Report::where('reportID', $reportID)->update(
+                array('reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy", 'assignedTo'=>"$assignedTo", 'description'=>"$description"));
+
+            return "Report Updated.";
+        }
+
     }
 
     public function updateStatus()
