@@ -16,6 +16,8 @@ Route::get('/getReport_T', 'ReportController@listReportTypes');
 Route::get('/listAgencies', 'AdminController@listAgencies');
 Route::get('/agency/list', 'AgencyController@listing');
 Route::get('/report/list', 'ReportController@listing');
+Route::get('/report/listStatus', 'ReportController@listStatus');
+
 Route::get('/getActivities', 'AdminController@listActivities');
 Route::get('/report/populate', 'ReportController@populate');
 Route::get('/getAnalytics/accounts', 'AdminController@accAnalysis');

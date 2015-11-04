@@ -855,10 +855,7 @@
                 $scope.reportList = data;
             });
 
-            var url2 = '//api.ssad.localhost/agency/list';
-            $http.get(url2).success(function (data, status, headers, config) {
-                $scope.agencyList = data;
-            });
+            toastr.warning('Please enter the report name.');
         };
 
         listReportT().success(function (data) {
@@ -876,22 +873,22 @@
         $scope.createReport = function () {
             var url = "//api.ssad.localhost/report/create";
             if (!$scope.reportName) {
-                alert("Enter Name");
+                toastr.warning('Please enter the report name.');
             }
             else if (!$scope.location) {
-                alert("Enter location");
+                toastr.warning('Please enter the location of incident.');
             }
             else if (!$scope.reportType) {
-                alert("Enter Report Type");
-            }
-            else if (!$scope.reportedBy) {
-                alert("Enter name of the reporter");
-            }
-            else if (!$scope.contactNo) {
-                alert("Enter contact No of the reporter");
+                toastr.warning('Please enter the report type.');
             }
             else if (!$scope.assignedTo) {
-                alert("Enter a agency");
+                toastr.warning('Please enter the the agency to assign to.');
+            }
+            else if (!$scope.reportedBy) {
+                toastr.warning('Please enter the name of the reporter.');
+            }
+            else if (!$scope.contactNo) {
+                toastr.warning('Please enter the contact number of the reporter.');
             }
             else {
                 $http.post(url, {
@@ -902,7 +899,6 @@
                     'contactNo': $scope.contactNo,
                     'assignedTo': $scope.assignedTo
                 }).success(function (data, status, headers, config) {
-                    console.log("Data inserted successfully");
                     toastr.success('Report Created.');
                 });
             }
@@ -954,22 +950,22 @@
         $scope.updateReport = function () {
             var url = "//api.ssad.localhost/report/update";
             if (!$scope.reportName) {
-                alert("Enter Name");
+                toastr.warning('Please enter the report name.');
             }
             else if (!$scope.location) {
-                alert("Enter location");
+                toastr.warning('Please enter the location of incident.');
             }
             else if (!$scope.reportType) {
-                alert("Enter Report Type");
-            }
-            else if (!$scope.reportedBy) {
-                alert("Enter name of the reporter");
-            }
-            else if (!$scope.contactNo) {
-                alert("Enter contact No of the reporter");
+                toastr.warning('Please enter the report type.');
             }
             else if (!$scope.assignedTo) {
-                alert("Enter a agency");
+                toastr.warning('Please enter the the agency to assign to.');
+            }
+            else if (!$scope.reportedBy) {
+                toastr.warning('Please enter the name of the reporter.');
+            }
+            else if (!$scope.contactNo) {
+                toastr.warning('Please enter the contact number of the reporter.');
             }
             else {
                 $http.post(url, {
@@ -1001,13 +997,13 @@
             var url2 = '//api.ssad.localhost/agency/list';
             $http.get(url2).success(function (data, status, headers, config) {
                 $scope.agencyList = data;
-
                 //find the current agency
                 $scope.currentAgencyId = $rootScope.auth.agencyId;
                 console.log($scope.currentAgencyId);
                 $scope.currentAgencyName = $scope.agencyList[$scope.currentAgencyId-1].agencyName;
                 console.log($scope.currentAgencyName);
             });
+
 
 
         }
@@ -1017,10 +1013,10 @@
             $location.url('/report/update/' + $reportID);
         };
 
-        $scope.dropBoxSelected = function ($status) {
-            $rootScope.AgencyReportStatus = $status;
-            console.log($rootScope.AgencyReportStatus);
-        };
+        //$scope.dropBoxSelected = function ($status) {
+        //    $rootScope.AgencyReportStatus = $status;
+        //    console.log($rootScope.AgencyReportStatus);
+        //};
 
         $scope.populateReport = function (){
             var url = "//api.ssad.localhost/report/populate";
@@ -1037,6 +1033,14 @@
                 $scope.status=data.status;
                 $scope.comment=data.comment;
             })
+
+            var url2 = "//api.ssad.localhost/report/listStatus";
+            $http.get(url2).success(function (data, status, headers, config) {
+                $scope.reportTypeStatuses = data;
+                console.log($scope.reportTypeStatuses);
+            });
+
+
         }
         $scope.updateReport = function () {
             var url = "//api.ssad.localhost/report/updateStatus";

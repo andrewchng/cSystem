@@ -28,6 +28,14 @@ class ReportController extends BaseController
         return json_encode($report);
     }
 
+
+    public function listStatus()
+    {
+        $ReportStatusType = DB::table('ReportStatusType')->get();
+
+        return json_encode($ReportStatusType);
+    }
+
     public function delete()
     {
         $reportID = Input::get('reportID');

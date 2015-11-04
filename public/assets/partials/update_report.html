@@ -21,10 +21,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Type</label>
         <div class="col-sm-8">
-            <select ng-options="rp.reportTypeId as rp.reportTypeName for rp in reportTypes" ng-model="reportType" class="form-control" >
-                <option value="">Select a Report Type</option>
-                <!--<option value='1'>Traffic</option>-->
-                <!--<option value='2'>Dengue</option>-->
+            <select ng-mode='reportType' ng-options="rp.reportTypeId as rp.reportTypeName for rp in reportTypes" ng-model="reportType" class="form-control" >
             </select>
         </div>
     </div>
@@ -32,9 +29,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Assign To</label>
         <div class="col-sm-8">
-            <select ng-model="assignedTo" class="form-control">
-                <option value="" hidden disabled>{{assignedTo}}</option>
-                <option ng-repeat="agency in agencyList" ng-select="" value="{{agency.agencyId}}">{{agency.agencyName}}</option>
+            <select ng-model="assignedTo" class="form-control" ng-options="agency.agencyId as agency.agencyName for agency in agencyList">
             </select>
         </div>
     </div>

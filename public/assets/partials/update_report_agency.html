@@ -35,10 +35,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Status</label>
         <div class="col-sm-8">
-            <select ng-model="status" class="form-control" >
-                <option value=1>Pending</option>
-                <option value=2>In Progress</option>
-                <option value=3>Resolved</option>
+            <select ng-model="status" ng-options="status.reportStatusTypeId as status.reportStatusTypeName for status in reportTypeStatuses" class="form-control" >
             </select>
         </div>
     </div>
