@@ -55,7 +55,7 @@
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
             <td>{{report.updated_at}}</td>
-            <td>{{report.assignedTo}}</td>
+            <td>{{agencyList[report.assignedTo-1].agencyName}}</td>
             <td>N.A.</td>
         </tr>
     </table>
@@ -83,7 +83,7 @@
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
             <td>{{report.updated_at}}</td>
-            <td>{{report.assignedTo}}</td>
+            <td>{{agencyList[report.assignedTo-1].agencyName}}</td>
             <td>N.A.</td>
         </tr>
     </table>

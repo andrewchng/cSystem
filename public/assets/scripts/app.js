@@ -854,6 +854,10 @@
             $http.get(url).success(function (data, status, headers, config) {
                 $scope.reportList = data;
             });
+            var url2 = '//api.ssad.localhost/agency/list';
+            $http.get(url2).success(function (data, status, headers, config) {
+                $scope.agencyList = data;
+            });
         };
 
         listReportT().success(function (data) {
@@ -861,12 +865,12 @@
 
         });
 
-        $scope.retrieveAgency = function () {
-            var url = '//api.ssad.localhost/agency/list';
-            $http.get(url).success(function (data, status, headers, config) {
-                $scope.agencyList = data;
-            });
-        };
+        //$scope.retrieveAgency = function () {
+        //    var url = '//api.ssad.localhost/agency/list';
+        //    $http.get(url).success(function (data, status, headers, config) {
+        //        $scope.agencyList = data;
+        //    });
+        //};
         $scope.createReport = function () {
             var url = "//api.ssad.localhost/report/create";
             if (!$scope.reportName) {
@@ -897,9 +901,10 @@
                     'assignedTo': $scope.assignedTo,
                     'description':$scope.description
                 }).success(function (data, status, headers, config) {
-                    toastr.success('Report Created.');
+                    $location.url('/operator/home/');
                 });
             }
+            toastr.success('Report Created.');
 
         };
             $scope.deleteReport = function ($reportID){
@@ -911,10 +916,11 @@
                     }).success(function (data, status, headers, config) {
                         console.log("Report deleted successfully");
                         location.reload();
-                        //toastr.success('Report Deleted.');
 
                     });
                     }
+                    toastr.success('Report Deleted.');
+
                 })
             };
 
@@ -967,19 +973,23 @@
                 toastr.warning('Please enter the contact number of the reporter.');
             }
             else {
-                $http.post(url, {
-                    'reportID': $rootScope.operatorReportID,
-                    'reportName': $scope.reportName,
-                    'location': $scope.location,
-                    'reportType': $scope.reportType,
-                    'reportedBy': $scope.reportedBy,
-                    'contactNo': $scope.contactNo,
-                    'assignedTo': $scope.assignedTo,
-                    'description': $scope.description
-                }).success(function (data, status, headers, config) {
-                    console.log("Report updated successfully");
-                    toastr.success('Report Updated.');
-                    $location.path('/operator/manage_report')
+                bootbox.confirm("Are you sure you want to update this report?", function (result) {
+                    if (result) {
+                        $http.post(url, {
+                            'reportID': $rootScope.operatorReportID,
+                            'reportName': $scope.reportName,
+                            'location': $scope.location,
+                            'reportType': $scope.reportType,
+                            'reportedBy': $scope.reportedBy,
+                            'contactNo': $scope.contactNo,
+                            'assignedTo': $scope.assignedTo,
+                            'description': $scope.description
+                        }).success(function (data, status, headers, config) {
+                            console.log("Report updated successfully");
+                            toastr.success('Report Updated.');
+                            $location.path('/operator/manage_report')
+                        });
+                    }
                 });
             }
 
