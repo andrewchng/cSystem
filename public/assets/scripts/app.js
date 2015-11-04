@@ -848,7 +848,7 @@
 
     });
 
-    app.controller('OperatorCtrl', function($scope, $http, $rootScope, $location, Auth){
+    app.controller('OperatorCtrl', function($scope, $http, $rootScope, $location, listReportT){
         $scope.listReports = function () {
             var url = '//api.ssad.localhost/report/list';
             $http.get(url).success(function (data, status, headers, config) {
@@ -859,7 +859,12 @@
             $http.get(url2).success(function (data, status, headers, config) {
                 $scope.agencyList = data;
             });
-        }
+        };
+
+        listReportT().success(function (data) {
+            $scope.reportTypes = data;
+
+        });
 
         $scope.retrieveAgency = function () {
             var url = '//api.ssad.localhost/agency/list';
@@ -867,7 +872,7 @@
                 $scope.agencyList = data;
                 console.log($scope.agencyList);
             });
-        }
+        };
         $scope.createReport = function () {
             var url = "//api.ssad.localhost/report/create";
             if (!$scope.reportName) {
@@ -902,7 +907,7 @@
                 });
             }
 
-        }
+        };
             $scope.deleteReport = function ($reportID){
                 var url = "//api.ssad.localhost/report/delete";
                 bootbox.confirm("Are you sure you want to delete this report?", function (result) {
@@ -917,7 +922,7 @@
                     });
                     }
                 })
-            }
+            };
 
             $scope.findReport = function ($reportID) {
                 $rootScope.operatorReportID = $reportID;
@@ -944,7 +949,7 @@
                         $scope.location=data.location;
                         $scope.assignedTo=data.assignedTo;
                     })
-            }
+            };
 
         $scope.updateReport = function () {
             var url = "//api.ssad.localhost/report/update";
@@ -982,7 +987,7 @@
                 });
             }
 
-        }
+        };
 
     });
 
@@ -1117,6 +1122,13 @@
     app.factory('listAcc', function($http){
         return function() {
             var promise = $http.get(api_url + '/getAccount_T');
+            return promise;
+        }
+    });
+
+    app.factory('listReportT', function($http){
+        return function() {
+            var promise = $http.get(api_url + '/getReport_T');
             return promise;
         }
     });

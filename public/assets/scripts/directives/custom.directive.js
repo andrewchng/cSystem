@@ -33,13 +33,26 @@
             link: function (scope, element, attrs) {
 
                 scope.breadcrumb_list = location.path().split('/');
-                var initial_item = {
-                    'icon': '<i class="fa fa-home"></i> ',
-                    'url': '/admin',
-                    'label': ' Home'
-                };
+                console.log(scope.breadcrumb_list);
+                if(scope.breadcrumb_list[1] == 'operator'){
+                    var initial_item = {
+                        'icon': '<i class="fa fa-home"></i> ',
+                        'url': '/operator/home',
+                        'label': ' Home'
+                    };
+                }
+                else{
+                    var initial_item = {
+                        'icon': '<i class="fa fa-home"></i> ',
+                        'url': '/admin',
+                        'label': ' Home'
+                    };
+                }
+
+
                 scope.breadcrumb_list = scope.breadcrumb_list.reduce(function (previous_value, current_value) {
                     if (current_value && isNaN(current_value) && current_value != "list") {
+
                         var current_value_url = current_value;
                         current_value = current_value.replace(/-|_/g, ' ');
                         var url = '';
@@ -47,13 +60,16 @@
                             var first_url = previous_value[previous_value.length -1].url.split('/')[1];
                             url = '/' + first_url +'/' + current_value_url;
                         }
-                        else
+                        else{
                             url = '/' + current_value_url + '/list';
+                        }
+
                         var new_item = {
                             url: url,
                             'label': current_value.charAt(0).toUpperCase() + current_value.slice(1).toLowerCase()
                         };
-                        previous_value.push(new_item);
+                        if(current_value != 'operator')
+                            previous_value.push(new_item);
                     }
                     return previous_value;
                 }, [initial_item]);
