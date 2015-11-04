@@ -853,7 +853,11 @@
             var url = '//api.ssad.localhost/report/list';
             $http.get(url).success(function (data, status, headers, config) {
                 $scope.reportList = data;
-                console.log($scope.reportList);
+            });
+
+            var url2 = '//api.ssad.localhost/agency/list';
+            $http.get(url2).success(function (data, status, headers, config) {
+                $scope.agencyList = data;
             });
         }
 

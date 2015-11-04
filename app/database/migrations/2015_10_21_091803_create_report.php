@@ -22,9 +22,10 @@ class CreateReport extends Migration {
             $table-> string('location', 100);
             $table-> string('comment') -> nullable();
             $table-> integer('isDeleted');
-            $table-> dateTime('deleted_at') -> nullable();
+            $table->softDeletes();
+            //$table-> dateTime('deleted_at') -> nullable();
             $table-> integer('isApproved');
-            $table-> string('assignedTo', 80);
+            $table-> integer('assignedTo');
             $table-> integer('status') -> unsigned();
             $table-> timestamps();
 

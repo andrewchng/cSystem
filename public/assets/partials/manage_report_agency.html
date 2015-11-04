@@ -15,7 +15,7 @@
             <th>Actions</th>
 
         </tr>
-        <tr ng-repeat="report in reportList" ng-if="report.status == 1 && report.assignedTo == currentAgencyName" class="danger" >
+        <tr ng-repeat="report in reportList" ng-if="report.status == 1 && report.assignedTo == currentAgencyId && report.isDeleted == 0" class="danger" >
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
@@ -40,7 +40,7 @@
             <th>Actions</th>
 
         </tr>
-        <tr ng-repeat="report in reportList" class="info" ng-if="report.status == 2 && report.assignedTo == currentAgencyName">
+        <tr ng-repeat="report in reportList" class="info" ng-if="report.status == 2 && report.assignedTo == currentAgencyId && report.isDeleted == 0">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
@@ -65,7 +65,7 @@
             <th>Actions</th>
 
         </tr>
-        <tr ng-repeat="report in reportList" class="success" ng-if="report.status == 3 && report.assignedTo == currentAgencyName">
+        <tr ng-repeat="report in reportList" class="success" ng-if="report.status == 3 && report.assignedTo == currentAgencyId && report.isDeleted == 0">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>

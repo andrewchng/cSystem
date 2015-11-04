@@ -30,6 +30,9 @@ class ReportController extends BaseController
     {
         $reportID = Input::get('reportID');
         $delReport = Report::find($reportID);
+        Report::where('reportID', $reportID)->update(
+            array('isDeleted'=> 1)
+        );
         $delReport->delete();
     }
 

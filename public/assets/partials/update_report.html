@@ -34,7 +34,7 @@
         <div class="col-sm-8">
             <select ng-model="assignedTo" class="form-control">
                 <option value="" hidden disabled>{{assignedTo}}</option>
-                <option ng-repeat="agency in agencyList" ng-select="" value="{{agency.agencyName}}">{{agency.agencyName}}</option>
+                <option ng-repeat="agency in agencyList" ng-select="" value="{{agency.agencyId}}">{{agency.agencyName}}</option>
             </select>
         </div>
     </div>
