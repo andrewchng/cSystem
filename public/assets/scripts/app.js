@@ -535,7 +535,7 @@
 
         // pagination
         $scope.curPage = 0;// current Page
-        $scope.pageSize = 5;
+        $scope.pageSize = 10;
 
         $scope.numberOfPages = function() {
             return Math.ceil($scope.agencies.length / $scope.pageSize);
