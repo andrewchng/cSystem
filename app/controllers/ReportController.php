@@ -21,7 +21,8 @@ class ReportController extends BaseController
             ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
             ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
             ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
-            ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName','agency.agencyName')
+            ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName','agency.agencyName',DB::raw('CASE WHEN isApproved=0 THEN "No" ELSE "Yes" END AS isApprovedS'))
+            ->orderBy('reportID','ASC')
             ->get();
 
         return json_encode($report);
@@ -42,6 +43,7 @@ class ReportController extends BaseController
     {
         $reportID = Input::get('reportID');
         $editReport = Report::find($reportID);
+
         return $editReport->toJson();
     }
 
@@ -70,7 +72,6 @@ class ReportController extends BaseController
 
     public function listReportTypes(){
         $data = DB::table('ReportType')->get();
-
 
         return Response::json($data)->setCallback(Input::get('callback'));
     }
