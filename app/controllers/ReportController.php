@@ -12,8 +12,31 @@ class ReportController extends BaseController
         $assignedTo = Input::get('assignedTo');
         $description = Input::get('description');
 
-        Report::create(
-            array('reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy","status"=>1, 'assignedTo'=>"$assignedTo", 'description'=>"$description"));
+        $input = Input::all();
+        $rules = array(
+            'name'    => 'required|min:2|max:50',
+
+        );
+
+        $validator = Validator::make($input,$rules);
+        if ($validator->fails()) {
+            $error_messages = $validator->messages();
+            $error_response = array(
+                'error' => array(
+                    'message' => $error_messages->first(),
+                    'type' => 'Exception',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
+        else {
+            Report::create(
+                array('reportName'=>"$reportName",'reportType'=>"$reportType",'location'=>"$location",'contactNo'=>"$contactNo",'reportedBy'=>"$reportedBy","status"=>1, 'assignedTo'=>"$assignedTo", 'description'=>"$description"));
+            return "Report Created.";
+        }
+
+
     }
 
     public function listing()

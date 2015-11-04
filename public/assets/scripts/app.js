@@ -865,12 +865,13 @@
 
         });
 
-        //$scope.retrieveAgency = function () {
-        //    var url = '//api.ssad.localhost/agency/list';
-        //    $http.get(url).success(function (data, status, headers, config) {
-        //        $scope.agencyList = data;
-        //    });
-        //};
+        $scope.retrieveAgency = function () {
+            var url = '//api.ssad.localhost/agency/list';
+            $http.get(url).success(function (data, status, headers, config) {
+                $scope.agencyList = data;
+            });
+        };
+
         $scope.createReport = function () {
             var url = "//api.ssad.localhost/report/create";
             if (!$scope.reportName) {
@@ -902,6 +903,9 @@
                     'description':$scope.description
                 }).success(function (data, status, headers, config) {
                     $location.url('/operator/home/');
+                }).error(function(data) {
+                    console.log(data);
+                    toastr.error("test");
                 });
             }
             toastr.success('Report Created.');
