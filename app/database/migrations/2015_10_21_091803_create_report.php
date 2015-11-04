@@ -25,7 +25,7 @@ class CreateReport extends Migration {
             $table->softDeletes();
             //$table-> dateTime('deleted_at') -> nullable();
             $table-> integer('isApproved');
-            $table-> integer('assignedTo');
+            $table-> integer('assignedTo') -> unsigned();
             $table-> integer('status') -> unsigned();
             $table-> timestamps();
 
@@ -34,6 +34,7 @@ class CreateReport extends Migration {
         Schema::table('Reports', function(Blueprint $table){
             $table-> foreign('reportType')->references('reportTypeId')->on('ReportType');
             $table-> foreign('status')->references('reportStatusTypeId')->on('ReportStatusType');
+            $table-> foreign('assignedTo')->references('agencyId')->on('Agency');
         });
 	}
 

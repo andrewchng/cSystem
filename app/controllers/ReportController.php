@@ -20,7 +20,8 @@ class ReportController extends BaseController
         $report = DB::table('reports')
             ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
             ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
-            ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName')
+            ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
+            ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName','agency.agencyName')
             ->get();
 
         return json_encode($report);
