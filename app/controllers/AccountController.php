@@ -276,7 +276,7 @@ class AccountController extends \BaseController {
 		//
         $current = Auth::id();
 
-        if($id === $current){
+        if($id == $current){
             $error_response = array(
                 'error' => array(
                     'message' => 'Deletion Failed! You cannot delete your own account!',

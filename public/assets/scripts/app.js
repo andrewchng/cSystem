@@ -822,6 +822,8 @@
                             $scope.success = xhrResult.message;
                             $scope.loadAccounts();
                             toastr.success($scope.success);
+                        },function(error){
+                            toastr.error(error.data.error.message);
                         }
                     );
                 }
