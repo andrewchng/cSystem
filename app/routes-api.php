@@ -12,6 +12,7 @@
 Route::get('/auth', 'AuthController@get');
 Route::get('/auth/logout', 'AuthController@logout');
 Route::get('/getAccount_T', 'AdminController@listAccountTypes');
+Route::get('/getReport_T', 'ReportController@listReportTypes');
 Route::get('/listAgencies', 'AdminController@listAgencies');
 Route::get('/agency/list', 'AgencyController@listing');
 Route::get('/report/list', 'ReportController@listing');

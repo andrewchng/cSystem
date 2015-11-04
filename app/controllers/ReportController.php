@@ -63,4 +63,12 @@ class ReportController extends BaseController
 
         Report::where('reportID', $reportID)->update(array('comment'=>"$comment",'status'=>"$status"));
     }
+
+    public function listReportTypes(){
+        $data = DB::table('ReportType')->get();
+
+
+        return Response::json($data)->setCallback(Input::get('callback'));
+    }
+
 }

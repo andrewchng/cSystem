@@ -20,7 +20,7 @@ Route::group(array('before' => ''), function()
 
 Route::get($route_padding . '/user/profile', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 Route::get($route_padding . '/agency/edit', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
-Route::get($route_padding . 'operator', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
+Route::get($route_padding . 'operator/home', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 Route::get($route_padding .'operator/create_report', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 Route::get($route_padding .'operator/manage_report', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 Route::get($route_padding .'report/edit/{id}', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));

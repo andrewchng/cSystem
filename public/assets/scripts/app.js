@@ -45,7 +45,7 @@
                 templateUrl: '/assets/partials/edit_agency.html',
                 controller: 'AdminCtrl'
             })
-            .when('/operator', {
+            .when('/operator/home', {
                 templateUrl: '/assets/partials/operator.html',
                 controller: 'OperatorCtrl'
             })
@@ -237,7 +237,7 @@
                 $timeout(function(){
                     switch(loginRedirectionProperties.getPath()){
                         case 'operator':
-                            window.location.href = $rootScope.homeUrl('operator');
+                            window.location.href = $rootScope.homeUrl('operator/home');
                             break;
                         case 'agency':
                             window.location.href = $rootScope.homeUrl('agency');

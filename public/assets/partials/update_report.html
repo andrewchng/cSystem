@@ -21,10 +21,10 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Type</label>
         <div class="col-sm-8">
-            <select ng-model="reportType" class="form-control" >
-                <option value="" disabled hidden>Select a Report Type</option>
-                <option value=1>Traffic</option>
-                <option value=2>Dengue</option>
+            <select ng-options="rp.reportTypeId as rp.reportTypeName for rp in reportTypes" ng-model="reportType" class="form-control" >
+                <option value="">Select a Report Type</option>
+                <!--<option value='1'>Traffic</option>-->
+                <!--<option value='2'>Dengue</option>-->
             </select>
         </div>
     </div>

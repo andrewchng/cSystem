@@ -3,7 +3,7 @@
   "menu_list" : [
     {
       "name" : "Home",
-      "href" : "/operator",
+      "href" : "/operator/home",
       "iconClass": "fa fa-dashboard fa-lg"
     },
     {
