@@ -1036,6 +1036,9 @@
                         console.log("Report updated successfully");
                         toastr.success('Report Updated.');
                         $location.path('/agency/manage_report')
+                    }).error(function(data) {
+                        console.log(data);
+                        toastr.error(data.error.message);
                     });
                 }
             });

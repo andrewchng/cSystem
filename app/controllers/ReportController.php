@@ -19,7 +19,7 @@ class ReportController extends BaseController
             'reportType' =>'required|numeric',
             'assignedTo' =>'required|numeric',
             'contactNo' =>'required|numeric|digits_between:3,11',
-            'reportedBy'=>'required|alpha|max:50',
+            'reportedBy'=>'required|max:50',
             'description' => 'max:255'
 
         );
@@ -101,10 +101,10 @@ class ReportController extends BaseController
         $rules = array(
             'reportName'  => 'required|max:100',
             'location' => 'required|max:100',
-            'reportType' =>'required|numeric',
-            'assignedTo' =>'required|numeric',
+            'reportType' =>'numeric',
+            'assignedTo' =>'numeric',
             'contactNo' =>'required|numeric|digits_between:3,11',
-            'reportedBy'=>'required|alpha|max:50',
+            'reportedBy'=>'required|max:50',
             'description' => 'max:255'
         );
 
@@ -136,7 +136,30 @@ class ReportController extends BaseController
         $comment = Input::get('comment');
         $status = Input::get('status');
 
-        Report::where('reportID', $reportID)->update(array('comment'=>"$comment",'status'=>"$status"));
+        $input = Input::all();
+        $rules = array(
+            'Status'=>'numeric',
+            'comment' => 'max:255'
+        );
+
+        $validator = Validator::make($input,$rules);
+        if ($validator->fails()) {
+            $error_messages = $validator->messages();
+            $error_response = array(
+                'error' => array(
+                    'message' => $error_messages->first(),
+                    'type' => 'Exception',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
+        else {
+            Report::where('reportID', $reportID)->update(array('comment'=>"$comment",'status'=>"$status"));
+
+            return "Report Updated.";
+        }
+
     }
 
     public function listReportTypes(){
