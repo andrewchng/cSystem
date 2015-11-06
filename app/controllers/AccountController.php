@@ -211,9 +211,8 @@ class AccountController extends \BaseController {
         $username = Input::get('username');
         $email = Input::get('email');
         $type = Input::get('accountType');
-        if(Input::has('agencyId'))
-            $agency = Input::get('agencyId');
-
+        $agency = Input::get('agencyId');
+       
         if($type === 3 && $agency === null){
             $error_response = array(
                 'error' => array(
@@ -244,10 +243,10 @@ class AccountController extends \BaseController {
             );
             return Response::json($error_response, 425)->setCallback(Input::get('callback'));
         }
-        if(isset($agency))
-            $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now(), 'agencyId' => $agency));
-        else
-            $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now()));
+//        if(isset($agency))
+        $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now(), 'agencyId' => $agency));
+//        else
+//            $account = User::find($id)->update(array('username' => $username, 'email' => $email, 'accountType' =>$type,'updated_at' => Carbon::now()));
 
         if(!$account){
             $error_response = array(

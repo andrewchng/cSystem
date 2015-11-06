@@ -781,9 +781,11 @@
         $scope.loadEdit = function(){
             $scope.url_list = $location.path().split('/');
             var id = $scope.url_list[$scope.url_list.length-1];
-            console.log(id);
             Account.get({'id': id}).$promise.then(function(data){
                 $scope.e_account = data;
+                if($scope.e_account.agencyId)
+                    $scope.c_agency = true;
+
             },function(error){
                 toastr.error(error.data.error.message);
 
@@ -793,6 +795,9 @@
         $scope.updateAcc = function(){
             var id = $scope.url_list[$scope.url_list.length-1];
             $scope.acc_update = true;
+            if($scope.c_agency == false){
+                $scope.e_account.agencyId = null;
+            }
             Account.save({'id': id}, $scope.e_account).$promise.then(function(xhrResult){
                 $scope.success = xhrResult.message;
                 if ($scope.success){
