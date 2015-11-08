@@ -212,7 +212,7 @@ class AccountController extends \BaseController {
         $email = Input::get('email');
         $type = Input::get('accountType');
         $agency = Input::get('agencyId');
-       
+
         if($type === 3 && $agency === null){
             $error_response = array(
                 'error' => array(

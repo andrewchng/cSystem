@@ -8,5 +8,3 @@ composer.lock
 .DS_Store
 Thumbs.db
 app/config/database.php
-app/config/database.php
-app/config/database.php

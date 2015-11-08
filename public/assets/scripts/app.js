@@ -3,6 +3,15 @@
 
     var app = angular.module('cSystem', ['ngResource', 'ngRoute', 'ngSanitize', 'ngCookies', 'ui.bootstrap', 'ngBootbox', "ng-fusioncharts"]);
 
+
+    var roles = {
+        admin: 1,
+        operator: 2,
+        agency: 3
+    };
+
+
+
     app.config(function ($routeProvider, $locationProvider, $sceDelegateProvider) {
         $routeProvider
             .when('/login', {
@@ -11,72 +20,157 @@
             })
             .when('/user/profile', {
                 templateUrl: '/assets/partials/user_profile.html',
-                controller: 'LoginCtrl'
+                controller: 'LoginCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.admin, roles.operator, roles.agency]);
+                    }
+                }
             })
             .when('/admin', {
                 templateUrl: '/assets/partials/admin.html',
-                controller: 'AdminCtrl'
+                controller: 'AdminCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.admin]);
+                    }
+                }
             })
             .when('/accounts/create', {
                 templateUrl: '/assets/partials/create_accounts.html',
-                controller: 'AccountCtrl'
+                controller: 'AccountCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.admin]);
+                    }
+                }
             })
             .when('/accounts/list', {
                 templateUrl: '/assets/partials/accounts-list.html',
-                controller: 'AccountCtrl'
+                controller: 'AccountCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.admin]);
+                    }
+                }
             })
             .when('/accounts/edit/:id', {
                 templateUrl: '/assets/partials/edit_accounts.html',
-                controller: 'AccountCtrl'
+                controller: 'AccountCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.admin]);
+                    }
+                }
             })
             .when('/reports/list', {
                 templateUrl: '/assets/partials/admin_report.html',
-                controller: 'AdminCtrl'
+                controller: 'AdminCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.admin]);
+                    }
+                }
             })
             .when('/agency/add', {
                 templateUrl: '/assets/partials/create_agency.html',
-                controller: 'AdminCtrl'
+                controller: 'AdminCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.admin]);
+                    }
+                }
             })
             .when('/agency/list', {
                 templateUrl: '/assets/partials/list_agency.html',
-                controller: 'AdminCtrl'
+                controller: 'AdminCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.admin]);
+                    }
+                }
             })
             .when('/agency/edit', {
                 templateUrl: '/assets/partials/edit_agency.html',
-                controller: 'AdminCtrl'
+                controller: 'AdminCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.admin]);
+                    }
+                }
             })
             .when('/operator/home', {
                 templateUrl: '/assets/partials/operator.html',
-                controller: 'OperatorCtrl'
+                controller: 'OperatorCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.operator]);
+                    }
+                }
             })
             .when('/operator/create_report', {
                 templateUrl: '/assets/partials/create_report.html',
-                controller: 'OperatorCtrl'
+                controller: 'OperatorCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.operator]);
+                    }
+                }
             })
             .when('/operator/manage_report', {
                 templateUrl: '/assets/partials/manage_report.html',
-                controller: 'OperatorCtrl'
+                controller: 'OperatorCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.operator]);
+                    }
+                }
             })
             .when('/report/edit/:id', {
                 templateUrl: '/assets/partials/update_report.html',
-                controller: 'OperatorCtrl'
+                controller: 'OperatorCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.operator]);
+                    }
+                }
             })
 
             .when('/report/edit/:id', {
                 templateUrl: '/assets/partials/update_report.html',
-                controller: 'OperatorCtrl'
+                controller: 'OperatorCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.operator]);
+                    }
+                }
             })
             .when('/agency', {
                 templateUrl: '/assets/partials/agency.html',
-                controller: 'AgencyCtrl'
+                controller: 'AgencyCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.agency]);
+                    }
+                }
             })
             .when('/agency/manage_report', {
                 templateUrl: '/assets/partials/manage_report_agency.html',
-                controller: 'AgencyCtrl'
+                controller: 'AgencyCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.agency]);
+                    }
+                }
             })
             .when('/report/update/:id', {
                 templateUrl: '/assets/partials/update_report_agency.html',
-                controller: 'AgencyCtrl'
+                controller: 'AgencyCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.agency]);
+                    }
+                }
             })
             .otherwise({
                 redirectTo: '/'
@@ -162,14 +256,14 @@
     app.controller('DashboardCtrl', [
         '$scope', '$http', '$location', '$rootScope', '$routeParams', '$timeout', '$cookies', 'Auth',
         function ($scope, $http, $location, $rootScope, $routeParams, $timeout, $cookies, Auth) {
-            Auth.get().$promise.then(function (xhrResult){
-                $rootScope.auth = xhrResult;
-                console.log($rootScope.auth);
-            },function(error){
-                window.location.href = $rootScope.homeUrl('login');
-            });
+            //Auth.get().$promise.then(function (xhrResult){
+            //    $rootScope.auth = xhrResult;
+            //    console.log($rootScope.auth);
+            //},function(error){
+            //    window.location.href = $rootScope.homeUrl('login');
+            //});
 
-            //$rootScope.auth = Auth.get();
+            $rootScope.auth = Auth.get();
 
             //$rootScope.user = $cookies.getObject('user');
             $rootScope.menuItem = $cookies.get('menuItem');
@@ -186,7 +280,6 @@
             $rootScope.authLogout = function () {
                 $scope.loggin_out = true;
                 Auth.logout().$promise.then(function (xhrResult) {
-                    $cookies.remove('user');
                     $cookies.remove('menuItem');
                     window.location.href = $rootScope.homeUrl('login');
                 });
@@ -512,7 +605,6 @@
         $scope.getRepAnalytics = function(){
             Analytics.reports().$promise.then(function(xhrResult){
                 $scope.analytics_rep = xhrResult;
-                console.log($scope.analytics_rep);
                 $scope.repDataSource.dataset[0].data = $scope.analytics_rep.past_months;
                 $scope.repDataSource.dataset[1].data = $scope.analytics_rep.t_past_months;
                 $scope.repDataSource.dataset[2].data = $scope.analytics_rep.d_past_months;
@@ -962,7 +1054,6 @@
                             toastr.success('Report Updated.');
                             $location.path('/operator/manage_report')
                         }).error(function(data) {
-                            console.log(data);
                             toastr.error(data.error.message);
                         });
                     }
@@ -1101,6 +1192,88 @@
                 }
             });
     }]);
+
+    app.factory('authorizationService', ['Auth', '$resource', '$q', '$rootScope', '$location',
+        function(Auth, $resource, $q, $rootScope, $location){
+
+
+            return {
+                permissionModel:{
+                    permission: {},
+                    isPermissionLoaded: false
+                },
+                permissionCheck: function(roleCollection) {
+                    var deferred = $q.defer();
+                    //pointer to parent scope
+                    var parentPointer = this;
+
+                    //is already filled from service
+                    if(this.permissionModel.isPermissionLoaded) {
+                        //check if current user has required role
+                        this.getPermission(this.permissionModel, roleCollection, deferred);
+                    }
+                    else{
+                        Auth.get().$promise.then(function (response) {
+                            //when server service responds then we will fill the permission object
+                            parentPointer.permissionModel.permission = response.accountType;
+                            console.log(parentPointer.permissionModel.permission);
+
+                            //Indicator is set to true that permission object is filled and
+                            //can be re-used for subsequent route request for the session of the user
+                            parentPointer.permissionModel.isPermissionLoaded = true;
+
+                            //Check if the current user has required role to access the route
+                            parentPointer.getPermission(parentPointer.permissionModel, roleCollection, deferred);
+                        });
+                    }
+                    return deferred.promise;
+                },
+                getPermission: function (permissionModel, roleCollection, deferred) {
+                    var ifPermissionPassed = false;
+
+                    angular.forEach(roleCollection, function (role) {
+                        switch (role) {
+                            case 1:
+                                console.log(permissionModel.permission);
+                                if (permissionModel.permission == 1) {
+                                    ifPermissionPassed = true;
+                                }
+                                break;
+                            case 2:
+                                console.log(permissionModel.permission);
+                                if (permissionModel.permission == 2) {
+                                    ifPermissionPassed = true;
+                                }
+                                break;
+                            case 3:
+                                console.log(permissionModel.permission);
+                                if (permissionModel.permission == 3) {
+                                    ifPermissionPassed = true;
+                                }
+                                break;
+                            default:
+                                ifPermissionPassed = false;
+                        }
+                    });
+                    if (!ifPermissionPassed) {
+                        //If user does not have required access,
+                        //we will route the user to unauthorized access page
+                        window.location.href = $rootScope.homeUrl('login');
+                        //As there could be some delay when location change event happens,
+                        //we will keep a watch on $locationChangeSuccess event
+                        // and would resolve promise when this event occurs.
+                        $rootScope.$on('$locationChangeSuccess', function (next, current) {
+                            deferred.resolve();
+                        });
+                    } else {
+                        deferred.resolve();
+                    }
+                }
+
+            }
+        }
+    ]);
+
 
     app.factory('retrieveMenu', function($http, $rootScope){
         var promise = null;
