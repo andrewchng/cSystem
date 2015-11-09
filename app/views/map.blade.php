@@ -13,7 +13,7 @@
 
 
         <div class="page-content col-md-9">
-            <div id="map-container" class="page-content-inner" style="min-height: 748px">
+            <div id="map-container" class="page-content-inner" style="min-height: 748px; margin-top: 30px;">
                 <div ng-view class="slide"></div>
             </div>
         </div>

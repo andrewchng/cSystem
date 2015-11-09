@@ -23,7 +23,7 @@
     {{--Main CSS--}}
     <link href="/assets/styles/main.min.css" rel="stylesheet">
 
-
+    <link href="/assets/styles/ng-scrollable.min.css" rel="stylesheet">
 
 
 </head>
@@ -41,7 +41,8 @@
 <script type="text/javascript" src="/assets/scripts/themes/fusioncharts.theme.zune.js"></script>
 <script type="text/javascript" src="/assets/scripts/themes/fusioncharts.theme.carbon.js"></script>
 <script type="text/javascript" src="/assets/scripts/angular-fusioncharts.min.js"></script>
+<script type="text/javascript" src="/assets/scripts/ng-scrollable.min.js"></script>
 <script type="text/javascript" src="/assets/scripts/app.js"></script>
-<script  type="text/javascript" src="/assets/scripts/directives/custom.directive.js"></script>
+<script type="text/javascript" src="/assets/scripts/directives/custom.directive.js"></script>
 </body>
 </html>

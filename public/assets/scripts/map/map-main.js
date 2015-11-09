@@ -58,7 +58,7 @@ function generateGraphics(data) {
         graphic = generatePolygonGraphic(data.XY, data.SYMBOLCOLOR, data.OUTLINECOLOR, data.LINETHICKNESS);
     }
     else if (type == "POINT") {
-        graphic = generatePointGraphic(data.XY, data.ICONNAME, data.IconPath);
+        graphic = generatePointGraphic(data.XY, data.ICONNAME, data.ICONPATH);
     }  
     graphic.attributes = data;
     return graphic;

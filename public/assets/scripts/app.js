@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var app = angular.module('cSystem', ['ngResource', 'ngRoute', 'ngSanitize', 'ngCookies', 'ui.bootstrap', 'ngBootbox', "ng-fusioncharts"]);
+    var app = angular.module('cSystem', ['ngResource', 'ngRoute', 'ngSanitize', 'ngCookies', 'ui.bootstrap', 'ngBootbox', "ng-fusioncharts", 'ngScrollable']);
 
 
     var roles = {
@@ -196,6 +196,7 @@
     //});
 
     app.controller('PublicCtrl', function($scope, $http, $location, $rootScope, $timeout, retrieveMenu){
+        $scope.screenHeight = screen.height;
         $scope.listReports = function () {
             console.log("Called list report");
             var url = '//api.ssad.localhost/report/list';
@@ -206,21 +207,11 @@
                     } else if (v.reportTypeName == 'Traffic') {
                         v.icon = 'assets/styles/img/incident.png'
                     }
+                    v.location = v.location.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
                 });
+
                 $scope.reportList = data;
             });
-            // var url2 = '//api.ssad.localhost/agency/list';
-            // $http.get(url2).success(function (data, status, headers, config) {
-            //     $scope.agencyList = data;
-
-            //     //find the current agency
-            //     $scope.currentAgencyId = $rootScope.auth.agencyId;
-            //     console.log($scope.currentAgencyId);
-            //     $scope.currentAgencyName = $scope.agencyList[$scope.currentAgencyId-1].agencyName;
-            //     console.log($scope.currentAgencyName);
-            // });
-
-
         }
     });
 
