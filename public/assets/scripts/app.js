@@ -343,11 +343,11 @@
                 'old_password': $scope.upopass,
                 'new_password': $scope.upnpass
             }).success(function (data) {
-                console.log(data);
+
                 toastr.success(data);
                 $route.reload();
             }).error(function(data) {
-                console.log(data);
+
                 toastr.warning(data.error.message);
             });
         };
@@ -370,11 +370,11 @@
                 'id': ($cookies.getObject('user')).id,
                 'email': $scope.upemail
             }).success(function (data) {
-                console.log(data);
+
                 toastr.success(data);
                 $route.reload();
             }).error(function(data) {
-                console.log(data);
+
                 toastr.warning(data.error.message);
             });
         };
@@ -635,14 +635,14 @@
                 'address': $scope.add,
                 'tel_no': $scope.tel
             }).success(function (data) {
-                console.log(data);
+
                 toastr.success(data);
                 $scope.name = '';
                 $scope.add = '';
                 $scope.tel = '';
                 $route.reload();
             }).error(function(data) {
-                console.log(data);
+
                 toastr.warning(data.error.message);
             });
         };
@@ -670,11 +670,11 @@
                 'address': $scope.eadd,
                 'tel_no': $scope.etel
             }).success(function (data) {
-                console.log(data);
+
                 toastr.success(data);
                 $location.path('/agency/list');
             }).error(function(data) {
-                console.log(data);
+
                 toastr.warning(data.error.message);
             });
         };
@@ -684,11 +684,11 @@
             $http.post(url, {
                 'id': data
             }).success(function (data) {
-                console.log(data);
+
                 toastr.success(data);
                 $route.reload();
             }).error(function(data) {
-                console.log(data);
+
                 toastr.error("Cannot Delete Agency");
             });
         };
@@ -818,7 +818,6 @@
             switch (index) {
                 case 'id':
                     $scope.sort_index.id = !$scope.sort_index.id;
-                    console.log($scope.sort_index.id);
                     $scope.filter.order_by = index;
                     $scope.filter.order_dir = ($scope.sort_index.id) ? 'desc' : 'asc';
                     break;
@@ -974,7 +973,6 @@
                     $location.url('/operator/home/');
                     toastr.success('Report Created.');
                 }).error(function(data) {
-                    console.log(data);
                     toastr.error(data.error.message);
                 });
 
@@ -988,7 +986,6 @@
                     $http.post(url, {
                         'reportID': $reportID
                     }).success(function (data, status, headers, config) {
-                        console.log("Report deleted successfully");
                         window.setTimeout(function(){location.reload()},1000)
                         toastr.success('Report Deleted.');
                     });
@@ -1007,14 +1004,12 @@
                 var url = '//api.ssad.localhost/agency/list';
                 $http.get(url).success(function (data, status, headers, config) {
                     $scope.agencyList = data;
-                    console.log($scope.agencyList);
                 });
 
                 var url2 = "//api.ssad.localhost/report/populate";
                     $http.post(url2, {
                         'reportID': $rootScope.operatorReportID
                     }).success(function (data, status, headers, config) {
-                        console.log("Report data populated successfully");
                         $scope.reportID=data.reportID;
                         $scope.reportType=data.reportType;
                         $scope.reportName=data.reportName;
@@ -1041,7 +1036,6 @@
                             'assignedTo': $scope.assignedTo,
                             'description': $scope.description
                         }).success(function (data, status, headers, config) {
-                            console.log("Report updated successfully");
                             toastr.success('Report Updated.');
                             $location.path('/operator/manage_report')
                         }).error(function(data) {
@@ -1067,9 +1061,8 @@
                 $scope.agencyList = data;
                 //find the current agency
                 $scope.currentAgencyId = $rootScope.auth.agencyId;
-                console.log($scope.currentAgencyId);
                 $scope.currentAgencyName = $scope.agencyList[$scope.currentAgencyId-1].agencyName;
-                console.log($scope.currentAgencyName);
+
             });
 
 
@@ -1091,7 +1084,6 @@
             $http.post(url, {
                 'reportID': $rootScope.AgencyReportID
             }).success(function (data, status, headers, config) {
-                console.log("Report data populated successfully");
                 $scope.reportID=data.reportID;
                 $scope.reportType=data.reportType;
                 $scope.reportName=data.reportName;
@@ -1120,11 +1112,11 @@
                         'status': $scope.status,
                         'comment': $scope.comment
                     }).success(function (data, status, headers, config) {
-                        console.log("Report updated successfully");
+
                         toastr.success('Report Updated.');
                         $location.path('/agency/manage_report')
                     }).error(function(data) {
-                        console.log(data);
+
                         toastr.error(data.error.message);
                     });
                 }
@@ -1135,7 +1127,6 @@
 
 
     app.controller('SidebarCtrl', function($scope, $http, $location, $rootScope, $timeout, retrieveMenu){
-        //console.log($rootScope.menuItem);
         retrieveMenu().success(function(data){
             $scope.sidebarMenuList = data.menu_list;
             $scope.title = data.board;
@@ -1203,11 +1194,10 @@
                         //check if current user has required role
                         this.getPermission(this.permissionModel, roleCollection, deferred);
                     }
-                    else{
+                    else {
                         Auth.get().$promise.then(function (response) {
                             //when server service responds then we will fill the permission object
                             parentPointer.permissionModel.permission = response.accountType;
-                            console.log(parentPointer.permissionModel.permission);
 
                             //Indicator is set to true that permission object is filled and
                             //can be re-used for subsequent route request for the session of the user
@@ -1215,6 +1205,8 @@
 
                             //Check if the current user has required role to access the route
                             parentPointer.getPermission(parentPointer.permissionModel, roleCollection, deferred);
+                        }, function (error) {
+                            window.location.href = $rootScope.homeUrl('login');
                         });
                     }
                     return deferred.promise;
