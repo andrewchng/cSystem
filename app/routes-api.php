@@ -46,6 +46,9 @@ Route::post('/report/delete', 'ReportController@delete');
 Route::post('/report/populate', 'ReportController@populate');
 Route::post('/report/update', 'ReportController@update');
 Route::post('/report/updateStatus', 'ReportController@updateStatus');
+Route::post('/report/listPending', 'ReportController@listPending');
+Route::post('/report/listOngoing', 'ReportController@listOngoing');
+Route::post('/report/listResolved', 'ReportController@listResolved');
 
 
 Route::resource('account' ,'AccountController');

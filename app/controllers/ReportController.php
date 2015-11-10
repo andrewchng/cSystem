@@ -61,47 +61,102 @@ class ReportController extends BaseController
     //Retreive pending Reports that are not deleted
     public function listPending()
     {
-        $report = DB::table('reports')
-            ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
-            ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
-            ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
-            ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName','agency.agencyName',DB::raw('CASE WHEN isApproved=0 THEN "No" ELSE "Yes" END AS isApprovedS'))
-            ->where('isDeleted','=', 0)
-            ->Where('status','=',1)
-            ->orderBy('reportID','ASC')
-            ->get();
+        $agencyId = Input::get('agencyId');
+        //error_log($agencyId);
 
-        return json_encode($report);
+        if(empty($agencyId)) {
+            $report = DB::table('reports')
+                ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
+                ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
+                ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
+                ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName', 'agency.agencyName', DB::raw('CASE WHEN isApproved=0 THEN "No" ELSE "Yes" END AS isApprovedS'))
+                ->where('isDeleted', '=', 0)
+                ->Where('status', '=', 1)
+                ->orderBy('reportID', 'ASC')
+                ->get();
+
+            return json_encode($report);
+        }
+        else{
+            $report = DB::table('reports')
+                ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
+                ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
+                ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
+                ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName', 'agency.agencyName', DB::raw('CASE WHEN isApproved=0 THEN "No" ELSE "Yes" END AS isApprovedS'))
+                ->where('isDeleted', '=', 0)
+                ->Where('status', '=', 1)
+                ->where('assignedTo', '=', $agencyId)
+                ->orderBy('reportID', 'ASC')
+                ->get();
+
+            return json_encode($report);
+        }
     }
     //Retreive ongoing Reports that are not deleted
     public function listOngoing()
     {
-        $report = DB::table('reports')
-            ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
-            ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
-            ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
-            ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName','agency.agencyName',DB::raw('CASE WHEN isApproved=0 THEN "No" ELSE "Yes" END AS isApprovedS'))
-            ->where('isDeleted','=', 0)
-            ->Where('status','=',2)
-            ->orderBy('reportID','ASC')
-            ->get();
+        $agencyId = Input::get('agencyId');
 
-        return json_encode($report);
+        if(empty($agencyId)) {
+            $report = DB::table('reports')
+                ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
+                ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
+                ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
+                ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName', 'agency.agencyName', DB::raw('CASE WHEN isApproved=0 THEN "No" ELSE "Yes" END AS isApprovedS'))
+                ->where('isDeleted', '=', 0)
+                ->Where('status', '=', 2)
+                ->orderBy('reportID', 'ASC')
+                ->get();
+
+            return json_encode($report);
+        }
+        else{
+            $report = DB::table('reports')
+                ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
+                ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
+                ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
+                ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName', 'agency.agencyName', DB::raw('CASE WHEN isApproved=0 THEN "No" ELSE "Yes" END AS isApprovedS'))
+                ->where('isDeleted', '=', 0)
+                ->Where('status', '=', 2)
+                ->where('assignedTo', '=', $agencyId)
+                ->orderBy('reportID', 'ASC')
+                ->get();
+
+            return json_encode($report);
+        }
     }
     //Retreive resolved Reports that are not deleted
     public function listResolved()
     {
-        $report = DB::table('reports')
-            ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
-            ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
-            ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
-            ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName','agency.agencyName',DB::raw('CASE WHEN isApproved=0 THEN "No" ELSE "Yes" END AS isApprovedS'))
-            ->where('isDeleted','=', 0)
-            ->Where('status','=',3)
-            ->orderBy('reportID','ASC')
-            ->get();
+        $agencyId = Input::get('agencyId');
 
-        return json_encode($report);
+        if(empty($agencyId)) {
+            $report = DB::table('reports')
+                ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
+                ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
+                ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
+                ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName', 'agency.agencyName', DB::raw('CASE WHEN isApproved=0 THEN "No" ELSE "Yes" END AS isApprovedS'))
+                ->where('isDeleted', '=', 0)
+                ->Where('status', '=', 3)
+                ->orderBy('reportID', 'ASC')
+                ->get();
+
+            return json_encode($report);
+        }
+        else{
+            $report = DB::table('reports')
+                ->join('reportstatustype', 'reports.status', '=', 'reportstatustype.reportStatusTypeId')
+                ->join('reporttype', 'reports.reportType', '=', 'reporttype.reportTypeId')
+                ->join('agency', 'reports.assignedTo', '=', 'agency.agencyId')
+                ->select('reports.*', 'reportstatustype.reportStatusTypeName', 'reporttype.reportTypeName', 'agency.agencyName', DB::raw('CASE WHEN isApproved=0 THEN "No" ELSE "Yes" END AS isApprovedS'))
+                ->where('isDeleted', '=', 0)
+                ->Where('status', '=', 3)
+                ->where('assignedTo', '=', $agencyId)
+                ->orderBy('reportID', 'ASC')
+                ->get();
+
+            return json_encode($report);
+        }
     }
 
     public function listStatus()

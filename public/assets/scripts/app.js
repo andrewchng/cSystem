@@ -1094,25 +1094,25 @@
 
             $scope.pending = 1 ;
             var url = '//api.ssad.localhost/report/listPending';
-            $http.get(url).success(function (data, status, headers, config) {
+            $http.post(url, {
+                'agencyId': $rootScope.auth.agencyId
+            }).success(function (data, status, headers, config) {
                 $scope.PreportList = data;
-                //console.log($scope.PreportList.length);
                 $scope.PtotalItems = $scope.PreportList.length;
-
             });
             var url2 = '//api.ssad.localhost/report/listOngoing';
-            $http.get(url2).success(function (data, status, headers, config) {
+            $http.post(url2, {
+                'agencyId': $rootScope.auth.agencyId
+                }).success(function (data, status, headers, config) {
                 $scope.OreportList = data;
-                //console.log($scope.OreportList.length);
                 $scope.OtotalItems = $scope.OreportList.length;
-
             });
             var url3 = '//api.ssad.localhost/report/listResolved';
-            $http.get(url3).success(function (data, status, headers, config) {
+            $http.post(url3, {
+                'agencyId': $rootScope.auth.agencyId
+            }).success(function (data, status, headers, config) {
                 $scope.RreportList = data;
-                //console.log($scope.RreportList.length);
                 $scope.RtotalItems = $scope.RreportList.length;
-
             });
 
             var url4 = '//api.ssad.localhost/agency/list';
@@ -1126,13 +1126,14 @@
 
         }
 
-        $scope.pageSize = 2;
+        //pagination
+        $scope.pageSize = 10;
 
         $scope.PcurrentPage = 1;
         $scope.OcurrentPage = 1;
         $scope.RcurrentPage = 1;
 
-
+        //Logic for pending/ongoing/resolved buttons
         $scope.showPending = function () {
             $scope.pending = 1;
             $scope.ongoing = 0;
