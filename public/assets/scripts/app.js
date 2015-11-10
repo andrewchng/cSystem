@@ -937,7 +937,6 @@
 
     app.controller('OperatorCtrl', function($scope, $http, $rootScope, $location, listReportT){
         $scope.listReports = function () {
-
             $scope.pending = 1;
             var url = '//api.ssad.localhost/report/listPending';
             $http.get(url).success(function (data, status, headers, config) {
@@ -961,36 +960,30 @@
 
             //pagination
             $scope.pageSize = 10;
-
             $scope.PcurrentPage = 1;
             $scope.OcurrentPage = 1;
             $scope.RcurrentPage = 1;
-
         };
 
-
+        //Logic for pending/ongoing/resolved buttons
         $scope.showPending = function () {
             $scope.pending = 1;
             $scope.ongoing = 0;
             $scope.resolved = 0;
-
         };
         $scope.showOngoing = function () {
             $scope.pending = 0;
             $scope.ongoing = 1;
             $scope.resolved = 0;
-
         };
         $scope.showResolved = function () {
             $scope.pending = 0;
             $scope.ongoing = 0;
             $scope.resolved = 1;
-
         };
 
         listReportT().success(function (data) {
             $scope.reportTypes = data;
-
         });
 
         $scope.retrieveAgency = function () {
@@ -1016,8 +1009,6 @@
                 }).error(function(data) {
                     toastr.error(data.error.message);
                 });
-
-
         };
             $scope.deleteReport = function ($reportID){
                 var url = "//api.ssad.localhost/report/delete";
@@ -1030,8 +1021,6 @@
                         toastr.success('Report Deleted.');
                     });
                     }
-
-
                 })
             };
 
@@ -1083,8 +1072,6 @@
                         });
                     }
                 });
-
-
         };
 
     });
@@ -1114,21 +1101,17 @@
                 $scope.RreportList = data;
                 $scope.RtotalItems = $scope.RreportList.length;
             });
-
             var url4 = '//api.ssad.localhost/agency/list';
             $http.get(url4).success(function (data, status, headers, config) {
                 $scope.agencyList = data;
                 //find the current agency
                 $scope.currentAgencyId = $rootScope.auth.agencyId;
                 $scope.currentAgencyName = $scope.agencyList[$scope.currentAgencyId-1].agencyName;
-
             });
-
         }
 
         //pagination
         $scope.pageSize = 10;
-
         $scope.PcurrentPage = 1;
         $scope.OcurrentPage = 1;
         $scope.RcurrentPage = 1;
@@ -1138,28 +1121,22 @@
             $scope.pending = 1;
             $scope.ongoing = 0;
             $scope.resolved = 0;
-
         };
         $scope.showOngoing = function () {
             $scope.pending = 0;
             $scope.ongoing = 1;
             $scope.resolved = 0;
-
         };
         $scope.showResolved = function () {
             $scope.pending = 0;
             $scope.ongoing = 0;
             $scope.resolved = 1;
         };
+
         $scope.findReport = function ($reportID) {
             $rootScope.AgencyReportID = $reportID;
             $location.url('/report/update/' + $reportID);
         };
-
-        //$scope.dropBoxSelected = function ($status) {
-        //    $rootScope.AgencyReportStatus = $status;
-        //    console.log($rootScope.AgencyReportStatus);
-        //};
 
         $scope.populateReport = function (){
             var url = "//api.ssad.localhost/report/populate";
@@ -1181,11 +1158,8 @@
             $http.get(url2).success(function (data, status, headers, config) {
                 $scope.reportTypeStatuses = data;
             });
-
-
         }
         $scope.updateReport = function () {
-
             bootbox.confirm("Are you sure you want to update this report?", function (result) {
                 if (result) {
                     var url = "//api.ssad.localhost/report/updateStatus";
@@ -1194,17 +1168,14 @@
                         'status': $scope.status,
                         'comment': $scope.comment
                     }).success(function (data, status, headers, config) {
-
                         toastr.success('Report Updated.');
                         $location.path('/agency/manage_report')
                     }).error(function(data) {
-
                         toastr.error(data.error.message);
                     });
                 }
             });
         };
-
     });
 
 
