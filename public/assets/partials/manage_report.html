@@ -1,8 +1,15 @@
 <div class="spacer visible-xs"></div>
 <div class="container-fluid-full">
 <div class="table-responsive " style="padding-left:50px;" ng-init="listReports()")>
-    <h4 class="page-title">Pending</h4>
-    <table class="table table-bordered" style="width:1100px;">
+    <br><br>
+    <div class="btn-group" role="group">
+        <button type="button" ng-click="showPending()"  class="btn btn-default">Pending</button>
+        <button type="button" ng-click="showOngoing()"  class="btn btn-default">Ongoing</button>
+        <button type="button" ng-click="showResolved()" class="btn btn-default">Resolved</button>
+    </div>
+    <!--<h4 class="page-title">Pending</h4>-->
+    <div ng-if="pending == 1">
+    <table class="table table-bordered" style="width:1100px;" >
         <tr>
             <th>No</th>
             <th>Name</th>
@@ -13,7 +20,8 @@
             <th>Assigned To</th>
             <th>Actions</th>
         </tr>
-        <tr ng-repeat="report in reportList" ng-if="report.status == 1 && report.isDeleted == 0" class="warning">
+
+        <tr ng-repeat="report in PreportList | pagination: (PcurrentPage-1)*pageSize | limitTo: pageSize" class="warning">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>
@@ -25,17 +33,25 @@
             <td>{{report.updated_at}}</td>
             <td>{{agencyList[report.assignedTo-1].agencyName}}</td>
             <td class="row">
-                <div ng-if="report.status == 1">
+                <div>
                     <button type="submit" class="btn btn-xs btn-default btn-block" ng-click="findReport(report.reportID)" name="edit"><i class="fa fa-pencil-square-o"></i></button>
                     <button type="submit" class="btn btn-xs btn-danger btn-block " ng-click="deleteReport(report.reportID)"  name="delete"><i class="fa fa-trash-o"></i></button>
                 </div>
             </td>
         </tr>
     </table>
-    <br>
-    <h4 class="page-title">In Progress</h4>
+
+    <uib-pagination
+            total-items="PtotalItems"
+            ng-model="PcurrentPage"
+            ng-change="pageChanged()"
+            items-per-page="pageSize">
+    </uib-pagination>
+    </div>
+
+    <div ng-if="ongoing == 1">
     <table class="table table-bordered" style="width:1100px;">
-        <tr>
+        <tr >
             <th>No</th>
             <th>Name</th>
             <th>Type</th>
@@ -44,7 +60,7 @@
             <th>Updated At</th>
             <th>Assigned To</th>
         </tr>
-        <tr ng-repeat="report in reportList" class="info" ng-if="report.status == 2 && report.isDeleted == 0">
+        <tr ng-repeat="report in OreportList | pagination: (OcurrentPage-1)*pageSize | limitTo: pageSize" class="info">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>
@@ -57,10 +73,17 @@
             <td>{{agencyList[report.assignedTo-1].agencyName}}</td>
         </tr>
     </table>
-    <br>
-    <h4 class="page-title">Resolved</h4>
+        <uib-pagination
+                total-items="OtotalItems"
+                ng-model="OcurrentPage"
+                ng-change="pageChanged()"
+                items-per-page="pageSize">
+        </uib-pagination>
+    </div>
+
+   <div ng-if="resolved == 1">
     <table class="table table-bordered" style="width:1100px;">
-        <tr>
+        <tr >
             <th>No</th>
             <th>Name</th>
             <th>Type</th>
@@ -69,7 +92,7 @@
             <th>Updated At</th>
             <th>Assigned To</th>
         </tr>
-        <tr ng-repeat="report in reportList" class="success" ng-if="report.status == 3 && report.isDeleted == 0">
+        <tr ng-repeat="report in RreportList | pagination: (RcurrentPage-1)*pageSize | limitTo: pageSize" class="success">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>
@@ -82,6 +105,15 @@
             <td>{{agencyList[report.assignedTo-1].agencyName}}</td>
         </tr>
     </table>
+       <uib-pagination
+               total-items="RtotalItems"
+               ng-model="RcurrentPage"
+               ng-change="pageChanged()"
+               items-per-page="pageSize">
+       </uib-pagination>
+    </div>
     <br>
+
+
 </div>
 </div>

@@ -17,6 +17,10 @@ Route::get('/listAgencies', 'AdminController@listAgencies');
 Route::get('/agency/list', 'AgencyController@listing');
 Route::get('/report/list', 'ReportController@listing');
 Route::get('/report/listStatus', 'ReportController@listStatus');
+Route::get('/report/listPending', 'ReportController@listPending');
+Route::get('/report/listOngoing', 'ReportController@listOngoing');
+Route::get('/report/listResolved', 'ReportController@listResolved');
+
 
 Route::get('/getActivities', 'AdminController@listActivities');
 Route::get('/report/populate', 'ReportController@populate');

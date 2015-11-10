@@ -1,9 +1,20 @@
+<script>
+
+</script>
+
 <div class="spacer visible-xs"></div>
 <div class="container-fluid-full">
 <div class="table-responsive " style="padding-left:50px;" ng-init="listReports()">
     <h2 class="page-title">{{currentAgencyName}}</h2>
     <br>
-    <h4 class="page-title">Pending</h4>
+
+    <div class="btn-group" role="group">
+        <button type="button" ng-click="showPending()"  class="btn btn-default filterButton">Pending</button>
+        <button type="button" ng-click="showOngoing()"  class="btn btn-default filterButton">Ongoing</button>
+        <button type="button" ng-click="showResolved()" class="btn btn-default filterButton">Resolved</button>
+    </div>
+
+    <div ng-if="pending == 1">
     <table class="table table-bordered" style="width:1100px;">
         <tr>
             <th>No</th>
@@ -14,7 +25,7 @@
             <th>Comment</th>
             <th>Update</th>
         </tr>
-        <tr ng-repeat="report in reportList" ng-if="report.status == 1 && report.assignedTo == currentAgencyId && report.isDeleted == 0" class="warning" >
+        <tr ng-repeat="report in PreportList" ng-if="report.assignedTo == currentAgencyId" class="warning" >
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
@@ -26,8 +37,8 @@
             </td>
         </tr>
     </table>
-    <br>
-    <h4 class="page-title">In Progress</h4>
+    </div>
+    <div ng-if="ongoing == 1">
     <table class="table table-bordered" style="width:1100px;">
         <tr>
             <th>No</th>
@@ -38,7 +49,7 @@
             <th>Comment</th>
             <th>Update</th>
         </tr>
-        <tr ng-repeat="report in reportList" class="info" ng-if="report.status == 2 && report.assignedTo == currentAgencyId && report.isDeleted == 0">
+        <tr ng-repeat="report in OreportList" class="info" ng-if="report.assignedTo == currentAgencyId">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
@@ -50,8 +61,9 @@
             </td>
         </tr>
     </table>
-    <br>
-    <h4 class="page-title">Resolved</h4>
+    </div>
+
+    <div ng-if="resolved == 1">
     <table class="table table-bordered" style="width:1100px;">
         <tr>
             <th>No</th>
@@ -63,7 +75,7 @@
             <th>Update</th>
 
         </tr>
-        <tr ng-repeat="report in reportList" class="success" ng-if="report.status == 3 && report.assignedTo == currentAgencyId && report.isDeleted == 0">
+        <tr ng-repeat="report in RreportList" class="success" ng-if="report.assignedTo == currentAgencyId">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
@@ -75,6 +87,6 @@
             </td>
         </tr>
     </table>
+    </div>
     <br>
-</div>
 </div>
