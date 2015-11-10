@@ -1,5 +1,30 @@
 <script>
+    $("#pendingBtn").click(function(){
+        $("#pendingBtn").addClass("green");
+        $("#pendingBtn").removeClass("btn-default");
+        $("#ongoingBtn").removeClass("green");
+        $("#ongoingBtn").addClass("btn-default");
+        $("#resolvedBtn").removeClass("green");
+        $("#resolvedBtn").addClass("btn-default");
+    });
 
+    $("#ongoingBtn").click(function(){
+        $("#ongoingBtn").addClass("green");
+        $("#ongoingBtn").removeClass("btn-default");
+        $("#resolvedBtn").removeClass("green");
+        $("#resolvedBtn").addClass("btn-default");
+        $("#pendingBtn").removeClass("green");
+        $("#pendingBtn").addClass("btn-default");
+    });
+
+    $("#resolvedBtn").click(function(){
+        $("#resolvedBtn").addClass("green");
+        $("#resolvedBtn").removeClass("btn-default");
+        $("#pendingBtn").removeClass("green");
+        $("#pendingBtn").addClass("btn-default");
+        $("#ongoingBtn").removeClass("green");
+        $("#ongoingBtn").addClass("btn-default");
+    });
 </script>
 
 <div class="spacer visible-xs"></div>
@@ -9,13 +34,13 @@
     <br>
 
     <div class="btn-group" role="group">
-        <button type="button" ng-click="showPending()"  class="btn btn-default filterButton">Pending</button>
-        <button type="button" ng-click="showOngoing()"  class="btn btn-default filterButton">Ongoing</button>
-        <button type="button" ng-click="showResolved()" class="btn btn-default filterButton">Resolved</button>
+        <button id='pendingBtn' type="button" ng-click="showPending()"  class="btn green">Pending</button>
+        <button id='ongoingBtn' type="button" ng-click="showOngoing()"  class="btn btn-default">Ongoing</button>
+        <button id='resolvedBtn' type="button" ng-click="showResolved()" class="btn btn-default">Resolved</button>
     </div>
 
     <div ng-if="pending == 1">
-    <table class="table table-bordered" style="width:1100px;">
+    <table class="table table-striped table-bordered" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
@@ -25,7 +50,7 @@
             <th>Comment</th>
             <th>Update</th>
         </tr>
-        <tr ng-repeat="report in PreportList" ng-if="report.assignedTo == currentAgencyId" class="warning" >
+        <tr ng-repeat="report in PreportList" ng-if="report.assignedTo == currentAgencyId">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
@@ -39,7 +64,7 @@
     </table>
     </div>
     <div ng-if="ongoing == 1">
-    <table class="table table-bordered" style="width:1100px;">
+    <table class="table table-striped table-bordered" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
@@ -49,7 +74,7 @@
             <th>Comment</th>
             <th>Update</th>
         </tr>
-        <tr ng-repeat="report in OreportList" class="info" ng-if="report.assignedTo == currentAgencyId">
+        <tr ng-repeat="report in OreportList" ng-if="report.assignedTo == currentAgencyId">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
@@ -64,7 +89,7 @@
     </div>
 
     <div ng-if="resolved == 1">
-    <table class="table table-bordered" style="width:1100px;">
+    <table class="table  table-striped table-bordered" style="width:1100px;">
         <tr>
             <th>No</th>
             <th>Name</th>
@@ -75,7 +100,7 @@
             <th>Update</th>
 
         </tr>
-        <tr ng-repeat="report in RreportList" class="success" ng-if="report.assignedTo == currentAgencyId">
+        <tr ng-repeat="report in RreportList" ng-if="report.assignedTo == currentAgencyId">
             <td>{{report.reportID}}</td>
             <td>{{report.reportName}}</td>
             <td>{{report.location}}</td>
