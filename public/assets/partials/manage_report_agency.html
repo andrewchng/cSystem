@@ -58,7 +58,7 @@
             <th>Location</th>
             <th>Created At</th>
             <th>Updated At</th>
-            <th>Comment</th>
+            <!--<th>Comment</th>-->
             <th>Update</th>
         </tr>
         <tr ng-repeat="report in PreportList | pagination: (PcurrentPage-1)*pageSize | limitTo: pageSize" ng-if="report.assignedTo == currentAgencyId">
@@ -67,7 +67,7 @@
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
             <td>{{report.updated_at}}</td>
-            <td>{{report.comment}}</td>
+            <!--<td>{{report.comment}}</td>-->
             <td>
                 <button type="submit" class="btn btn-xs btn-default btn-block" ng-click="findReport(report.reportID)"  name="update"><i class="fa fa-pencil-square-o"></i></button>
             </td>
@@ -106,7 +106,7 @@
             <th>Location</th>
             <th>Created At</th>
             <th>Updated At</th>
-            <th>Comment</th>
+            <!--<th>Comment</th>-->
             <th>Update</th>
         </tr>
         <tr ng-repeat="report in OreportList| pagination: (OcurrentPage-1)*pageSize | limitTo: pageSize" ng-if="report.assignedTo == currentAgencyId">
@@ -115,7 +115,7 @@
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
             <td>{{report.updated_at}}</td>
-            <td>{{report.comment}}</td>
+            <!--<td>{{report.comment}}</td>-->
             <td>
                 <button type="submit" class="btn btn-xs btn-default btn-block" ng-click="findReport(report.reportID)"  name="update"><i class="fa fa-pencil-square-o"></i></button>
             </td>
@@ -155,7 +155,7 @@
             <th>Location</th>
             <th>Created At</th>
             <th>Updated At</th>
-            <th>Comment</th>
+            <!--<th>Comment</th>-->
             <th>Update</th>
 
         </tr>
@@ -165,7 +165,7 @@
             <td>{{report.location}}</td>
             <td>{{report.created_at}}</td>
             <td>{{report.updated_at}}</td>
-            <td>{{report.comment}}</td>
+            <!--<td>{{report.comment}}</td>-->
             <td>
                 <button type="submit" class="btn btn-xs btn-default btn-block" ng-click="findReport(report.reportID)"  name="update"><i class="fa fa-pencil-square-o"></i></button>
             </td>
