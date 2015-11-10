@@ -39,6 +39,18 @@
     </div>
 
     <div ng-if="pending == 1">
+        <div class="pagination-container">
+            <div class="pagination-text-details">
+                <b>Total {{PtotalItems}} results.</b>
+            </div>
+            <uib-pagination
+                    total-items="PtotalItems"
+                    class="pagination-sm"
+                    ng-model="PcurrentPage"
+                    ng-change="pageChanged()"
+                    items-per-page="pageSize">
+            </uib-pagination>
+        </div>
     <table class="table table-striped table-bordered">
         <tr>
             <th>No</th>
@@ -61,14 +73,32 @@
             </td>
         </tr>
     </table>
-        <uib-pagination
-                total-items="PtotalItems"
-                ng-model="PcurrentPage"
-                ng-change="pageChanged()"
-                items-per-page="pageSize">
-        </uib-pagination>
+        <div class="pagination-container">
+            <div class="pagination-text-details">
+                <b>Total {{PtotalItems}} results.</b>
+            </div>
+            <uib-pagination
+                    total-items="PtotalItems"
+                    class="pagination-sm"
+                    ng-model="PcurrentPage"
+                    ng-change="pageChanged()"
+                    items-per-page="pageSize">
+            </uib-pagination>
+        </div>
     </div>
     <div ng-if="ongoing == 1">
+        <div class="pagination-container">
+            <div class="pagination-text-details">
+                <b>Total {{OtotalItems}} results.</b>
+            </div>
+            <uib-pagination
+                    total-items="OtotalItems"
+                    class="pagination-sm"
+                    ng-model="OlistcurrentPage"
+                    ng-change="pageChanged()"
+                    items-per-page="pageSize">
+            </uib-pagination>
+        </div>
     <table class="table table-striped table-bordered">
         <tr>
             <th>No</th>
@@ -91,15 +121,33 @@
             </td>
         </tr>
     </table>
-        <uib-pagination
-                total-items="OtotalItems"
-                ng-model="OcurrentPage"
-                ng-change="pageChanged()"
-                items-per-page="pageSize">
-        </uib-pagination>
+        <div class="pagination-container">
+            <div class="pagination-text-details">
+                <b>Total {{OtotalItems}} results.</b>
+            </div>
+            <uib-pagination
+                    total-items="OtotalItems"
+                    class="pagination-sm"
+                    ng-model="OcurrentPage"
+                    ng-change="pageChanged()"
+                    items-per-page="pageSize">
+            </uib-pagination>
+        </div>
     </div>
 
     <div ng-if="resolved == 1">
+        <div class="pagination-container">
+            <div class="pagination-text-details">
+                <b>Total {{RtotalItems}} results.</b>
+            </div>
+            <uib-pagination
+                    total-items="RtotalItems"
+                    class="pagination-sm"
+                    ng-model="RcurrentPage"
+                    ng-change="pageChanged()"
+                    items-per-page="pageSize">
+            </uib-pagination>
+        </div>
     <table class="table  table-striped table-bordered">
         <tr>
             <th>No</th>
@@ -123,12 +171,18 @@
             </td>
         </tr>
     </table>
-        <uib-pagination
-                total-items="RtotalItems"
-                ng-model="RcurrentPage"
-                ng-change="pageChanged()"
-                items-per-page="pageSize">
-        </uib-pagination>
+        <div class="pagination-container">
+            <div class="pagination-text-details">
+                <b>Total {{RtotalItems}} results.</b>
+            </div>
+            <uib-pagination
+                    total-items="RtotalItems"
+                    class="pagination-sm"
+                    ng-model="RcurrentPage"
+                    ng-change="pageChanged()"
+                    items-per-page="pageSize">
+            </uib-pagination>
+        </div>
     </div>
     <br>
 </div>

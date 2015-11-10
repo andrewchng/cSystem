@@ -29,9 +29,7 @@
 
 <div class="spacer visible-xs"></div>
 <div class="container-fluid-full">
-    <h3 class="page-title">
-        Reports
-    </h3>
+    <h3 class="page-title">Reports</h3>
     <!--<div link-breadcrumb></div>-->
 <div class="table-responsive " ng-init="listReports()") id="dashboard_page">
     <div class="btn-group btn-group-md" role="group">
@@ -39,8 +37,19 @@
         <button id='ongoingBtn' type="button" ng-click="showOngoing()"  class="btn btn-default page-title">Ongoing</button>
         <button id='resolvedBtn' type="button" ng-click="showResolved()" class="btn btn-default page-title">Resolved</button>
     </div>
-    <!--<h4 class="page-title">Pending</h4>-->
     <div ng-if="pending == 1">
+        <div class="pagination-container">
+            <div class="pagination-text-details">
+                <b>Total {{PtotalItems}} results.</b>
+            </div>
+            <uib-pagination
+                    total-items="PtotalItems"
+                    class="pagination-sm"
+                    ng-model="PcurrentPage"
+                    ng-change="pageChanged()"
+                    items-per-page="pageSize">
+            </uib-pagination>
+        </div>
     <table class="table table-striped table-bordered" style="" >
         <tr>
             <th>No</th>
@@ -72,17 +81,34 @@
             </td>
         </tr>
     </table>
-
-    <uib-pagination
-            total-items="PtotalItems"
-            ng-model="PcurrentPage"
-            ng-change="pageChanged()"
-            items-per-page="pageSize">
-    </uib-pagination>
+        <div class="pagination-container">
+            <div class="pagination-text-details">
+                <b>Total {{PtotalItems}} results.</b>
+            </div>
+            <uib-pagination
+                    total-items="PtotalItems"
+                    class="pagination-sm"
+                    ng-model="PcurrentPage"
+                    ng-change="pageChanged()"
+                    items-per-page="pageSize">
+            </uib-pagination>
+        </div>
     </div>
 
     <div ng-if="ongoing == 1">
-    <table class="table  table-striped table-bordered">
+        <div class="pagination-container">
+            <div class="pagination-text-details">
+                <b>Total {{OtotalItems}} results.</b>
+            </div>
+            <uib-pagination
+                    total-items="OtotalItems"
+                    class="pagination-sm"
+                    ng-model="OcurrentPage"
+                    ng-change="pageChanged()"
+                    items-per-page="pageSize">
+            </uib-pagination>
+        </div>
+    <table class="table table-striped table-bordered">
         <tr >
             <th>No</th>
             <th>Name</th>
@@ -105,17 +131,34 @@
             <td>{{agencyList[report.assignedTo-1].agencyName}}</td>
         </tr>
     </table>
-        <uib-pagination
-                total-items="OtotalItems"
-                ng-model="OcurrentPage"
-                ng-change="pageChanged()"
-                items-per-page="pageSize">
-        </uib-pagination>
+        <div class="pagination-container">
+            <div class="pagination-text-details">
+                <b>Total {{OtotalItems}} results.</b>
+            </div>
+            <uib-pagination
+                    total-items="OtotalItems"
+                    class="pagination-sm"
+                    ng-model="OcurrentPage"
+                    ng-change="pageChanged()"
+                    items-per-page="pageSize">
+            </uib-pagination>
+        </div>
     </div>
-
    <div ng-if="resolved == 1">
+       <div class="pagination-container">
+           <div class="pagination-text-details">
+               <b>Total {{RtotalItems}} results.</b>
+           </div>
+           <uib-pagination
+                   total-items="RtotalItems"
+                   class="pagination-sm"
+                   ng-model="RcurrentPage"
+                   ng-change="pageChanged()"
+                   items-per-page="pageSize">
+           </uib-pagination>
+       </div>
     <table class="table  table-striped table-bordered">
-        <tr >
+        <tr>
             <th>No</th>
             <th>Name</th>
             <th>Type</th>
@@ -137,15 +180,18 @@
             <td>{{agencyList[report.assignedTo-1].agencyName}}</td>
         </tr>
     </table>
-       <uib-pagination
-               total-items="RtotalItems"
-               ng-model="RcurrentPage"
-               ng-change="pageChanged()"
-               items-per-page="pageSize">
-       </uib-pagination>
+       <div class="pagination-container">
+           <div class="pagination-text-details">
+               <b>Total {{RtotalItems}} results.</b>
+           </div>
+           <uib-pagination
+                   total-items="RtotalItems"
+                   class="pagination-sm"
+                   ng-model="RcurrentPage"
+                   ng-change="pageChanged()"
+                   items-per-page="pageSize">
+           </uib-pagination>
+       </div>
     </div>
     <br>
-
-
-</>
 </div>
