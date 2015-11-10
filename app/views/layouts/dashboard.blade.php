@@ -14,7 +14,7 @@
 
         <!-- BEGIN SIDEBAR -->
         <div class="page-sidebar-wrapper col-md-2"
-             ng-include src=" '/assets/partials/sidebar.html' "></div>
+             ng-include src=" '/assets/partials/sidebar.html'"></div>
         <!-- END SIDEBAR -->
 
 

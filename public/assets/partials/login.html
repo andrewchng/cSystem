@@ -3,7 +3,7 @@
     <div class="row-fluid visible-lg visible-md visible-sm">
         <div class="login-box">
 
-            <h2>Admin Login</h2>
+            <h2>Dashboard Login</h2>
             <form id="loginForm" class="form-horizontal" ng-submit="authLogin()">
 
 
@@ -34,13 +34,14 @@
                 </div>
                 <div class="clearfix"></div>
             </form>
-            <hr>
-
+            <div class="forget_pass">
+                <a ng-click="popForgetPass()">Forget Password</a>
+            </div>
         </div><!--/span-->
     </div><!--/row-->
 
     <div class="row visible-xs mobile-login">
-        <h2>Admin Login</h2>
+        <h2>Dashboard Login</h2>
 
         <form action="login" method="post">
             <div class="form-group">
@@ -58,6 +59,8 @@
                 </div>
             </div>
         </form>
+
+        <a href="#">Forget Password</a>
     </div>
 
 

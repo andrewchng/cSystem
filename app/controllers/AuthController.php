@@ -136,4 +136,61 @@ class AuthController extends BaseController {
         return Response::json(array('message' => 'Successfully logged out.'))->setCallback(Input::get('callback'));
     }
 
+    public function resetPass(){
+
+        $input = Input::all();
+        $email = Input::get('email');
+
+        $rules = array(
+            'email' => 'required|email'
+        );
+
+        $validator = Validator::make($input,$rules);
+        if ($validator->fails()) {
+            $error_messages = $validator->messages();
+            $error_response = array(
+                'error' => array(
+                    'message' => $error_messages->first(),
+                    'type' => 'Exception',
+                    'code' => 425
+                )
+            );
+            return Response::json($error_response, 425)->setCallback(Input::get('callback'));
+        }
+
+
+
+
+        $select = User::where('email', $email)->get();
+
+//        Log::info($select);
+
+        if(count($select)){
+            $gen_pass = str_random(6);
+
+
+//            Mail::send(['text' => 'your new password is ' . $gen_pass]);
+
+            Mail::send('emails.pass', array('msg' => 'Your new password is '. $gen_pass), function($message){
+                $message->to(Input::get('email'))->subject('New password!');
+            });
+
+            User::where('email', $email)->update(array('password' => Hash::make($gen_pass)));
+
+            return Response::json(array('message' => 'successfully reset password'), 200)->setCallback(Input::get('callback'));
+        }
+        else{
+            $error_response = array(
+                'error' => array(
+                    'message' => 'No such email!',
+                    'type' => 'OAuthException',
+                    'code' => 400
+                )
+            );
+
+            return Response::json($error_response, 400)->setCallback(Input::get('callback'));
+        }
+
+    }
+
 }

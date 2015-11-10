@@ -32,6 +32,7 @@ Route::get('/map/{type?}/{source?}', 'MapController@index');
 
 //POST
 Route::post('/auth/login', 'AuthController@login');
+Route::post('/auth/forgetpass', 'AuthController@resetPass');
 Route::post('/user/changepass', 'UserProfileController@changePass');
 Route::post('/user/populate', 'UserProfileController@populate');
 Route::post('/user/edit', 'UserProfileController@edit');

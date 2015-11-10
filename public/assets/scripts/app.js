@@ -309,12 +309,12 @@
                     $cookies.put('menuItem', '/assets/json/agency_menu.json', {'expires': expireDate});
                 }
 
-                //console.log($rootScope.auth);
+
             },function(error){
                 $scope.logging_in = false;
                 $scope.auth_error = error.data.error.message;
             });
-        }
+        };
 
         $rootScope.$watch('auth', function () {
             if ($rootScope.auth){
@@ -378,6 +378,68 @@
                 toastr.warning(data.error.message);
             });
         };
+        
+
+        $scope.popForgetPass = function() {
+
+
+            bootbox.dialog({
+                    title: "Send Reset Password!",
+                    message: '<div class="row">  ' +
+                    '<div class="col-md-12"> ' +
+                    '<form class="form-horizontal"> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="email">Email</label> ' +
+                    '<div class="col-md-6"> ' +
+                    '<input name="email" type="text" placeholder="Your email" class="form-control input-md"> ' +
+                    //'<div class="error_message" data-ng-bind="forget_error"></div> ' +
+                    '</div> ' +
+                    '</div> ' +
+                    //'<div class="button-send col-md-12">' +
+                    //'<button type="submit" data-ng-hide="sending_pass" class="btn btn-primary pull-right">Send</button>' +
+                    ////'<button type="submit" data-ng-show="sending_pass" class="btn btn-primary pull-righ t"><i class="fa fa-spin fa-spinner"></i>Sending</button>' +
+                    //'</div>' +
+                    '</form> </div> </div>'
+                    ,
+                    buttons: {
+                        success: {
+                            label: "Send",
+                            className: "btn-success",
+                            callback: function () {
+                                $scope.f_email = $("input[name='email']").val();
+                                console.log($scope.f_email);
+
+                                $scope.forget_fields = {
+                                    "email": $scope.f_email
+                                }
+
+                                Auth.forgetpass({}, $scope.forget_fields).$promise.then(function(xhrResult) {
+                                    toastr.success('Successfully sent to your email.');
+                                    //bootbox.hideAll();
+                                },function(error){
+                                    toastr.error(error.data.error.message);
+                                });
+
+                                return false;
+
+
+                            }
+                        }
+                    }
+                }
+            );
+        };
+        //
+        //$scope.sendPass = function(){
+        //    Auth.forgetpass({}, $scope.field_forget).$promise.then(function(xhrResult) {
+        //        toastr.success('Successfully sent to your email.');
+        //        bootbox.hideAll();
+        //        $scope.forget_error = null;
+        //    },function(error){
+        //        $scope.forget_error = error.data.error.message;
+        //    });
+        //};
+
     });
 
     app.filter('pagination', function()
@@ -1223,6 +1285,11 @@
                 'logout': {
                     url: api_url + '/auth/logout',
                     method: 'GET',
+                    withCredentials: true
+                },
+                'forgetpass': {
+                    url: api_url + '/auth/forgetpass',
+                    method: 'POST',
                     withCredentials: true
                 }
             });
