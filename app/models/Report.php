@@ -9,4 +9,6 @@ class Report extends Eloquent
     protected $guarded = array('reportID');
 
     public $timestamps= true;
+
+    
 }
