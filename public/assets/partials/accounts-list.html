@@ -125,7 +125,7 @@
                                 {{acc.updated_at}}
                             </td>
                             <td>
-                                <a href="accounts/edit/{{acc.id}}" class="btn btn-primary btn-block margin-bottom-5">
+                                <a ng-hide="{{acc.id == auth.id}}" href="accounts/edit/{{acc.id}}" class="btn btn-primary btn-block margin-bottom-5">
                                     Edit
                                 </a>
                                 <a data-ng-click="deleteAcc(acc.id)" class="btn btn-danger btn-block">
