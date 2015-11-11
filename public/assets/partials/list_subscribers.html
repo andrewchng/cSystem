@@ -1,0 +1,25 @@
+<div class="spacer visible-xs"></div>
+<div class="container-fluid-full">
+    <h3 class="page-title">
+        Subscribers
+    </h3>
+
+    <div link-breadcrumb></div>
+    <div id="dashboard_page">
+        <div class="col-md-10 col-xs-12">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="sub in subs | pagination: curPage * pageSize | limitTo: pageSize">{{sub.subscriberEmail}} <b>     ({{sub.subscriberName}})</b></li>
+
+
+            </ul>
+
+            <div class="pagination-div col-md-10 col-xs-12" ng-show="subs.length">
+                <br>
+                <button ng-click="curPage=curPage-1" ng-disabled="curPage == 0" type="button">PREV</button>
+                <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                <button ng-click="curPage = curPage+1" ng-disabled="curPage >= subs.length/pageSize - 1" type="button">NEXT</button>
+            </div>
+        </div>
+    </div>
+
+</div>

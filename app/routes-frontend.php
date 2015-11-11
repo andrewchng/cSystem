@@ -16,6 +16,7 @@ Route::group(array('before' => ''), function()
     Route::get('/reports/list', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
     Route::get('/agency/add', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
     Route::get('/agency/list', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
+    Route::get('/subscribers/list', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));
 });
 
 Route::get($route_padding . '/user/profile', array('before' => '', 'uses' => 'FrontendController@dashboard_masterView'));

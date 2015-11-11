@@ -11,7 +11,6 @@
     };
 
 
-
     app.config(function ($routeProvider, $locationProvider, $sceDelegateProvider) {
         $routeProvider
             .when('/login', {
@@ -93,6 +92,15 @@
             .when('/agency/edit', {
                 templateUrl: '/assets/partials/edit_agency.html',
                 controller: 'AdminCtrl',
+                resolve: {
+                    permission: function(authorizationService, $route) {
+                        return authorizationService.permissionCheck([roles.admin]);
+                    }
+                }
+            })
+            .when('/subscribers/list', {
+                templateUrl: '/assets/partials/list_subscribers.html',
+                controller: 'SubCtrl',
                 resolve: {
                     permission: function(authorizationService, $route) {
                         return authorizationService.permissionCheck([roles.admin]);
@@ -378,7 +386,7 @@
                 toastr.warning(data.error.message);
             });
         };
-        
+
 
         $scope.popForgetPass = function() {
 
@@ -392,13 +400,8 @@
                     '<label class="col-md-4 control-label" for="email">Email</label> ' +
                     '<div class="col-md-6"> ' +
                     '<input name="email" type="text" placeholder="Your email" class="form-control input-md"> ' +
-                    //'<div class="error_message" data-ng-bind="forget_error"></div> ' +
                     '</div> ' +
                     '</div> ' +
-                    //'<div class="button-send col-md-12">' +
-                    //'<button type="submit" data-ng-hide="sending_pass" class="btn btn-primary pull-right">Send</button>' +
-                    ////'<button type="submit" data-ng-show="sending_pass" class="btn btn-primary pull-righ t"><i class="fa fa-spin fa-spinner"></i>Sending</button>' +
-                    //'</div>' +
                     '</form> </div> </div>'
                     ,
                     buttons: {
@@ -429,16 +432,7 @@
                 }
             );
         };
-        //
-        //$scope.sendPass = function(){
-        //    Auth.forgetpass({}, $scope.field_forget).$promise.then(function(xhrResult) {
-        //        toastr.success('Successfully sent to your email.');
-        //        bootbox.hideAll();
-        //        $scope.forget_error = null;
-        //    },function(error){
-        //        $scope.forget_error = error.data.error.message;
-        //    });
-        //};
+
 
     });
 
@@ -467,7 +461,7 @@
         month[9] = "October";
         month[10] = "November";
         month[11] = "December";
-        //var n = month[d.getMonth()];
+
         $scope.months = new Array();
 
         for(var i=4; i>=0; i--){
@@ -566,19 +560,6 @@
                     ]
                 }
             ]
-            //,
-            //"trendlines": [
-            //    {
-            //        "line": [
-            //            {
-            //                "startvalue": "2",
-            //                "color": "#6baa01",
-            //                "valueOnRight": "1",
-            //                "displayvalue": "Average"
-            //            }
-            //        ]
-            //    }
-            //]
         };
 
 
@@ -640,6 +621,41 @@
         };
 
 
+        $scope.subDataSource = {
+            "chart": {
+                "caption": "Total no. of subscribers",
+                "subCaption": "over 5 months",
+                "xAxisName": "Day",
+                "yAxisName": "No. of subscribers",
+                "lineThickness": "2",
+                "paletteColors": "#0075c2",
+                "baseFontColor": "#333333",
+                "bgColor": "#DDDDDD",
+                "baseFont": "Helvetica Neue,Arial",
+                "captionFontSize": "14",
+                "subcaptionFontSize": "14",
+                "subcaptionFontBold": "0",
+                "showBorder": "0",
+                "showShadow": "0",
+                "canvasBgColor": "#ffffff",
+                "canvasBorderAlpha": "0",
+                "divlineAlpha": "100",
+                "divlineColor": "#999999",
+                "divlineThickness": "1",
+                "divLineDashed": "1",
+                "divLineDashLen": "1",
+                "divLineGapLen": "1",
+                "showXAxisLine": "1",
+                "xAxisLineThickness": "1",
+                "xAxisLineColor": "#999999",
+                "showAlternateHGridColor": "0"
+            },
+            "data": [
+
+            ]
+        };
+
+
         $scope.getAccAnalytics = function(){
             Analytics.account().$promise.then(function(xhrResult){
                 $scope.analytics_acc = xhrResult;
@@ -668,11 +684,19 @@
             });
         };
 
+        $scope.getSubAnalytics = function(){
+            Analytics.subscribers().$promise.then(function(xhrResult){
+                $scope.analytics_sub = xhrResult;
+                $scope.subDataSource.data = $scope.analytics_sub.past_months;
+            });
+        };
+
 
 
         $scope.getAccAnalytics();
         $scope.getAgAnalytics();
         $scope.getRepAnalytics();
+        $scope.getSubAnalytics();
 
         // pagination
         $scope.curPage = 0;// current Page
@@ -1261,6 +1285,26 @@
         };
 
     });
+
+    app.controller('SubCtrl', function($scope, $http, $location, $rootScope, listSub){
+        $scope.subs = {}
+
+        listSub().success(function(data){
+            $scope.subs = data;
+        });
+
+
+        // pagination
+        $scope.curPage = 0;// current Page
+        $scope.pageSize = 10;
+
+        $scope.numberOfPages = function() {
+            return Math.ceil($scope.subs.length / $scope.pageSize);
+        };
+
+
+    });
+
 }());
 (function () {
     'use strict';
@@ -1401,6 +1445,14 @@
         }
     });
 
+    app.factory('listSub', function($http){
+        return function() {
+            var promise = $http.get(api_url + '/getSub');
+            return promise;
+        }
+    });
+
+
     app.factory('listReportT', function($http){
         return function() {
             var promise = $http.get(api_url + '/getReport_T');
@@ -1438,6 +1490,11 @@
             },
             'reports': {
                 url: api_url + '/getAnalytics/reports',
+                method: 'GET',
+                withCredentials: true
+            },
+            'subscribers': {
+                url: api_url + '/getAnalytics/subscribers',
                 method: 'GET',
                 withCredentials: true
             }

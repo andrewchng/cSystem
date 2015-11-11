@@ -232,6 +232,25 @@ class AdminController extends BaseController {
     }
 
 
+    public function subAnalysis(){
+        $sub_months = array();
+
+        for($i=4; $i>=0; $i--){
+            $this_mon = Carbon::now()->month - $i;
+
+            $data = Subscriber::whereMonth('created_at' , '<=', $this_mon)->count();
+
+            $this_mon_name = date("F", mktime(0, 0, 0, $this_mon, 10));
+
+            array_push($sub_months, array('label' => $this_mon_name, 'value' => $data));
+        }
+
+        $result= array('past_months' => $sub_months);
+
+        return Response::json($result)->setCallback(Input::get('callback'));
+    }
+
+
 
 
 

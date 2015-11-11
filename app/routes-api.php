@@ -20,13 +20,14 @@ Route::get('/report/listStatus', 'ReportController@listStatus');
 Route::get('/report/listPending', 'ReportController@listPending');
 Route::get('/report/listOngoing', 'ReportController@listOngoing');
 Route::get('/report/listResolved', 'ReportController@listResolved');
-
+Route::get('/getSub', 'SubscriberController@index');
 
 Route::get('/getActivities', 'AdminController@listActivities');
 Route::get('/report/populate', 'ReportController@populate');
 Route::get('/getAnalytics/accounts', 'AdminController@accAnalysis');
 Route::get('/getAnalytics/agencies', 'AdminController@agenAnalysis');
 Route::get('/getAnalytics/reports', 'AdminController@reportAnalysis');
+Route::get('/getAnalytics/subscribers', 'AdminController@subAnalysis');
 
 Route::get('/map/{type?}/{source?}', 'MapController@index');
 
