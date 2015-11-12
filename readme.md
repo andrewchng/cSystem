@@ -1,3 +1,38 @@
+## Pandaxx Crisis Management System
+
+###Centralized Crisis Management System
+
+Includes:
+* REST API Interface implemented with Laravel and few libraries
+* Frontend implemented with Angular.js
+* Social Media Integration
+* Scheduled Report Update Email
+
+Setup:
+* Download the entire package
+* Download [Composer](https://getcomposer.org/)
+* Update your local hosts file with following lines
+  * For windows: C:\Windows\System32\drivers\etc\hosts
+  ```
+  127.0.0.1       ssad.localhost
+  127.0.0.1       api.ssad.localhost
+  ```
+* Setup PHP mail driver
+  * in php\php.ini | update following lines
+  ```
+    ; uncomment the line below by removing semi-colon
+    sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
+    ; comment the line below with semi-colon
+    ;sendmail_path="C:\xampp\mailtodisk\mailtodisk.exe"
+  ```
+  * in sendmail\sendmail.ini | update following lines
+  ```
+    smtp_server=smtp.gmail.com
+    smtp_port=587
+    auth_username='your_email'
+    auth_password='your_password'
+  ```
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
