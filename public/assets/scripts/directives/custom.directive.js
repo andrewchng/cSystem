@@ -103,6 +103,22 @@
         };
     });
 
+    app.directive('mainMap', ['$timeout', function($timeout) {
+        return {
+            restrict: 'E',
+            template: '<div id="map-container" class="page-content-inner" style="min-height: 748px; margin-top: 30px;"></div>',
+            scope: false,
+            controller: function ($scope, $attrs, $element, Activities) {
+                console.log(dojo.byId('map-container_zoom_slider'));
+                $timeout(function() {
+                    $.getScript('assets/scripts/map/map-main.js');
+                    $.getScript('assets/scripts/map/dengue.js');
+                    $.getScript('assets/scripts/map/traffic.js');
+                }, 0);
+            }
+        };
+    }]);
+
     app.directive('todayActivity',['$timeout', function($timeout) {
         return {
             restrict: 'E',

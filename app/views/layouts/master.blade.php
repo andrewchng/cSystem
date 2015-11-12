@@ -32,7 +32,6 @@
 <div class="main-container" data-ng-controller="AppCtrl">
 @yield('content')
 </div>
-
 <script type="text/javascript" src="/assets/scripts/fusioncharts.js"></script>
 <script type="text/javascript" src="/assets/scripts/fusioncharts.charts.js"></script>
 <script type="text/javascript" src="/assets/scripts/main-plugins.js"></script>
@@ -44,5 +43,7 @@
 <script type="text/javascript" src="/assets/scripts/ng-scrollable.min.js"></script>
 <script type="text/javascript" src="/assets/scripts/app.js"></script>
 <script type="text/javascript" src="/assets/scripts/directives/custom.directive.js"></script>
+
+<script type='text/javaScript' src='http://www.onemap.sg/API/JS/?accessKEY=xkg8VRu6Ol+gMH+SUamkRIEB7fKzhwMvfMo/2U8UJcFhdvR4yN1GutmUIA3A6r3LDhot215OVVkZvNRzjl28TNUZgYFSswOi&v=3.10&type=full'></script>
 </body>
 </html>
