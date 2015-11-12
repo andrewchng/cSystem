@@ -30,7 +30,8 @@ Route::get('/getAnalytics/reports', 'AdminController@reportAnalysis');
 Route::get('/getAnalytics/subscribers', 'AdminController@subAnalysis');
 
 Route::get('/map/{type?}/{source?}', 'MapController@index');
-
+Route::get('/email', 'EmailController@showEmailSample');
+Route::get('/email/report/{frequency?}', 'EmailController@sendReport');
 //POST
 Route::post('/auth/login', 'AuthController@login');
 Route::post('/auth/forgetpass', 'AuthController@resetPass');

@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'admin.ssad.com',
+	'host' => 'smtp.gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => null, 'name' => null),
+	'from' => array('address' => 'PandaxxCMS@gmail.com', 'name' => 'Pandaxx Crisis Management System'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => null,
+	'username' => 'pandaxxcms@gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => null,
+	'password' => 'pandaxxcmsxx',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -105,8 +105,8 @@ return array(
 	| been provided here, which will work well on most of your systems.
 	|
 	*/
-
-	'sendmail' => '/usr/sbin/sendmail -bs',
+	'sendmail' => '\"C:\xampp\sendmail\sendmail.exe\" -t',
+	// 'sendmail' => '/usr/sbin/sendmail -bs',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -119,6 +119,6 @@ return array(
 	|
 	*/
 
-	'pretend' => true,
+	'pretend' => false,
 
 );
